@@ -14,8 +14,8 @@
 
     <style>
         /* =====================================================
-       RESET
-    ===================================================== */
+           RESET
+        ===================================================== */
 
         * {
             margin: 0;
@@ -52,8 +52,214 @@
 
 
         /* =====================================================
-       TOP BAR
-    ===================================================== */
+           WELCOME / AD POPUP
+        ===================================================== */
+
+        .welcome-popup {
+            position: fixed;
+            inset: 0;
+
+            z-index: 9999;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 20px;
+
+            background: rgba(5, 20, 45, .72);
+
+            backdrop-filter: blur(7px);
+            -webkit-backdrop-filter: blur(7px);
+
+            opacity: 0;
+            visibility: hidden;
+
+            transition:
+                opacity .3s ease,
+                visibility .3s ease;
+        }
+
+        .welcome-popup.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .welcome-box {
+            width: min(390px, 92vw);
+
+            background: #fff;
+
+            border-radius: 22px;
+
+            overflow: hidden;
+
+            position: relative;
+
+            box-shadow:
+                0 18px 55px rgba(0, 0, 0, .30);
+
+            transform:
+                translateY(25px) scale(.96);
+
+            transition:
+                transform .3s ease;
+        }
+
+        .welcome-popup.show .welcome-box {
+            transform:
+                translateY(0) scale(1);
+        }
+
+
+        /* CLOSE BUTTON */
+
+        .welcome-close {
+            position: absolute;
+
+            top: 10px;
+            right: 10px;
+
+            z-index: 5;
+
+            width: 36px;
+            height: 36px;
+
+            border-radius: 50%;
+
+            background: rgba(0, 0, 0, .50);
+
+            color: #fff;
+
+            font-size: 21px;
+
+            display: grid;
+            place-items: center;
+
+            cursor: pointer;
+
+            transition: .2s;
+        }
+
+        .welcome-close:hover {
+            background: rgba(0, 0, 0, .75);
+
+            transform: rotate(90deg);
+        }
+
+
+        /* POPUP IMAGE */
+
+        .popup-image {
+            display: block;
+            width: 100%;
+            height: auto;
+            max-height: 70vh;
+            object-fit: contain;
+            object-position: center;
+            margin: 0 auto;
+        }
+
+
+        /* POPUP CONTENT */
+
+        .welcome-content {
+            padding: 18px 20px 21px;
+
+            text-align: center;
+        }
+
+        .welcome-badge {
+            display: inline-block;
+
+            background: #edf5ff;
+
+            color: #1457a6;
+
+            padding: 5px 10px;
+
+            border-radius: 20px;
+
+            font-size: 9px;
+
+            font-weight: 900;
+
+            letter-spacing: .5px;
+
+            margin-bottom: 8px;
+        }
+
+        .welcome-content h2 {
+            color: #1457a6;
+
+            font-size: 22px;
+
+            font-weight: 900;
+
+            margin-bottom: 6px;
+        }
+
+        .welcome-content p {
+            color: #667085;
+
+            font-size: 10px;
+
+            line-height: 1.5;
+
+            margin-bottom: 15px;
+        }
+
+
+        /* POPUP BUTTON */
+
+        .welcome-button {
+            display: inline-flex;
+
+            align-items: center;
+            justify-content: center;
+
+            gap: 6px;
+
+            min-width: 145px;
+
+            padding: 10px 18px;
+
+            border-radius: 22px;
+
+            background:
+                linear-gradient(135deg,
+                    #1457a6,
+                    #176fc7);
+
+            color: #fff;
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 5px 13px rgba(20, 87, 166, .25);
+
+            transition: .2s;
+        }
+
+        .welcome-button:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 7px 16px rgba(20, 87, 166, .32);
+        }
+
+        .welcome-button:active {
+            transform: scale(.96);
+        }
+
+
+        /* =====================================================
+           TOP BAR
+        ===================================================== */
 
         .topbar {
             position: sticky;
@@ -91,6 +297,7 @@
             place-items: center;
 
             cursor: pointer;
+
             font-size: 25px;
         }
 
@@ -104,19 +311,22 @@
 
         .top-title strong {
             display: block;
+
             font-size: 16px;
+
             letter-spacing: .3px;
         }
 
         .top-title span {
             font-size: 9px;
+
             opacity: .82;
         }
 
 
         /* =====================================================
-       DRAWER
-    ===================================================== */
+           DRAWER
+        ===================================================== */
 
         .drawer {
             position: fixed;
@@ -200,6 +410,7 @@
             border-radius: 11px;
 
             font-weight: 700;
+
             color: #344054;
 
             margin-bottom: 5px;
@@ -212,14 +423,16 @@
 
         .drawer-icon {
             width: 30px;
+
             text-align: center;
+
             font-size: 20px;
         }
 
 
         /* =====================================================
-       HERO
-    ===================================================== */
+           HERO
+        ===================================================== */
 
         .hero {
             min-height: 250px;
@@ -258,6 +471,7 @@
 
         .hero-content {
             position: relative;
+
             z-index: 1;
 
             padding: 27px 22px 62px;
@@ -267,6 +481,7 @@
 
         .brand {
             display: inline-flex;
+
             align-items: center;
 
             gap: 9px;
@@ -298,9 +513,11 @@
 
         .brand h1 {
             font-size: 31px;
+
             line-height: .82;
 
             font-weight: 900;
+
             font-style: italic;
         }
 
@@ -308,6 +525,7 @@
             display: block;
 
             font-size: 7px;
+
             letter-spacing: .55px;
 
             margin-top: 6px;
@@ -333,8 +551,8 @@
 
 
         /* =====================================================
-       QUICK MENU
-    ===================================================== */
+           QUICK MENU
+        ===================================================== */
 
         .quick-wrap {
             width: min(94%, 760px);
@@ -342,6 +560,7 @@
             margin: -45px auto 0;
 
             position: relative;
+
             z-index: 20;
 
             background: #fff;
@@ -369,6 +588,7 @@
             cursor: pointer;
 
             display: flex;
+
             flex-direction: column;
 
             align-items: center;
@@ -449,16 +669,18 @@
 
 
         /* =====================================================
-       CONTENT
-    ===================================================== */
+           CONTENT
+        ===================================================== */
 
         .container {
             width: min(94%, 760px);
+
             margin: auto;
         }
 
         .section {
             padding: 17px 0;
+
             scroll-margin-top: 78px;
         }
 
@@ -513,8 +735,8 @@
 
 
         /* =====================================================
-       ANNOUNCEMENTS
-    ===================================================== */
+           ANNOUNCEMENTS
+        ===================================================== */
 
         .announce-row {
             display: flex;
@@ -546,11 +768,13 @@
 
         .announce-info {
             flex: 1;
+
             min-width: 0;
         }
 
         .announce-info h3 {
             font-size: 8px;
+
             margin-bottom: 3px;
         }
 
@@ -574,8 +798,8 @@
 
 
         /* =====================================================
-       EVENTS
-    ===================================================== */
+           EVENTS
+        ===================================================== */
 
         .event-row {
             min-height: 67px;
@@ -612,11 +836,13 @@
 
         .event-date strong {
             display: block;
+
             font-size: 16px;
         }
 
         .event-date span {
             font-size: 7px;
+
             color: #667085;
         }
 
@@ -638,6 +864,7 @@
 
         .event-info {
             flex: 1;
+
             min-width: 0;
         }
 
@@ -661,6 +888,7 @@
 
         .event-info h3 {
             font-size: 9px;
+
             margin-bottom: 3px;
         }
 
@@ -674,13 +902,14 @@
 
         .event-arrow {
             font-size: 18px;
+
             color: #98a2b3;
         }
 
 
         /* =====================================================
-       FEATURES
-    ===================================================== */
+           FEATURES
+        ===================================================== */
 
         .feature-grid {
             display: grid;
@@ -704,6 +933,7 @@
 
         .feature-card .big-icon {
             font-size: 24px;
+
             margin-bottom: 7px;
         }
 
@@ -725,8 +955,8 @@
 
 
         /* =====================================================
-       ROWS
-    ===================================================== */
+           ROWS
+        ===================================================== */
 
         .result-row,
         .venue-row,
@@ -767,11 +997,13 @@
 
         .row-main {
             flex: 1;
+
             min-width: 0;
         }
 
         .row-main strong {
             display: block;
+
             font-size: 9px;
         }
 
@@ -799,8 +1031,8 @@
 
 
         /* =====================================================
-       MAP
-    ===================================================== */
+           MAP
+        ===================================================== */
 
         .map-venue-btns {
             display: flex;
@@ -810,6 +1042,7 @@
             gap: 7px;
 
             margin-top: 10px;
+
             margin-bottom: 10px;
         }
 
@@ -871,7 +1104,9 @@
         #city-map {
             width: 100%;
             height: 100%;
+
             min-height: 320px;
+
             background: #dfe7ef;
         }
 
@@ -913,6 +1148,7 @@
 
         .map-locate-btn:hover {
             background: #0d4080;
+
             transform: translateY(-1px);
         }
 
@@ -922,6 +1158,7 @@
 
         .map-locate-btn:disabled {
             opacity: .7;
+
             cursor: wait;
         }
 
@@ -969,8 +1206,8 @@
 
 
         /* =====================================================
-       TOURISM
-    ===================================================== */
+           TOURISM
+        ===================================================== */
 
         .tour-scroll {
             display: grid;
@@ -1001,6 +1238,7 @@
 
         .tour-text h3 {
             font-size: 10px;
+
             color: #1457a6;
         }
 
@@ -1016,8 +1254,8 @@
 
 
         /* =====================================================
-       EMERGENCY
-    ===================================================== */
+           EMERGENCY
+        ===================================================== */
 
         .emergency {
             background: #fff4f4;
@@ -1061,13 +1299,14 @@
 
         .emergency-card span {
             font-size: 6.5px;
+
             color: #667085;
         }
 
 
         /* =====================================================
-       FOOTER
-    ===================================================== */
+           FOOTER
+        ===================================================== */
 
         footer {
             background: #0a3768;
@@ -1095,8 +1334,8 @@
 
 
         /* =====================================================
-       SCROLL BUTTONS
-    ===================================================== */
+           SCROLL BUTTONS
+        ===================================================== */
 
         .scroll-buttons {
             position: fixed;
@@ -1145,6 +1384,7 @@
 
         .scroll-btn:hover {
             transform: translateY(-2px);
+
             background: #0d4080;
         }
 
@@ -1154,8 +1394,8 @@
 
 
         /* =====================================================
-       BOTTOM NAV
-    ===================================================== */
+           BOTTOM NAV
+        ===================================================== */
 
         .bottom-nav {
             position: fixed;
@@ -1213,10 +1453,43 @@
 
 
         /* =====================================================
-       MOBILE
-    ===================================================== */
+           MOBILE
+        ===================================================== */
 
         @media (max-width:480px) {
+
+            .welcome-popup {
+                padding: 15px;
+            }
+
+            .welcome-box {
+                width: min(350px, 94vw);
+
+                border-radius: 20px;
+            }
+
+            .welcome-image {
+                height: 190px;
+            }
+
+            .welcome-content {
+                padding: 16px 17px 18px;
+            }
+
+            .welcome-content h2 {
+                font-size: 20px;
+            }
+
+            .welcome-content p {
+                font-size: 9px;
+            }
+
+            .welcome-close {
+                width: 33px;
+                height: 33px;
+
+                font-size: 19px;
+            }
 
             .quick-wrap {
                 width: 94%;
@@ -1240,32 +1513,38 @@
 
             .map-venue-btn {
                 font-size: 8px;
+
                 padding: 5px 9px;
             }
 
             .map-wrapper {
                 height: 300px;
+
                 min-height: 300px;
             }
 
             #city-map {
                 height: 300px;
+
                 min-height: 300px;
             }
 
             .scroll-buttons {
                 right: 12px;
+
                 bottom: 82px;
             }
 
             .scroll-btn {
                 width: 38px;
                 height: 38px;
+
                 font-size: 18px;
             }
 
             .map-locate-btn {
                 font-size: 9px;
+
                 padding: 8px 11px;
             }
 
@@ -1280,13 +1559,14 @@
 
 
         /* =====================================================
-       DESKTOP
-    ===================================================== */
+           DESKTOP
+        ===================================================== */
 
         @media (min-width:761px) {
 
             .topbar {
                 height: 72px;
+
                 padding: 0 28px;
             }
 
@@ -1305,6 +1585,7 @@
             .brand-mark {
                 width: 70px;
                 height: 70px;
+
                 font-size: 35px;
             }
 
@@ -1314,12 +1595,14 @@
 
             .quick-wrap {
                 margin-top: -55px;
+
                 padding: 22px;
             }
 
             .quick-icon {
                 width: 52px;
                 height: 52px;
+
                 font-size: 25px;
             }
 
@@ -1366,14 +1649,72 @@
         }
     </style>
 
-
 </head>
 
 <body>
 
+
     <!-- =====================================================
-     TOP BAR
-===================================================== -->
+         EVRAA 2026 WELCOME / AD POPUP
+    ===================================================== -->
+
+    <div class="welcome-popup" id="welcomePopup">
+
+        <div class="welcome-box">
+
+            <!-- CLOSE -->
+
+            <button class="welcome-close" onclick="closeWelcomePopup()" aria-label="Close">
+                ×
+            </button>
+
+
+            <!-- GOOGLE DRIVE IMAGE -->
+
+            <!--
+                IMPORTANT:
+                Palitan ang YOUR_GOOGLE_DRIVE_FILE_ID_HERE
+                ng actual File ID ng picture mo.
+            -->
+
+            <img class="popup-image" src="https://github.com/Giloxxx4901/EvraApp/blob/main/IMG_9641%20(1).JPG?raw=true"
+                alt="EVRAA 2026">
+
+            <!-- POPUP CONTENT -->
+
+            <div class="welcome-content">
+
+                <span class="welcome-badge">
+                    🏆 EVRAA 2026
+                </span>
+
+                <h2>
+                    Welcome to EVRAA 2026!
+                </h2>
+
+                <p>
+                    Your digital guide to the
+                    Eastern Visayas Regional Athletic Association
+                    in Calbayog City.
+                </p>
+
+                <button class="welcome-button" onclick="startEVRAA()">
+
+                    GET STARTED
+                    <span>→</span>
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         TOP BAR
+    ===================================================== -->
 
     <header class="topbar">
 
@@ -1399,12 +1740,12 @@
 
         <div style="width:40px;"></div>
 
-
     </header>
 
+
     <!-- =====================================================
-     DRAWER
-===================================================== -->
+         DRAWER
+    ===================================================== -->
 
     <div class="drawer" id="drawer" onclick="closeDrawerOutside(event)">
 
@@ -1506,15 +1847,14 @@
 
         </div>
 
-
     </div>
 
+
     <!-- =====================================================
-     HERO
-===================================================== -->
+         HERO
+    ===================================================== -->
 
     <section class="hero" id="home">
-
 
         <div class="hero-content">
 
@@ -1553,15 +1893,14 @@
 
         </div>
 
-
     </section>
 
+
     <!-- =====================================================
-     QUICK ACCESS
-===================================================== -->
+         QUICK ACCESS
+    ===================================================== -->
 
     <div class="quick-wrap">
-
 
         <div class="quick-grid">
 
@@ -1624,25 +1963,29 @@
             <button class="quick" onclick="goTo('tourism')">
 
                 <span class="quick-icon">🌴</span>
-                <span>EXPLORE<br>CALBAYOG</span>
+
+                <span>
+                    EXPLORE<br>
+                    CALBAYOG
+                </span>
 
             </button>
 
         </div>
 
-
     </div>
 
+
     <!-- =====================================================
-     MAIN
-===================================================== -->
+         MAIN
+    ===================================================== -->
 
     <main>
+
 
         <!-- ANNOUNCEMENTS -->
 
         <section class="section" id="announcements">
-
 
             <div class="container">
 
@@ -1676,7 +2019,9 @@
                             </h3>
 
                             <p>
-                                Volleyball games on May 10 will be held at Calbayog City Convention Center.
+                                Volleyball games on May 10
+                                will be held at Calbayog City
+                                Convention Center.
                             </p>
 
                         </div>
@@ -1691,13 +2036,12 @@
 
             </div>
 
-
         </section>
+
 
         <!-- SCHEDULE -->
 
         <section class="section" id="schedule">
-
 
             <div class="container">
 
@@ -1745,7 +2089,8 @@
                             </span>
 
                             <h3>
-                                Region VIII vs Region Eastern Samar
+                                Region VIII vs Region
+                                Eastern Samar
                             </h3>
 
                             <p>
@@ -1790,7 +2135,8 @@
                             </span>
 
                             <h3>
-                                Region Leyte vs Region Northern Samar
+                                Region Leyte vs Region
+                                Northern Samar
                             </h3>
 
                             <p>
@@ -1811,13 +2157,12 @@
 
             </div>
 
-
         </section>
+
 
         <!-- RESULTS -->
 
         <section class="section" id="results">
-
 
             <div class="container">
 
@@ -1917,13 +2262,12 @@
 
             </div>
 
-
         </section>
+
 
         <!-- VENUES -->
 
         <section class="section" id="venues">
-
 
             <div class="container">
 
@@ -1952,7 +2296,8 @@
                             </strong>
 
                             <span>
-                                Main athletics and selected team events
+                                Main athletics and selected
+                                team events
                             </span>
 
                         </div>
@@ -1976,7 +2321,8 @@
                             </strong>
 
                             <span>
-                                Basketball and indoor competitions
+                                Basketball and indoor
+                                competitions
                             </span>
 
                         </div>
@@ -2013,15 +2359,12 @@
 
             </div>
 
-
         </section>
 
-        <!-- =====================================================
-     MAP
-===================================================== -->
+
+        <!-- MAP -->
 
         <section class="section" id="map">
-
 
             <div class="container">
 
@@ -2088,7 +2431,6 @@
                 </div>
 
 
-
                 <div class="map-wrapper">
 
                     <div id="city-map"></div>
@@ -2111,7 +2453,8 @@
 
                     📌 Tap a venue button to jump to it
                     &nbsp;|&nbsp;
-                    🧭 Tap a venue marker and choose "Go To"
+                    🧭 Tap a venue marker and choose
+                    "Go To"
                     &nbsp;|&nbsp;
                     📍 GPS permission required
 
@@ -2119,13 +2462,12 @@
 
             </div>
 
-
         </section>
+
 
         <!-- BILLETING -->
 
         <section class="section" id="billeting">
-
 
             <div class="container">
 
@@ -2152,7 +2494,9 @@
                         </h3>
 
                         <p>
-                            View assigned schools, rooms, contact persons, and available facilities.
+                            View assigned schools, rooms,
+                            contact persons, and available
+                            facilities.
                         </p>
 
                     </div>
@@ -2169,7 +2513,8 @@
                         </h3>
 
                         <p>
-                            Check your delegation's billeting assignment and important reminders.
+                            Check your delegation's billeting
+                            assignment and important reminders.
                         </p>
 
                     </div>
@@ -2178,13 +2523,12 @@
 
             </div>
 
-
         </section>
+
 
         <!-- TRANSPORT -->
 
         <section class="section" id="transport">
-
 
             <div class="container">
 
@@ -2213,7 +2557,8 @@
                             </strong>
 
                             <span>
-                                Billeting Center → Sports Complex
+                                Billeting Center →
+                                Sports Complex
                             </span>
 
                         </div>
@@ -2237,7 +2582,8 @@
                             </strong>
 
                             <span>
-                                Convention Center → City Gymnasium
+                                Convention Center →
+                                City Gymnasium
                             </span>
 
                         </div>
@@ -2261,7 +2607,8 @@
                             </strong>
 
                             <span>
-                                Tricycle, multicab, and taxi information
+                                Tricycle, multicab, and taxi
+                                information
                             </span>
 
                         </div>
@@ -2274,13 +2621,12 @@
 
             </div>
 
-
         </section>
+
 
         <!-- TOURISM -->
 
         <section class="section" id="tourism">
-
 
             <div class="container">
 
@@ -2312,7 +2658,8 @@
                             </h3>
 
                             <p>
-                                Discover one of Calbayog City's natural attractions.
+                                Discover one of Calbayog City's
+                                natural attractions.
                             </p>
 
                         </div>
@@ -2333,7 +2680,8 @@
                             </h3>
 
                             <p>
-                                Explore scenic beaches and waterfront areas.
+                                Explore scenic beaches and
+                                waterfront areas.
                             </p>
 
                         </div>
@@ -2354,7 +2702,8 @@
                             </h3>
 
                             <p>
-                                Experience the city's lush landscapes.
+                                Experience the city's lush
+                                landscapes.
                             </p>
 
                         </div>
@@ -2365,13 +2714,12 @@
 
             </div>
 
-
         </section>
+
 
         <!-- EMERGENCY -->
 
         <section class="section emergency" id="emergency">
-
 
             <div class="container">
 
@@ -2437,17 +2785,16 @@
 
             </div>
 
-
         </section>
 
     </main>
 
+
     <!-- =====================================================
-     FOOTER
-===================================================== -->
+         FOOTER
+    ===================================================== -->
 
     <footer>
-
 
         <h3>
             EVRAA 2026 • CALBAYOG CITY
@@ -2461,15 +2808,14 @@
             © 2026 EVRAA. All Rights Reserved.
         </p>
 
-
     </footer>
 
+
     <!-- =====================================================
-     SCROLL BUTTONS
-===================================================== -->
+         SCROLL BUTTONS
+    ===================================================== -->
 
     <div class="scroll-buttons">
-
 
         <button class="scroll-btn" onclick="goToTop()" title="Back to top" aria-label="Back to top">
 
@@ -2484,12 +2830,12 @@
 
         </button>
 
-
     </div>
 
+
     <!-- =====================================================
-     MOBILE BOTTOM NAV
-===================================================== -->
+         MOBILE BOTTOM NAV
+    ===================================================== -->
 
     <nav class="bottom-nav">
 
@@ -2533,15 +2879,16 @@
 
         </button>
 
-
     </nav>
 
+
     <!-- =====================================================
-     LEAFLET JS
-===================================================== -->
+         LEAFLET JS
+    ===================================================== -->
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin="">
     </script>
+
 
     <script>
 
@@ -2564,9 +2911,6 @@
 
         /* =====================================================
            VENUE DATA
-        
-           EDIT LAT / LNG HERE WHEN YOU HAVE
-           THE CORRECT COORDINATES.
         ===================================================== */
 
         const VENUES = [
@@ -2635,6 +2979,55 @@
 
 
         /* =====================================================
+           WELCOME POPUP
+        ===================================================== */
+
+        function openWelcomePopup() {
+
+            const popup =
+                document.getElementById(
+                    "welcomePopup"
+                );
+
+            if (!popup) return;
+
+            popup.classList.add("show");
+
+            document.body.style.overflow =
+                "hidden";
+        }
+
+
+        function closeWelcomePopup() {
+
+            const popup =
+                document.getElementById(
+                    "welcomePopup"
+                );
+
+            if (!popup) return;
+
+            popup.classList.remove("show");
+
+            document.body.style.overflow =
+                "";
+        }
+
+
+        function startEVRAA() {
+
+            closeWelcomePopup();
+
+            setTimeout(function () {
+
+                goTo("home");
+
+            }, 100);
+
+        }
+
+
+        /* =====================================================
            DRAWER
         ===================================================== */
 
@@ -2678,6 +3071,7 @@
                 closeDrawer();
 
             }
+
         }
 
 
@@ -2715,9 +3109,11 @@
 
             window.scrollTo({
 
-                top: Math.max(0, targetY),
+                top:
+                    Math.max(0, targetY),
 
-                behavior: "smooth"
+                behavior:
+                    "smooth"
 
             });
 
@@ -2771,7 +3167,8 @@
 
                     0,
 
-                    document.documentElement.scrollHeight -
+                    document.documentElement
+                        .scrollHeight -
                     window.innerHeight
 
                 );
@@ -2799,6 +3196,40 @@
                 if (event.key === "Escape") {
 
                     closeDrawer();
+
+                    closeWelcomePopup();
+
+                }
+
+            }
+        );
+
+
+        /* =====================================================
+           CLOSE POPUP WHEN CLICKING OUTSIDE
+        ===================================================== */
+
+        document.addEventListener(
+            "click",
+            function (event) {
+
+                const popup =
+                    document.getElementById(
+                        "welcomePopup"
+                    );
+
+                const box =
+                    document.querySelector(
+                        ".welcome-box"
+                    );
+
+                if (
+                    popup &&
+                    popup.classList.contains("show") &&
+                    event.target === popup
+                ) {
+
+                    closeWelcomePopup();
 
                 }
 
@@ -2940,10 +3371,6 @@
             }
 
 
-            /*
-             * Prevent duplicate map initialization.
-             */
-
             if (map) {
 
                 map.invalidateSize(true);
@@ -2952,10 +3379,6 @@
 
             }
 
-
-            /*
-             * Create map.
-             */
 
             map =
                 L.map(
@@ -2977,10 +3400,6 @@
                 );
 
 
-            /*
-             * OpenStreetMap tiles.
-             */
-
             L.tileLayer(
 
                 "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
@@ -2999,41 +3418,36 @@
             ).addTo(map);
 
 
-            /*
-             * Create venue markers.
-             */
-
             VENUES.forEach(
 
                 function (venue, index) {
-
 
                     const icon =
                         L.divIcon({
 
                             html: `
 
-                        <div style="
-                            background:${venue.color};
-                            width:34px;
-                            height:34px;
-                            border-radius:50%;
-                            display:flex;
-                            align-items:center;
-                            justify-content:center;
-                            font-size:17px;
-                            box-shadow:
-                                0 3px 10px
-                                rgba(0,0,0,.35);
-                            border:
-                                2.5px solid #fff;
-                        ">
+                                <div style="
+                                    background:${venue.color};
+                                    width:34px;
+                                    height:34px;
+                                    border-radius:50%;
+                                    display:flex;
+                                    align-items:center;
+                                    justify-content:center;
+                                    font-size:17px;
+                                    box-shadow:
+                                        0 3px 10px
+                                        rgba(0,0,0,.35);
+                                    border:
+                                        2.5px solid #fff;
+                                ">
 
-                            ${venue.emoji}
+                                    ${venue.emoji}
 
-                        </div>
+                                </div>
 
-                    `,
+                            `,
 
                             className: "",
 
@@ -3070,78 +3484,70 @@
                         );
 
 
-                    /*
-                     * Popup with Go To button.
-                     */
-
                     marker.bindPopup(
 
                         `
 
-                <div style="
-                    min-width:190px;
-                    font-family:Arial,sans-serif;
-                ">
+                            <div style="
+                                min-width:190px;
+                                font-family:Arial,sans-serif;
+                            ">
 
-                    <div style="
-                        font-size:24px;
-                        text-align:center;
-                        margin-bottom:4px;
-                    ">
-                        ${venue.emoji}
-                    </div>
+                                <div style="
+                                    font-size:24px;
+                                    text-align:center;
+                                    margin-bottom:4px;
+                                ">
+                                    ${venue.emoji}
+                                </div>
 
+                                <strong style="
+                                    font-size:11px;
+                                    color:#1457a6;
+                                    display:block;
+                                    margin-bottom:4px;
+                                ">
+                                    ${venue.name}
+                                </strong>
 
-                    <strong style="
-                        font-size:11px;
-                        color:#1457a6;
-                        display:block;
-                        margin-bottom:4px;
-                    ">
-                        ${venue.name}
-                    </strong>
+                                <p style="
+                                    font-size:9px;
+                                    color:#667085;
+                                    margin:4px 0;
+                                ">
+                                    🏆 ${venue.sports}
+                                </p>
 
+                                <p style="
+                                    font-size:9px;
+                                    color:#667085;
+                                    margin:4px 0;
+                                ">
+                                    📍 ${venue.address}
+                                </p>
 
-                    <p style="
-                        font-size:9px;
-                        color:#667085;
-                        margin:4px 0;
-                    ">
-                        🏆 ${venue.sports}
-                    </p>
+                                <button
+                                    onclick="goToVenue(${index})"
+                                    style="
+                                        display:block;
+                                        width:100%;
+                                        margin-top:9px;
+                                        font-size:10px;
+                                        font-weight:700;
+                                        color:#fff;
+                                        background:#1457a6;
+                                        padding:7px 12px;
+                                        border-radius:15px;
+                                        border:none;
+                                        cursor:pointer;
+                                    "
+                                >
+                                    🧭 Go To
+                                </button>
 
+                            </div>
 
-                    <p style="
-                        font-size:9px;
-                        color:#667085;
-                        margin:4px 0;
-                    ">
-                        📍 ${venue.address}
-                    </p>
-
-
-                    <button
-                        onclick="goToVenue(${index})"
-                        style="
-                            display:block;
-                            width:100%;
-                            margin-top:9px;
-                            font-size:10px;
-                            font-weight:700;
-                            color:#fff;
-                            background:#1457a6;
-                            padding:7px 12px;
-                            border-radius:15px;
-                            border:none;
-                            cursor:pointer;
-                        "
-                    >
-                        🧭 Go To
-                    </button>
-
-                </div>
-
-                `,
+                        `,
 
                         {
                             maxWidth: 240
@@ -3158,10 +3564,6 @@
 
             );
 
-
-            /*
-             * Fit all venues.
-             */
 
             setTimeout(
 
@@ -3242,10 +3644,6 @@
 
             }
 
-
-            /*
-             * ALL
-             */
 
             if (idx === "all") {
 
@@ -3332,9 +3730,6 @@
 
         /* =====================================================
            GO TO VENUE
-           BASIC GPS VERSION
-           NO GOOGLE MAPS
-           NO BACKEND
         ===================================================== */
 
         function goToVenue(index) {
@@ -3374,56 +3769,50 @@
             }
 
 
-            /*
-             * Close current popup.
-             */
-
             map.closePopup();
 
-
-            /*
-             * Temporary loading popup.
-             */
 
             L.popup()
 
                 .setLatLng([
+
                     venue.lat,
                     venue.lng
+
                 ])
 
                 .setContent(`
 
-            <div style="
-                text-align:center;
-                font-family:Arial,sans-serif;
-                padding:5px;
-            ">
+                    <div style="
+                        text-align:center;
+                        font-family:Arial,sans-serif;
+                        padding:5px;
+                    ">
 
-                <div style="
-                    font-size:22px;
-                ">
-                    🧭
-                </div>
+                        <div style="
+                            font-size:22px;
+                        ">
+                            🧭
+                        </div>
 
-                <strong style="
-                    color:#1457a6;
-                    font-size:11px;
-                ">
-                    Finding your location...
-                </strong>
+                        <strong style="
+                            color:#1457a6;
+                            font-size:11px;
+                        ">
+                            Finding your location...
+                        </strong>
 
-                <p style="
-                    font-size:8px;
-                    color:#667085;
-                    margin-top:4px;
-                ">
-                    Please allow GPS permission.
-                </p>
+                        <p style="
+                            font-size:8px;
+                            color:#667085;
+                            margin-top:4px;
+                        ">
+                            Please allow GPS permission.
+                        </p>
 
-            </div>
+                    </div>
 
-        `)
+                `)
 
                 .openOn(map);
 
@@ -3432,22 +3821,15 @@
 
                 function (position) {
 
-
                     const userLat =
                         position.coords.latitude;
-
 
                     const userLng =
                         position.coords.longitude;
 
-
                     const accuracy =
                         position.coords.accuracy;
 
-
-                    /*
-                     * Remove previous route.
-                     */
 
                     if (routeLine) {
 
@@ -3460,10 +3842,6 @@
                     }
 
 
-                    /*
-                     * Remove old destination marker.
-                     */
-
                     if (destinationMarker) {
 
                         map.removeLayer(
@@ -3474,10 +3852,6 @@
 
                     }
 
-
-                    /*
-                     * Remove old location marker.
-                     */
 
                     if (locationMarker) {
 
@@ -3490,27 +3864,23 @@
                     }
 
 
-                    /*
-                     * USER ICON
-                     */
-
                     const userIcon =
                         L.divIcon({
 
                             html: `
 
-                        <div style="
-                            width:20px;
-                            height:20px;
-                            background:#1457a6;
-                            border:3px solid #fff;
-                            border-radius:50%;
-                            box-shadow:
-                                0 0 0 5px
-                                rgba(20,87,166,.25);
-                        "></div>
+                                <div style="
+                                    width:20px;
+                                    height:20px;
+                                    background:#1457a6;
+                                    border:3px solid #fff;
+                                    border-radius:50%;
+                                    box-shadow:
+                                        0 0 0 5px
+                                        rgba(20,87,166,.25);
+                                "></div>
 
-                    `,
+                            `,
 
                             className: "",
 
@@ -3527,35 +3897,31 @@
                         });
 
 
-                    /*
-                     * DESTINATION ICON
-                     */
-
                     const destinationIcon =
                         L.divIcon({
 
                             html: `
 
-                        <div style="
-                            width:38px;
-                            height:38px;
-                            background:${venue.color};
-                            border:3px solid #fff;
-                            border-radius:50%;
-                            display:flex;
-                            align-items:center;
-                            justify-content:center;
-                            font-size:19px;
-                            box-shadow:
-                                0 3px 10px
-                                rgba(0,0,0,.35);
-                        ">
+                                <div style="
+                                    width:38px;
+                                    height:38px;
+                                    background:${venue.color};
+                                    border:3px solid #fff;
+                                    border-radius:50%;
+                                    display:flex;
+                                    align-items:center;
+                                    justify-content:center;
+                                    font-size:19px;
+                                    box-shadow:
+                                        0 3px 10px
+                                        rgba(0,0,0,.35);
+                                ">
 
-                            ${venue.emoji}
+                                    ${venue.emoji}
 
-                        </div>
+                                </div>
 
-                    `,
+                            `,
 
                             className: "",
 
@@ -3571,10 +3937,6 @@
 
                         });
 
-
-                    /*
-                     * USER MARKER
-                     */
 
                     locationMarker =
                         L.marker(
@@ -3594,36 +3956,32 @@
 
                     locationMarker.bindPopup(`
 
-                <div style="
-                    font-family:Arial,sans-serif;
-                    text-align:center;
-                ">
+                        <div style="
+                            font-family:Arial,sans-serif;
+                            text-align:center;
+                        ">
 
-                    <strong style="
-                        font-size:11px;
-                        color:#1457a6;
-                    ">
-                        📍 You are here
-                    </strong>
+                            <strong style="
+                                font-size:11px;
+                                color:#1457a6;
+                            ">
+                                📍 You are here
+                            </strong>
 
-                    <br>
+                            <br>
 
-                    <span style="
-                        font-size:8px;
-                        color:#667085;
-                    ">
-                        Accuracy:
-                        ~${Math.round(accuracy)}m
-                    </span>
+                            <span style="
+                                font-size:8px;
+                                color:#667085;
+                            ">
+                                Accuracy:
+                                ~${Math.round(accuracy)}m
+                            </span>
 
-                </div>
+                        </div>
 
-            `);
+                    `);
 
-
-                    /*
-                     * DESTINATION MARKER
-                     */
 
                     destinationMarker =
                         L.marker(
@@ -3644,40 +4002,36 @@
 
                     destinationMarker.bindPopup(`
 
-                <div style="
-                    font-family:Arial,sans-serif;
-                    text-align:center;
-                ">
+                        <div style="
+                            font-family:Arial,sans-serif;
+                            text-align:center;
+                        ">
 
-                    <div style="
-                        font-size:25px;
-                    ">
-                        ${venue.emoji}
-                    </div>
+                            <div style="
+                                font-size:25px;
+                            ">
+                                ${venue.emoji}
+                            </div>
 
-                    <strong style="
-                        color:#1457a6;
-                        font-size:11px;
-                    ">
-                        ${venue.name}
-                    </strong>
+                            <strong style="
+                                color:#1457a6;
+                                font-size:11px;
+                            ">
+                                ${venue.name}
+                            </strong>
 
-                    <p style="
-                        font-size:8px;
-                        color:#667085;
-                        margin-top:5px;
-                    ">
-                        📍 Destination
-                    </p>
+                            <p style="
+                                font-size:8px;
+                                color:#667085;
+                                margin-top:5px;
+                            ">
+                                📍 Destination
+                            </p>
 
-                </div>
+                        </div>
 
-            `);
+                    `);
 
-
-                    /*
-                     * DRAW DASHED LINE
-                     */
 
                     routeLine =
                         L.polyline(
@@ -3713,10 +4067,6 @@
                         )
                             .addTo(map);
 
-
-                    /*
-                     * Calculate approximate distance.
-                     */
 
                     const distance =
                         map.distance(
@@ -3758,10 +4108,6 @@
                     }
 
 
-                    /*
-                     * Fit user + destination.
-                     */
-
                     const bounds =
                         L.latLngBounds(
 
@@ -3789,10 +4135,6 @@
                     );
 
 
-                    /*
-                     * Show destination information.
-                     */
-
                     setTimeout(
 
                         function () {
@@ -3808,70 +4150,66 @@
 
                                 .setContent(`
 
-                            <div style="
-                                font-family:Arial,sans-serif;
-                                min-width:190px;
-                                text-align:center;
-                            ">
-
-                                <div style="
-                                    font-size:27px;
-                                ">
-                                    ${venue.emoji}
-                                </div>
-
-
-                                <strong style="
-                                    display:block;
-                                    color:#1457a6;
-                                    font-size:12px;
-                                    margin-top:3px;
-                                ">
-                                    ${venue.name}
-                                </strong>
-
-
-                                <div style="
-                                    margin-top:8px;
-                                    padding:8px;
-                                    background:#edf5ff;
-                                    border-radius:9px;
-                                ">
-
                                     <div style="
-                                        font-size:9px;
-                                        color:#667085;
+                                        font-family:Arial,sans-serif;
+                                        min-width:190px;
+                                        text-align:center;
                                     ">
-                                        Approximate distance
+
+                                        <div style="
+                                            font-size:27px;
+                                        ">
+                                            ${venue.emoji}
+                                        </div>
+
+                                        <strong style="
+                                            display:block;
+                                            color:#1457a6;
+                                            font-size:12px;
+                                            margin-top:3px;
+                                        ">
+                                            ${venue.name}
+                                        </strong>
+
+                                        <div style="
+                                            margin-top:8px;
+                                            padding:8px;
+                                            background:#edf5ff;
+                                            border-radius:9px;
+                                        ">
+
+                                            <div style="
+                                                font-size:9px;
+                                                color:#667085;
+                                            ">
+                                                Approximate distance
+                                            </div>
+
+                                            <strong style="
+                                                display:block;
+                                                color:#1457a6;
+                                                font-size:15px;
+                                                margin-top:2px;
+                                            ">
+                                                ${distanceText}
+                                            </strong>
+
+                                        </div>
+
+                                        <p style="
+                                            font-size:8px;
+                                            color:#98a2b3;
+                                            margin-top:7px;
+                                            line-height:1.4;
+                                        ">
+                                            🧭 The dashed line shows
+                                            the direction from your
+                                            location to this venue.
+                                        </p>
+
                                     </div>
 
-
-                                    <strong style="
-                                        display:block;
-                                        color:#1457a6;
-                                        font-size:15px;
-                                        margin-top:2px;
-                                    ">
-                                        ${distanceText}
-                                    </strong>
-
-                                </div>
-
-
-                                <p style="
-                                    font-size:8px;
-                                    color:#98a2b3;
-                                    margin-top:7px;
-                                    line-height:1.4;
-                                ">
-                                    🧭 The dashed line shows
-                                    the direction from your
-                                    location to this venue.
-                                </p>
-
-                            </div>
-
-                        `)
+                                `)
 
                                 .openOn(map);
 
@@ -3882,7 +4220,6 @@
                     );
 
                 },
-
 
                 function (error) {
 
@@ -3899,7 +4236,6 @@
 
                     }
 
-
                     else if (
                         error.code === 2
                     ) {
@@ -3908,7 +4244,6 @@
                             "Location unavailable. Please check your GPS or network connection.";
 
                     }
-
 
                     else if (
                         error.code === 3
@@ -3922,10 +4257,6 @@
 
                     alert(message);
 
-
-                    /*
-                     * Return map to venue.
-                     */
 
                     map.setView(
 
@@ -3943,7 +4274,6 @@
                     );
 
                 },
-
 
                 {
 
@@ -4006,22 +4336,15 @@
 
                 function (position) {
 
-
                     const lat =
                         position.coords.latitude;
-
 
                     const lng =
                         position.coords.longitude;
 
-
                     const accuracy =
                         position.coords.accuracy;
 
-
-                    /*
-                     * Remove previous location.
-                     */
 
                     if (locationMarker) {
 
@@ -4040,10 +4363,6 @@
 
                     }
 
-
-                    /*
-                     * Accuracy circle.
-                     */
 
                     locationCircle =
                         L.circle(
@@ -4071,27 +4390,23 @@
                             .addTo(map);
 
 
-                    /*
-                     * User icon.
-                     */
-
                     const myIcon =
                         L.divIcon({
 
                             html: `
 
-                        <div style="
-                            width:18px;
-                            height:18px;
-                            background:#1457a6;
-                            border:3px solid #fff;
-                            border-radius:50%;
-                            box-shadow:
-                                0 0 0 4px
-                                rgba(20,87,166,.28);
-                        "></div>
+                                <div style="
+                                    width:18px;
+                                    height:18px;
+                                    background:#1457a6;
+                                    border:3px solid #fff;
+                                    border-radius:50%;
+                                    box-shadow:
+                                        0 0 0 4px
+                                        rgba(20,87,166,.28);
+                                "></div>
 
-                    `,
+                            `,
 
                             className: "",
 
@@ -4123,30 +4438,26 @@
                         )
                             .bindPopup(`
 
-                    <b style="font-size:10px">
-                        📍 You are here
-                    </b>
+                                <b style="font-size:10px">
+                                    📍 You are here
+                                </b>
 
-                    <br>
+                                <br>
 
-                    <span style="
-                        font-size:8px;
-                        color:#667085;
-                    ">
-                        Accuracy:
-                        ~${Math.round(accuracy)}m
-                    </span>
+                                <span style="
+                                    font-size:8px;
+                                    color:#667085;
+                                ">
+                                    Accuracy:
+                                    ~${Math.round(accuracy)}m
+                                </span>
 
-                `)
+                            `)
                             .addTo(map);
 
 
                     locationMarker.openPopup();
 
-
-                    /*
-                     * Move map.
-                     */
 
                     map.flyTo(
 
@@ -4171,7 +4482,6 @@
                     btn.disabled = false;
 
                 },
-
 
                 function (error) {
 
@@ -4217,7 +4527,6 @@
                     btn.disabled = false;
 
                 },
-
 
                 {
 
@@ -4282,6 +4591,23 @@
 
                 );
 
+                /*
+                 * Show welcome popup
+                 * 700ms after page loads.
+                 */
+
+                setTimeout(
+
+                    function () {
+
+                        openWelcomePopup();
+
+                    },
+
+                    700
+
+                );
+
             }
         );
 
@@ -4289,10 +4615,6 @@
         /* =====================================================
            BASIC ANTI-COPY / DEVTOOLS BLOCKING
         ===================================================== */
-
-        /*
-         * Right click
-         */
 
         document.addEventListener(
             "contextmenu",
@@ -4304,31 +4626,20 @@
         );
 
 
-        /*
-         * Keyboard shortcuts
-         */
-
         document.addEventListener(
             "keydown",
             function (e) {
-
-                /*
-                 * F12
-                 */
 
                 if (
                     e.key === "F12"
                 ) {
 
                     e.preventDefault();
+
                     return;
 
                 }
 
-
-                /*
-                 * Ctrl + Shift + I
-                 */
 
                 if (
                     e.ctrlKey &&
@@ -4337,14 +4648,11 @@
                 ) {
 
                     e.preventDefault();
+
                     return;
 
                 }
 
-
-                /*
-                 * Ctrl + Shift + J
-                 */
 
                 if (
                     e.ctrlKey &&
@@ -4353,14 +4661,11 @@
                 ) {
 
                     e.preventDefault();
+
                     return;
 
                 }
 
-
-                /*
-                 * Ctrl + U
-                 */
 
                 if (
                     e.ctrlKey &&
@@ -4368,6 +4673,7 @@
                 ) {
 
                     e.preventDefault();
+
                     return;
 
                 }
