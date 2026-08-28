@@ -11,10 +11,14 @@
     <!-- =====================================================
          LEAFLET CSS
     ====================================================== -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-        integrity="sha256-p4NxAoJBhIINfQ3t4mJ5K0R7YJxY5z3Yv9f4qzZr1cQ=" crossorigin="" />
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        crossorigin=""
+    >
 
     <style>
+
         /* =====================================================
            RESET
         ====================================================== */
@@ -35,7 +39,7 @@
             background: #eef1f7;
             color: #172033;
             overflow-x: hidden;
-            padding-bottom: 0;
+            padding-bottom: 67px;
         }
 
         button,
@@ -51,7 +55,6 @@
             text-decoration: none;
             color: inherit;
         }
-
 
         /* =====================================================
            TOP BAR
@@ -72,9 +75,11 @@
             color: #fff;
 
             background:
-                linear-gradient(135deg,
+                linear-gradient(
+                    135deg,
                     #0d4e9a,
-                    #176fc7);
+                    #176fc7
+                );
 
             box-shadow:
                 0 3px 12px rgba(0, 0, 0, .18);
@@ -94,6 +99,9 @@
 
             cursor: pointer;
             font-size: 25px;
+
+            -webkit-user-select: none;
+            user-select: none;
         }
 
         .menu-btn:hover {
@@ -114,7 +122,6 @@
             font-size: 9px;
             opacity: .82;
         }
-
 
         /* =====================================================
            DRAWER
@@ -218,7 +225,6 @@
             font-size: 20px;
         }
 
-
         /* =====================================================
            HERO
         ====================================================== */
@@ -232,9 +238,11 @@
             color: #fff;
 
             background:
-                linear-gradient(180deg,
+                linear-gradient(
+                    180deg,
                     rgba(7, 54, 116, .25),
-                    rgba(5, 65, 135, .9)),
+                    rgba(5, 65, 135, .9)
+                ),
                 url("https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=1400&q=85");
 
             background-size: cover;
@@ -285,9 +293,11 @@
             border-radius: 50%;
 
             background:
-                linear-gradient(145deg,
+                linear-gradient(
+                    145deg,
                     #ff5a24,
-                    #ffca28);
+                    #ffca28
+                );
 
             display: grid;
             place-items: center;
@@ -332,7 +342,6 @@
 
             margin-top: 5px;
         }
-
 
         /* =====================================================
            QUICK MENU
@@ -380,6 +389,9 @@
             color: #252b38;
 
             min-width: 0;
+
+            -webkit-user-select: none;
+            user-select: none;
         }
 
         .quick-icon {
@@ -449,7 +461,6 @@
             letter-spacing: .15px;
         }
 
-
         /* =====================================================
            CONTENT
         ====================================================== */
@@ -513,7 +524,6 @@
             overflow: hidden;
         }
 
-
         /* =====================================================
            ANNOUNCEMENTS
         ====================================================== */
@@ -573,7 +583,6 @@
 
             white-space: nowrap;
         }
-
 
         /* =====================================================
            EVENTS
@@ -679,7 +688,6 @@
             color: #98a2b3;
         }
 
-
         /* =====================================================
            FEATURE SECTIONS
         ====================================================== */
@@ -724,7 +732,6 @@
 
             line-height: 1.45;
         }
-
 
         /* =====================================================
            RESULT / VENUE / TRANSPORT
@@ -799,7 +806,6 @@
             white-space: nowrap;
         }
 
-
         /* =====================================================
            MAP
         ====================================================== */
@@ -841,6 +847,8 @@
             align-items: center;
 
             gap: 5px;
+
+            touch-action: manipulation;
         }
 
         .map-venue-btn:hover,
@@ -914,6 +922,8 @@
                 0 4px 12px rgba(20, 40, 80, .28);
 
             transition: .2s;
+
+            touch-action: manipulation;
         }
 
         .map-locate-btn:hover {
@@ -966,6 +976,14 @@
             z-index: 700;
         }
 
+        .leaflet-control,
+        .leaflet-control-container,
+        .leaflet-marker-icon,
+        .leaflet-marker-shadow,
+        .leaflet-popup {
+            -webkit-user-select: none;
+            user-select: none;
+        }
 
         /* =====================================================
            TOURISM
@@ -1012,7 +1030,6 @@
 
             line-height: 1.45;
         }
-
 
         /* =====================================================
            EMERGENCY
@@ -1063,7 +1080,6 @@
             color: #667085;
         }
 
-
         /* =====================================================
            FOOTER
         ====================================================== */
@@ -1091,7 +1107,6 @@
 
             margin-top: 5px;
         }
-
 
         /* =====================================================
            FLOATING SCROLL BUTTONS
@@ -1140,6 +1155,8 @@
             transition: .2s;
 
             pointer-events: auto;
+
+            touch-action: manipulation;
         }
 
         .scroll-btn:hover {
@@ -1150,7 +1167,6 @@
         .scroll-btn:active {
             transform: scale(.92);
         }
-
 
         /* =====================================================
            BOTTOM NAV
@@ -1180,6 +1196,8 @@
             justify-content: space-around;
 
             padding-top: 7px;
+
+            padding-bottom: env(safe-area-inset-bottom);
         }
 
         .bottom-item {
@@ -1196,6 +1214,8 @@
             font-size: 7px;
 
             font-weight: 700;
+
+            touch-action: manipulation;
         }
 
         .bottom-item .bi {
@@ -1210,12 +1230,15 @@
             color: #1457a6;
         }
 
-
         /* =====================================================
            MOBILE
         ====================================================== */
 
         @media (max-width:480px) {
+
+            body {
+                padding-bottom: 67px;
+            }
 
             .quick-wrap {
                 width: 94%;
@@ -1277,12 +1300,15 @@
             }
         }
 
-
         /* =====================================================
            DESKTOP
         ====================================================== */
 
         @media (min-width:761px) {
+
+            body {
+                padding-bottom: 0;
+            }
 
             .topbar {
                 height: 72px;
@@ -1363,13 +1389,12 @@
                 bottom: 20px;
             }
         }
+
     </style>
 
 </head>
 
-
 <body>
-
 
     <!-- =====================================================
          TOP BAR
@@ -1377,12 +1402,13 @@
 
     <header class="topbar">
 
-        <button class="menu-btn" onclick="openDrawer()" aria-label="Open menu">
-
+        <button
+            class="menu-btn"
+            onclick="openDrawer()"
+            aria-label="Open menu"
+        >
             ☰
-
         </button>
-
 
         <div class="top-title">
 
@@ -1396,18 +1422,19 @@
 
         </div>
 
-
         <div style="width:40px;"></div>
 
     </header>
-
-
 
     <!-- =====================================================
          DRAWER
     ====================================================== -->
 
-    <div class="drawer" id="drawer" onclick="closeDrawerOutside(event)">
+    <div
+        class="drawer"
+        id="drawer"
+        onclick="closeDrawerOutside(event)"
+    >
 
         <div class="drawer-panel">
 
@@ -1417,99 +1444,69 @@
                     EVRAA 2026
                 </h3>
 
-                <button class="close-btn" onclick="closeDrawer()" aria-label="Close menu">
-
+                <button
+                    class="close-btn"
+                    onclick="closeDrawer()"
+                    aria-label="Close menu"
+                >
                     ×
-
                 </button>
 
             </div>
 
-
             <a href="#home" onclick="goTo('home');closeDrawer();">
-
                 <span class="drawer-icon">🏠</span>
                 Home
-
             </a>
-
 
             <a href="#schedule" onclick="goTo('schedule');closeDrawer();">
-
                 <span class="drawer-icon">📅</span>
                 Schedule
-
             </a>
-
 
             <a href="#results" onclick="goTo('results');closeDrawer();">
-
                 <span class="drawer-icon">🏆</span>
                 Results
-
             </a>
-
 
             <a href="#venues" onclick="goTo('venues');closeDrawer();">
-
                 <span class="drawer-icon">📍</span>
                 Venues
-
             </a>
-
 
             <a href="#map" onclick="goTo('map');closeDrawer();">
-
                 <span class="drawer-icon">🗺️</span>
                 City Map
-
             </a>
-
 
             <a href="#announcements" onclick="goTo('announcements');closeDrawer();">
-
                 <span class="drawer-icon">📢</span>
                 Announcements
-
             </a>
-
 
             <a href="#billeting" onclick="goTo('billeting');closeDrawer();">
-
                 <span class="drawer-icon">🛏️</span>
                 Billeting
-
             </a>
-
 
             <a href="#transport" onclick="goTo('transport');closeDrawer();">
-
                 <span class="drawer-icon">🚌</span>
                 Transportation
-
             </a>
-
 
             <a href="#emergency" onclick="goTo('emergency');closeDrawer();">
-
                 <span class="drawer-icon">🚨</span>
                 Emergency
-
             </a>
 
-
             <a href="#tourism" onclick="goTo('tourism');closeDrawer();">
-
                 <span class="drawer-icon">🌴</span>
                 Explore Calbayog
-
             </a>
 
         </div>
 
     </div>
-
-
 
     <!-- =====================================================
          HERO
@@ -1525,14 +1522,12 @@
                     🔥
                 </div>
 
-
                 <div>
 
                     <h1>
                         EVRAA<br>
                         2026
                     </h1>
-
 
                     <small>
                         EASTERN VISAYAS REGIONAL<br>
@@ -1544,11 +1539,9 @@
 
             </div>
 
-
             <h2>
                 ONE REGION. ONE SPIRIT. ONE GOAL.
             </h2>
-
 
             <p>
                 Your digital guide to EVRAA 2026.
@@ -1558,8 +1551,6 @@
 
     </section>
 
-
-
     <!-- =====================================================
          QUICK ACCESS
     ====================================================== -->
@@ -1568,82 +1559,55 @@
 
         <div class="quick-grid">
 
-
             <button class="quick" onclick="goTo('schedule')">
-
                 <span class="quick-icon">▣</span>
                 <span>SCHEDULE</span>
-
             </button>
-
 
             <button class="quick" onclick="goTo('results')">
-
                 <span class="quick-icon">🏆</span>
                 <span>RESULTS</span>
-
             </button>
-
 
             <button class="quick" onclick="goTo('venues')">
-
                 <span class="quick-icon">📍</span>
                 <span>VENUES</span>
-
             </button>
-
 
             <button class="quick" onclick="goTo('map')">
-
                 <span class="quick-icon">🗺</span>
                 <span>MAP</span>
-
             </button>
-
 
             <button class="quick" onclick="goTo('billeting')">
-
                 <span class="quick-icon">🛏</span>
                 <span>BILLETING</span>
-
             </button>
-
 
             <button class="quick" onclick="goTo('transport')">
-
                 <span class="quick-icon">🚌</span>
                 <span>TRANSPORTATION</span>
-
             </button>
-
 
             <button class="quick" onclick="goTo('emergency')">
-
                 <span class="quick-icon">✚</span>
                 <span>EMERGENCY</span>
-
             </button>
 
-
             <button class="quick" onclick="goTo('tourism')">
-
                 <span class="quick-icon">🌴</span>
                 <span>EXPLORE<br>CALBAYOG</span>
-
             </button>
 
         </div>
 
     </div>
 
-
-
     <!-- =====================================================
          MAIN
     ====================================================== -->
 
     <main>
-
 
         <!-- ANNOUNCEMENTS -->
 
@@ -1657,14 +1621,14 @@
                         LATEST ANNOUNCEMENTS
                     </h2>
 
-                    <button class="view-all" onclick="goTo('announcements')">
-
+                    <button
+                        class="view-all"
+                        onclick="goTo('announcements')"
+                    >
                         View All ›
-
                     </button>
 
                 </div>
-
 
                 <div class="card">
 
@@ -1673,7 +1637,6 @@
                         <div class="announce-icon">
                             📢
                         </div>
-
 
                         <div class="announce-info">
 
@@ -1687,7 +1650,6 @@
 
                         </div>
 
-
                         <span class="announce-date">
                             May 8, 2026 ›
                         </span>
@@ -1699,8 +1661,6 @@
             </div>
 
         </section>
-
-
 
         <!-- SCHEDULE -->
 
@@ -1714,17 +1674,16 @@
                         TODAY'S EVENTS
                     </h2>
 
-                    <button class="view-all" onclick="goTo('schedule')">
-
+                    <button
+                        class="view-all"
+                        onclick="goTo('schedule')"
+                    >
                         View All ›
-
                     </button>
 
                 </div>
 
-
                 <div class="card">
-
 
                     <div class="event-row">
 
@@ -1739,11 +1698,9 @@
 
                         </div>
 
-
                         <div class="sport">
                             🏀
                         </div>
-
 
                         <div class="event-info">
 
@@ -1762,14 +1719,11 @@
 
                         </div>
 
-
                         <span class="event-arrow">
                             ›
                         </span>
 
                     </div>
-
-
 
                     <div class="event-row">
 
@@ -1784,11 +1738,9 @@
 
                         </div>
 
-
                         <div class="sport">
                             🏐
                         </div>
-
 
                         <div class="event-info">
 
@@ -1807,7 +1759,6 @@
 
                         </div>
 
-
                         <span class="event-arrow">
                             ›
                         </span>
@@ -1819,8 +1770,6 @@
             </div>
 
         </section>
-
-
 
         <!-- RESULTS -->
 
@@ -1840,9 +1789,7 @@
 
                 </div>
 
-
                 <div class="card">
-
 
                     <div class="result-row">
 
@@ -1868,8 +1815,6 @@
 
                     </div>
 
-
-
                     <div class="result-row">
 
                         <div class="mini-icon">
@@ -1893,8 +1838,6 @@
                         </div>
 
                     </div>
-
-
 
                     <div class="result-row">
 
@@ -1926,8 +1869,6 @@
 
         </section>
 
-
-
         <!-- VENUES -->
 
         <section class="section" id="venues">
@@ -1942,9 +1883,7 @@
 
                 </div>
 
-
                 <div class="card">
-
 
                     <div class="venue-row">
 
@@ -1968,8 +1907,6 @@
 
                     </div>
 
-
-
                     <div class="venue-row">
 
                         <div class="mini-icon">
@@ -1991,8 +1928,6 @@
                         <span>›</span>
 
                     </div>
-
-
 
                     <div class="venue-row">
 
@@ -2022,8 +1957,6 @@
 
         </section>
 
-
-
         <!-- =====================================================
              MAP
         ====================================================== -->
@@ -2040,79 +1973,83 @@
 
                 </div>
 
-
                 <div class="map-venue-btns" id="mapVenueBtns">
 
-
-                    <button class="map-venue-btn active" data-idx="all" onclick="mapFilterVenue(this,'all')">
-
+                    <button
+                        class="map-venue-btn active"
+                        data-idx="all"
+                        onclick="mapFilterVenue(this,'all')"
+                    >
                         🏙️ All Venues
-
                     </button>
 
-
-                    <button class="map-venue-btn" data-idx="0" onclick="mapFilterVenue(this,0)">
-
+                    <button
+                        class="map-venue-btn"
+                        data-idx="0"
+                        onclick="mapFilterVenue(this,0)"
+                    >
                         🏅 Sports Complex
-
                     </button>
 
-
-                    <button class="map-venue-btn" data-idx="1" onclick="mapFilterVenue(this,1)">
-
+                    <button
+                        class="map-venue-btn"
+                        data-idx="1"
+                        onclick="mapFilterVenue(this,1)"
+                    >
                         🏊 Aquatic Center
-
                     </button>
 
-
-                    <button class="map-venue-btn" data-idx="2" onclick="mapFilterVenue(this,2)">
-
+                    <button
+                        class="map-venue-btn"
+                        data-idx="2"
+                        onclick="mapFilterVenue(this,2)"
+                    >
                         🏐 Convention Center
-
                     </button>
 
-
-                    <button class="map-venue-btn" data-idx="3" onclick="mapFilterVenue(this,3)">
-
+                    <button
+                        class="map-venue-btn"
+                        data-idx="3"
+                        onclick="mapFilterVenue(this,3)"
+                    >
                         🏃 Athletics Track
-
                     </button>
 
-
-                    <button class="map-venue-btn" data-idx="4" onclick="mapFilterVenue(this,4)">
-
+                    <button
+                        class="map-venue-btn"
+                        data-idx="4"
+                        onclick="mapFilterVenue(this,4)"
+                    >
                         🏸 Badminton Hall
-
                     </button>
 
-
-                    <button class="map-venue-btn" data-idx="5" onclick="mapFilterVenue(this,5)">
-
+                    <button
+                        class="map-venue-btn"
+                        data-idx="5"
+                        onclick="mapFilterVenue(this,5)"
+                    >
                         🥊 Boxing Gym
-
                     </button>
 
                 </div>
-
-
 
                 <div class="map-wrapper">
 
                     <div id="city-map"></div>
 
-
-                    <button class="map-locate-btn" id="locateBtn" onclick="locateMe()">
-
+                    <button
+                        class="map-locate-btn"
+                        id="locateBtn"
+                        onclick="locateMe()"
+                    >
                         <span class="loc-icon">
                             📍
                         </span>
 
                         Show My Location
-
                     </button>
 
                 </div>
-
 
                 <p class="map-tip">
 
@@ -2125,8 +2062,6 @@
             </div>
 
         </section>
-
-
 
         <!-- BILLETING -->
 
@@ -2142,9 +2077,7 @@
 
                 </div>
 
-
                 <div class="feature-grid">
-
 
                     <div class="feature-card">
 
@@ -2161,7 +2094,6 @@
                         </p>
 
                     </div>
-
 
                     <div class="feature-card">
 
@@ -2185,8 +2117,6 @@
 
         </section>
 
-
-
         <!-- TRANSPORT -->
 
         <section class="section" id="transport">
@@ -2201,9 +2131,7 @@
 
                 </div>
 
-
                 <div class="card">
-
 
                     <div class="transport-row">
 
@@ -2227,8 +2155,6 @@
 
                     </div>
 
-
-
                     <div class="transport-row">
 
                         <div class="mini-icon">
@@ -2250,8 +2176,6 @@
                         <span>›</span>
 
                     </div>
-
-
 
                     <div class="transport-row">
 
@@ -2281,8 +2205,6 @@
 
         </section>
 
-
-
         <!-- TOURISM -->
 
         <section class="section" id="tourism">
@@ -2297,19 +2219,19 @@
 
                     <span class="view-all">
                         View All ›
-
                     </span>
 
                 </div>
 
-
                 <div class="tour-scroll">
-
 
                     <article class="card tour-card">
 
-                        <img src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=600&q=80"
-                            alt="Nature destination">
+                        <img
+                            src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=600&q=80"
+                            alt="Nature destination"
+                            draggable="false"
+                        >
 
                         <div class="tour-text">
 
@@ -2325,12 +2247,13 @@
 
                     </article>
 
-
-
                     <article class="card tour-card">
 
-                        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80"
-                            alt="Coastal destination">
+                        <img
+                            src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80"
+                            alt="Coastal destination"
+                            draggable="false"
+                        >
 
                         <div class="tour-text">
 
@@ -2346,12 +2269,13 @@
 
                     </article>
 
-
-
                     <article class="card tour-card">
 
-                        <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=600&q=80"
-                            alt="Mountain destination">
+                        <img
+                            src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=600&q=80"
+                            alt="Mountain destination"
+                            draggable="false"
+                        >
 
                         <div class="tour-text">
 
@@ -2373,8 +2297,6 @@
 
         </section>
 
-
-
         <!-- EMERGENCY -->
 
         <section class="section emergency" id="emergency">
@@ -2389,9 +2311,7 @@
 
                 </div>
 
-
                 <div class="emergency-grid">
-
 
                     <div class="emergency-card">
 
@@ -2407,8 +2327,6 @@
 
                     </div>
 
-
-
                     <div class="emergency-card">
 
                         <div>🚓</div>
@@ -2422,8 +2340,6 @@
                         </span>
 
                     </div>
-
-
 
                     <div class="emergency-card">
 
@@ -2447,8 +2363,6 @@
 
     </main>
 
-
-
     <!-- =====================================================
          FOOTER
     ====================================================== -->
@@ -2469,30 +2383,31 @@
 
     </footer>
 
-
-
     <!-- =====================================================
          SCROLL BUTTONS
     ====================================================== -->
 
     <div class="scroll-buttons">
 
-        <button class="scroll-btn" onclick="goToTop()" title="Back to top" aria-label="Back to top">
-
+        <button
+            class="scroll-btn"
+            onclick="goToTop()"
+            title="Back to top"
+            aria-label="Back to top"
+        >
             ↑
-
         </button>
 
-
-        <button class="scroll-btn" onclick="goToBottom()" title="Go to bottom" aria-label="Go to bottom">
-
+        <button
+            class="scroll-btn"
+            onclick="goToBottom()"
+            title="Go to bottom"
+            aria-label="Go to bottom"
+        >
             ↓
-
         </button>
 
     </div>
-
-
 
     <!-- =====================================================
          MOBILE BOTTOM NAV
@@ -2500,59 +2415,56 @@
 
     <nav class="bottom-nav">
 
-
-        <button class="bottom-item active" onclick="goTo('home')">
-
+        <button
+            class="bottom-item active"
+            onclick="goTo('home')"
+        >
             <span class="bi">🏠</span>
             Home
-
         </button>
 
-
-        <button class="bottom-item" onclick="goTo('schedule')">
-
+        <button
+            class="bottom-item"
+            onclick="goTo('schedule')"
+        >
             <span class="bi">📅</span>
             Schedule
-
         </button>
 
-
-        <button class="bottom-item" onclick="goTo('results')">
-
+        <button
+            class="bottom-item"
+            onclick="goTo('results')"
+        >
             <span class="bi">🏆</span>
             Results
-
         </button>
 
-
-        <button class="bottom-item" onclick="goTo('map')">
-
+        <button
+            class="bottom-item"
+            onclick="goTo('map')"
+        >
             <span class="bi">🗺️</span>
             Map
-
         </button>
 
-
-        <button class="bottom-item" onclick="goTo('emergency')">
-
+        <button
+            class="bottom-item"
+            onclick="goTo('emergency')"
+        >
             <span class="bi">🚨</span>
             Emergency
-
         </button>
 
     </nav>
-
-
 
     <!-- =====================================================
          LEAFLET JS
     ====================================================== -->
 
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV/XN2GJSk=" crossorigin="">
-        </script>
-
-
+    <script
+        src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        crossorigin=""
+    ></script>
 
     <script>
 
@@ -2561,13 +2473,10 @@
         ====================================================== */
 
         let map = null;
-
         let locationMarker = null;
-
         let locationCircle = null;
 
         const markerLayers = [];
-
 
         /* =====================================================
            VENUE DATA
@@ -2637,45 +2546,41 @@
 
         ];
 
-
         /* =====================================================
            DRAWER
         ====================================================== */
 
         function openDrawer() {
 
-            document
-                .getElementById("drawer")
-                .classList
-                .add("open");
+            const drawer = document.getElementById("drawer");
+
+            if (!drawer) return;
+
+            drawer.classList.add("open");
 
             document.body.style.overflow = "hidden";
 
         }
 
-
         function closeDrawer() {
 
-            document
-                .getElementById("drawer")
-                .classList
-                .remove("open");
+            const drawer = document.getElementById("drawer");
+
+            if (!drawer) return;
+
+            drawer.classList.remove("open");
 
             document.body.style.overflow = "";
 
         }
 
-
         function closeDrawerOutside(event) {
 
             if (event.target.id === "drawer") {
-
                 closeDrawer();
-
             }
 
         }
-
 
         /* =====================================================
            SCROLL TO SECTION
@@ -2683,24 +2588,19 @@
 
         function goTo(id) {
 
-            const el =
-                document.getElementById(id);
+            const el = document.getElementById(id);
 
             if (!el) return;
 
-
             const header =
                 document.querySelector(".topbar");
-
 
             const headerHeight =
                 header
                     ? header.offsetHeight
                     : 0;
 
-
             const extraSpace = 14;
-
 
             const targetY =
                 el.getBoundingClientRect().top +
@@ -2708,47 +2608,40 @@
                 headerHeight -
                 extraSpace;
 
-
             window.scrollTo({
 
-                top:
-                    Math.max(
-                        0,
-                        targetY
-                    ),
+                top: Math.max(0, targetY),
 
                 behavior: "smooth"
 
             });
 
-
             /*
-             * Leaflet needs to recalculate its
-             * dimensions when its section becomes visible.
+             * Leaflet must recalculate its dimensions
+             * after the map section is brought into view.
              */
 
-            if (
-                id === "map" &&
-                map
-            ) {
+            if (id === "map") {
 
-                setTimeout(function () {
+                if (map) {
 
-                    map.invalidateSize(true);
+                    setTimeout(function () {
+                        map.invalidateSize(true);
+                    }, 100);
 
-                }, 300);
+                    setTimeout(function () {
+                        map.invalidateSize(true);
+                    }, 400);
 
+                    setTimeout(function () {
+                        map.invalidateSize(true);
+                    }, 800);
 
-                setTimeout(function () {
-
-                    map.invalidateSize(true);
-
-                }, 800);
+                }
 
             }
 
         }
-
 
         /* =====================================================
            TOP / BOTTOM
@@ -2766,7 +2659,6 @@
 
         }
 
-
         function goToBottom() {
 
             const maxScroll =
@@ -2775,7 +2667,6 @@
                     document.documentElement.scrollHeight -
                     window.innerHeight
                 );
-
 
             window.scrollTo({
 
@@ -2787,7 +2678,6 @@
 
         }
 
-
         /* =====================================================
            ESC KEY
         ====================================================== */
@@ -2797,14 +2687,11 @@
             function (event) {
 
                 if (event.key === "Escape") {
-
                     closeDrawer();
-
                 }
 
             }
         );
-
 
         /* =====================================================
            MOBILE ACTIVE NAV
@@ -2815,12 +2702,10 @@
                 "main .section,#home"
             );
 
-
         const bottomItems =
             document.querySelectorAll(
                 ".bottom-item"
             );
-
 
         window.addEventListener(
             "scroll",
@@ -2830,9 +2715,7 @@
                     return;
                 }
 
-
                 let current = "home";
-
 
                 sections.forEach(
                     function (section) {
@@ -2840,75 +2723,54 @@
                         const rect =
                             section.getBoundingClientRect();
 
-
                         if (
                             rect.top <= 120 &&
                             rect.bottom >= 120
                         ) {
 
-                            current =
-                                section.id;
+                            current = section.id;
 
                         }
 
                     }
                 );
 
-
                 bottomItems.forEach(
                     function (item) {
 
-                        item.classList.remove(
-                            "active"
-                        );
+                        item.classList.remove("active");
 
                     }
                 );
 
+                const navMap = {
 
-                if (current === "home") {
+                    home: 0,
+                    schedule: 1,
+                    results: 2,
+                    map: 3,
+                    emergency: 4
 
-                    bottomItems[0]
-                        ?.classList
-                        .add("active");
+                };
 
-                }
+                if (
+                    Object.prototype.hasOwnProperty.call(
+                        navMap,
+                        current
+                    )
+                ) {
 
-                else if (current === "schedule") {
-
-                    bottomItems[1]
-                        ?.classList
-                        .add("active");
-
-                }
-
-                else if (current === "results") {
-
-                    bottomItems[2]
-                        ?.classList
-                        .add("active");
+                    bottomItems[
+                        navMap[current]
+                    ]?.classList.add("active");
 
                 }
 
-                else if (current === "map") {
-
-                    bottomItems[3]
-                        ?.classList
-                        .add("active");
-
-                }
-
-                else if (current === "emergency") {
-
-                    bottomItems[4]
-                        ?.classList
-                        .add("active");
-
-                }
-
+            },
+            {
+                passive: true
             }
         );
-
 
         /* =====================================================
            INITIALIZE MAP
@@ -2917,10 +2779,7 @@
         function initMap() {
 
             const mapElement =
-                document.getElementById(
-                    "city-map"
-                );
-
+                document.getElementById("city-map");
 
             if (!mapElement) {
 
@@ -2932,41 +2791,55 @@
 
             }
 
-
             /*
              * Prevent double initialization.
              */
 
             if (map) {
 
-                map.invalidateSize(true);
+                setTimeout(function () {
+                    map.invalidateSize(true);
+                }, 100);
 
                 return;
 
             }
 
+            /*
+             * Make sure Leaflet is loaded.
+             */
+
+            if (
+                typeof L === "undefined"
+            ) {
+
+                console.error(
+                    "Leaflet JS failed to load."
+                );
+
+                return;
+
+            }
 
             /*
              * Create Leaflet map.
              */
 
-            map =
-                L.map(
-                    "city-map",
-                    {
-                        center: [
-                            12.0680,
-                            124.6020
-                        ],
+            map = L.map(
+                "city-map",
+                {
+                    center: [
+                        12.0680,
+                        124.6020
+                    ],
 
-                        zoom: 14,
+                    zoom: 14,
 
-                        zoomControl: true,
+                    zoomControl: true,
 
-                        attributionControl: true
-                    }
-                );
-
+                    attributionControl: true
+                }
+            );
 
             /*
              * OpenStreetMap
@@ -2987,7 +2860,6 @@
 
                 }
             ).addTo(map);
-
 
             /*
              * Create venue markers.
@@ -3035,7 +2907,6 @@
 
                         });
 
-
                     const marker =
                         L.marker(
                             [
@@ -3046,7 +2917,6 @@
                                 icon: icon
                             }
                         );
-
 
                     marker.bindPopup(
 
@@ -3117,15 +2987,12 @@
 
                     );
 
-
                     marker.addTo(map);
-
 
                     markerLayers.push(marker);
 
                 }
             );
-
 
             /*
              * Fit all venues.
@@ -3134,8 +3001,9 @@
             setTimeout(
                 function () {
 
-                    map.invalidateSize(true);
+                    if (!map) return;
 
+                    map.invalidateSize(true);
 
                     if (
                         markerLayers.length > 0
@@ -3146,7 +3014,6 @@
                                 markerLayers
                             );
 
-
                         map.fitBounds(
                             group
                                 .getBounds()
@@ -3156,12 +3023,10 @@
                     }
 
                 },
-                300
+                500
             );
 
-
         }
-
 
         /* =====================================================
            VENUE FILTER
@@ -3173,9 +3038,19 @@
         ) {
 
             if (!map) {
-                return;
-            }
 
+                /*
+                 * If map has not initialized yet,
+                 * try initializing it instead of failing silently.
+                 */
+
+                initMap();
+
+                if (!map) {
+                    return;
+                }
+
+            }
 
             document
                 .querySelectorAll(
@@ -3191,9 +3066,9 @@
                     }
                 );
 
-
-            btn.classList.add("active");
-
+            if (btn) {
+                btn.classList.add("active");
+            }
 
             /*
              * ALL VENUES
@@ -3201,11 +3076,14 @@
 
             if (idx === "all") {
 
+                if (!markerLayers.length) {
+                    return;
+                }
+
                 const group =
                     L.featureGroup(
                         markerLayers
                     );
-
 
                 map.fitBounds(
                     group
@@ -3216,19 +3094,15 @@
                     }
                 );
 
-
                 return;
 
             }
 
-
             const venue =
                 VENUES[idx];
 
-
             const marker =
                 markerLayers[idx];
-
 
             if (
                 !venue ||
@@ -3238,7 +3112,6 @@
                 return;
 
             }
-
 
             map.setView(
 
@@ -3255,7 +3128,6 @@
 
             );
 
-
             setTimeout(
                 function () {
 
@@ -3266,7 +3138,6 @@
             );
 
         }
-
 
         /* =====================================================
            GEOLOCATION
@@ -3279,6 +3150,9 @@
                     "locateBtn"
                 );
 
+            if (!btn) {
+                return;
+            }
 
             if (!navigator.geolocation) {
 
@@ -3290,23 +3164,26 @@
 
             }
 
-
             if (!map) {
 
-                alert(
-                    "Map is still loading. Please try again."
-                );
+                initMap();
 
-                return;
+                if (!map) {
+
+                    alert(
+                        "Map is still loading. Please try again."
+                    );
+
+                    return;
+
+                }
 
             }
-
 
             btn.innerHTML =
                 "⏳ Locating...";
 
             btn.disabled = true;
-
 
             navigator.geolocation.getCurrentPosition(
 
@@ -3315,14 +3192,11 @@
                     const lat =
                         position.coords.latitude;
 
-
                     const lng =
                         position.coords.longitude;
 
-
                     const accuracy =
                         position.coords.accuracy;
-
 
                     /*
                      * Remove previous location.
@@ -3336,7 +3210,6 @@
 
                     }
 
-
                     if (locationCircle) {
 
                         map.removeLayer(
@@ -3344,7 +3217,6 @@
                         );
 
                     }
-
 
                     /*
                      * Accuracy circle.
@@ -3370,7 +3242,6 @@
 
                             }
                         ).addTo(map);
-
 
                     /*
                      * User icon.
@@ -3411,7 +3282,6 @@
 
                         });
 
-
                     locationMarker =
                         L.marker(
                             [
@@ -3422,9 +3292,9 @@
                                 icon: myIcon
                             }
                         )
-                            .bindPopup(
+                        .bindPopup(
 
-                                `
+                            `
                             <b style="font-size:10px">
                                 📍 You are here
                             </b>
@@ -3440,12 +3310,10 @@
                             </span>
                             `
 
-                            )
-                            .addTo(map);
-
+                        )
+                        .addTo(map);
 
                     locationMarker.openPopup();
-
 
                     /*
                      * Move map to user.
@@ -3466,21 +3334,17 @@
 
                     );
 
-
                     btn.innerHTML =
                         '<span class="loc-icon">📍</span> My Location';
-
 
                     btn.disabled = false;
 
                 },
 
-
                 function (error) {
 
                     let message =
                         "Unable to get your location.";
-
 
                     if (error.code === 1) {
 
@@ -3503,18 +3367,14 @@
 
                     }
 
-
                     alert(message);
-
 
                     btn.innerHTML =
                         '<span class="loc-icon">📍</span> Show My Location';
 
-
                     btn.disabled = false;
 
                 },
-
 
                 {
                     enableHighAccuracy: true,
@@ -3528,7 +3388,6 @@
             );
 
         }
-
 
         /* =====================================================
            WINDOW RESIZE
@@ -3554,7 +3413,6 @@
             }
         );
 
-
         /* =====================================================
            PAGE LOAD
         ====================================================== */
@@ -3564,8 +3422,8 @@
             function () {
 
                 /*
-                 * Give the browser a moment to calculate
-                 * the page dimensions before Leaflet starts.
+                 * Give browser enough time to calculate
+                 * page dimensions before Leaflet starts.
                  */
 
                 setTimeout(
@@ -3574,44 +3432,224 @@
                         initMap();
 
                     },
-                    150
+                    300
                 );
 
             }
         );
 
     </script>
-<script>
-document.addEventListener("contextmenu", function(e) {
-    e.preventDefault();
-});
-</script>
+
+    <!-- =====================================================
+         BASIC SECURITY / ANTI-COPY DETERRENTS
+         
+         IMPORTANT:
+         These are deterrents only.
+         They do NOT provide real source-code protection.
+         
+         They intentionally do NOT block:
+         - normal clicks
+         - map dragging
+         - map zooming
+         - GPS
+         - scrolling
+         - Leaflet controls
+         - normal touch events
+         - Ctrl+C globally
+    ====================================================== -->
+
     <script>
-document.addEventListener("keydown", function(e) {
 
-    // F12
-    if (e.key === "F12") {
-        e.preventDefault();
-    }
+        (function () {
 
-    // Ctrl + Shift + I
-    if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "i") {
-        e.preventDefault();
-    }
+            "use strict";
 
-    // Ctrl + Shift + J
-    if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "j") {
-        e.preventDefault();
-    }
+            /*
+             * Prevent context menu.
+             *
+             * We use a normal document listener instead of
+             * disabling pointer events, so Leaflet remains usable.
+             */
 
-    // Ctrl + U
-    if (e.ctrlKey && e.key.toLowerCase() === "u") {
-        e.preventDefault();
-    }
+            document.addEventListener(
+                "contextmenu",
+                function (event) {
 
-});
-</script>
-    
+                    event.preventDefault();
+
+                },
+                false
+            );
+
+            /*
+             * Prevent common developer-tool / source shortcuts.
+             *
+             * This does NOT interfere with normal map controls.
+             */
+
+            document.addEventListener(
+                "keydown",
+                function (event) {
+
+                    const key =
+                        String(event.key || "").toLowerCase();
+
+                    /*
+                     * F12
+                     */
+
+                    if (event.key === "F12") {
+
+                        event.preventDefault();
+                        event.stopPropagation();
+
+                        return false;
+
+                    }
+
+                    /*
+                     * Ctrl + Shift + I
+                     */
+
+                    if (
+                        event.ctrlKey &&
+                        event.shiftKey &&
+                        key === "i"
+                    ) {
+
+                        event.preventDefault();
+                        event.stopPropagation();
+
+                        return false;
+
+                    }
+
+                    /*
+                     * Ctrl + Shift + J
+                     */
+
+                    if (
+                        event.ctrlKey &&
+                        event.shiftKey &&
+                        key === "j"
+                    ) {
+
+                        event.preventDefault();
+                        event.stopPropagation();
+
+                        return false;
+
+                    }
+
+                    /*
+                     * Ctrl + Shift + C
+                     *
+                     * Browser inspect-element shortcut.
+                     */
+
+                    if (
+                        event.ctrlKey &&
+                        event.shiftKey &&
+                        key === "c"
+                    ) {
+
+                        event.preventDefault();
+                        event.stopPropagation();
+
+                        return false;
+
+                    }
+
+                    /*
+                     * Ctrl + U
+                     *
+                     * View page source.
+                     */
+
+                    if (
+                        event.ctrlKey &&
+                        key === "u"
+                    ) {
+
+                        event.preventDefault();
+                        event.stopPropagation();
+
+                        return false;
+
+                    }
+
+                },
+                true
+            );
+
+            /*
+             * Prevent dragging ordinary page images.
+             *
+             * Leaflet map tiles/markers are excluded.
+             */
+
+            document.addEventListener(
+                "dragstart",
+                function (event) {
+
+                    const target =
+                        event.target;
+
+                    if (
+                        target &&
+                        target.tagName === "IMG" &&
+                        !target.closest("#city-map")
+                    ) {
+
+                        event.preventDefault();
+
+                    }
+
+                },
+                false
+            );
+
+            /*
+             * Prevent selecting text on most UI elements.
+             *
+             * We do NOT disable selection globally because that
+             * can interfere with accessibility and browser behavior.
+             */
+
+            const protectedSelectors = [
+                ".topbar",
+                ".quick",
+                ".drawer",
+                ".bottom-nav",
+                ".scroll-buttons",
+                ".map-venue-btn",
+                ".map-locate-btn"
+            ];
+
+            protectedSelectors.forEach(
+                function (selector) {
+
+                    document
+                        .querySelectorAll(selector)
+                        .forEach(
+                            function (element) {
+
+                                element.style.webkitUserSelect =
+                                    "none";
+
+                                element.style.userSelect =
+                                    "none";
+
+                            }
+                        );
+
+                }
+            );
+
+        })();
+
+    </script>
+
 </body>
 
 </html>
