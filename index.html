@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -8,20 +9,13 @@
 
     <title>EVRAA 2026 | Calbayog City</title>
 
-    <!-- =====================================================
-         LEAFLET CSS
-    ====================================================== -->
-    <link
-        rel="stylesheet"
-        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-        crossorigin=""
-    >
+    <!-- LEAFLET CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
 
     <style>
-
         /* =====================================================
-           RESET
-        ====================================================== */
+       RESET
+    ===================================================== */
 
         * {
             margin: 0;
@@ -39,7 +33,7 @@
             background: #eef1f7;
             color: #172033;
             overflow-x: hidden;
-            padding-bottom: 67px;
+            padding-bottom: 0;
         }
 
         button,
@@ -56,9 +50,10 @@
             color: inherit;
         }
 
+
         /* =====================================================
-           TOP BAR
-        ====================================================== */
+       TOP BAR
+    ===================================================== */
 
         .topbar {
             position: sticky;
@@ -75,11 +70,9 @@
             color: #fff;
 
             background:
-                linear-gradient(
-                    135deg,
+                linear-gradient(135deg,
                     #0d4e9a,
-                    #176fc7
-                );
+                    #176fc7);
 
             box-shadow:
                 0 3px 12px rgba(0, 0, 0, .18);
@@ -99,9 +92,6 @@
 
             cursor: pointer;
             font-size: 25px;
-
-            -webkit-user-select: none;
-            user-select: none;
         }
 
         .menu-btn:hover {
@@ -123,9 +113,10 @@
             opacity: .82;
         }
 
+
         /* =====================================================
-           DRAWER
-        ====================================================== */
+       DRAWER
+    ===================================================== */
 
         .drawer {
             position: fixed;
@@ -225,9 +216,10 @@
             font-size: 20px;
         }
 
+
         /* =====================================================
-           HERO
-        ====================================================== */
+       HERO
+    ===================================================== */
 
         .hero {
             min-height: 250px;
@@ -238,11 +230,9 @@
             color: #fff;
 
             background:
-                linear-gradient(
-                    180deg,
+                linear-gradient(180deg,
                     rgba(7, 54, 116, .25),
-                    rgba(5, 65, 135, .9)
-                ),
+                    rgba(5, 65, 135, .9)),
                 url("https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=1400&q=85");
 
             background-size: cover;
@@ -293,11 +283,9 @@
             border-radius: 50%;
 
             background:
-                linear-gradient(
-                    145deg,
+                linear-gradient(145deg,
                     #ff5a24,
-                    #ffca28
-                );
+                    #ffca28);
 
             display: grid;
             place-items: center;
@@ -343,9 +331,10 @@
             margin-top: 5px;
         }
 
+
         /* =====================================================
-           QUICK MENU
-        ====================================================== */
+       QUICK MENU
+    ===================================================== */
 
         .quick-wrap {
             width: min(94%, 760px);
@@ -389,9 +378,6 @@
             color: #252b38;
 
             min-width: 0;
-
-            -webkit-user-select: none;
-            user-select: none;
         }
 
         .quick-icon {
@@ -461,9 +447,10 @@
             letter-spacing: .15px;
         }
 
+
         /* =====================================================
-           CONTENT
-        ====================================================== */
+       CONTENT
+    ===================================================== */
 
         .container {
             width: min(94%, 760px);
@@ -524,9 +511,10 @@
             overflow: hidden;
         }
 
+
         /* =====================================================
-           ANNOUNCEMENTS
-        ====================================================== */
+       ANNOUNCEMENTS
+    ===================================================== */
 
         .announce-row {
             display: flex;
@@ -584,9 +572,10 @@
             white-space: nowrap;
         }
 
+
         /* =====================================================
-           EVENTS
-        ====================================================== */
+       EVENTS
+    ===================================================== */
 
         .event-row {
             min-height: 67px;
@@ -688,9 +677,10 @@
             color: #98a2b3;
         }
 
+
         /* =====================================================
-           FEATURE SECTIONS
-        ====================================================== */
+       FEATURES
+    ===================================================== */
 
         .feature-grid {
             display: grid;
@@ -733,9 +723,10 @@
             line-height: 1.45;
         }
 
+
         /* =====================================================
-           RESULT / VENUE / TRANSPORT
-        ====================================================== */
+       ROWS
+    ===================================================== */
 
         .result-row,
         .venue-row,
@@ -806,9 +797,10 @@
             white-space: nowrap;
         }
 
+
         /* =====================================================
-           MAP
-        ====================================================== */
+       MAP
+    ===================================================== */
 
         .map-venue-btns {
             display: flex;
@@ -818,7 +810,6 @@
             gap: 7px;
 
             margin-top: 10px;
-
             margin-bottom: 10px;
         }
 
@@ -847,8 +838,6 @@
             align-items: center;
 
             gap: 5px;
-
-            touch-action: manipulation;
         }
 
         .map-venue-btn:hover,
@@ -882,9 +871,7 @@
         #city-map {
             width: 100%;
             height: 100%;
-
             min-height: 320px;
-
             background: #dfe7ef;
         }
 
@@ -922,8 +909,6 @@
                 0 4px 12px rgba(20, 40, 80, .28);
 
             transition: .2s;
-
-            touch-action: manipulation;
         }
 
         .map-locate-btn:hover {
@@ -956,9 +941,7 @@
             line-height: 1.5;
         }
 
-        /* Leaflet fixes */
-
-        #city-map .leaflet-container {
+        .leaflet-container {
             width: 100%;
             height: 100%;
         }
@@ -976,18 +959,18 @@
             z-index: 700;
         }
 
-        .leaflet-control,
-        .leaflet-control-container,
-        .leaflet-marker-icon,
-        .leaflet-marker-shadow,
-        .leaflet-popup {
-            -webkit-user-select: none;
-            user-select: none;
+        .leaflet-popup-content-wrapper {
+            border-radius: 12px;
         }
 
+        .leaflet-popup-content {
+            margin: 10px;
+        }
+
+
         /* =====================================================
-           TOURISM
-        ====================================================== */
+       TOURISM
+    ===================================================== */
 
         .tour-scroll {
             display: grid;
@@ -1031,9 +1014,10 @@
             line-height: 1.45;
         }
 
+
         /* =====================================================
-           EMERGENCY
-        ====================================================== */
+       EMERGENCY
+    ===================================================== */
 
         .emergency {
             background: #fff4f4;
@@ -1080,9 +1064,10 @@
             color: #667085;
         }
 
+
         /* =====================================================
-           FOOTER
-        ====================================================== */
+       FOOTER
+    ===================================================== */
 
         footer {
             background: #0a3768;
@@ -1108,9 +1093,10 @@
             margin-top: 5px;
         }
 
+
         /* =====================================================
-           FLOATING SCROLL BUTTONS
-        ====================================================== */
+       SCROLL BUTTONS
+    ===================================================== */
 
         .scroll-buttons {
             position: fixed;
@@ -1155,8 +1141,6 @@
             transition: .2s;
 
             pointer-events: auto;
-
-            touch-action: manipulation;
         }
 
         .scroll-btn:hover {
@@ -1168,9 +1152,10 @@
             transform: scale(.92);
         }
 
+
         /* =====================================================
-           BOTTOM NAV
-        ====================================================== */
+       BOTTOM NAV
+    ===================================================== */
 
         .bottom-nav {
             position: fixed;
@@ -1196,8 +1181,6 @@
             justify-content: space-around;
 
             padding-top: 7px;
-
-            padding-bottom: env(safe-area-inset-bottom);
         }
 
         .bottom-item {
@@ -1214,8 +1197,6 @@
             font-size: 7px;
 
             font-weight: 700;
-
-            touch-action: manipulation;
         }
 
         .bottom-item .bi {
@@ -1230,15 +1211,12 @@
             color: #1457a6;
         }
 
+
         /* =====================================================
-           MOBILE
-        ====================================================== */
+       MOBILE
+    ===================================================== */
 
         @media (max-width:480px) {
-
-            body {
-                padding-bottom: 67px;
-            }
 
             .quick-wrap {
                 width: 94%;
@@ -1300,15 +1278,12 @@
             }
         }
 
+
         /* =====================================================
-           DESKTOP
-        ====================================================== */
+       DESKTOP
+    ===================================================== */
 
         @media (min-width:761px) {
-
-            body {
-                padding-bottom: 0;
-            }
 
             .topbar {
                 height: 72px;
@@ -1389,26 +1364,25 @@
                 bottom: 20px;
             }
         }
-
     </style>
+
 
 </head>
 
 <body>
 
     <!-- =====================================================
-         TOP BAR
-    ====================================================== -->
+     TOP BAR
+===================================================== -->
 
     <header class="topbar">
 
-        <button
-            class="menu-btn"
-            onclick="openDrawer()"
-            aria-label="Open menu"
-        >
+        <button class="menu-btn" onclick="openDrawer()" aria-label="Open menu">
+
             ☰
+
         </button>
+
 
         <div class="top-title">
 
@@ -1422,19 +1396,17 @@
 
         </div>
 
+
         <div style="width:40px;"></div>
+
 
     </header>
 
     <!-- =====================================================
-         DRAWER
-    ====================================================== -->
+     DRAWER
+===================================================== -->
 
-    <div
-        class="drawer"
-        id="drawer"
-        onclick="closeDrawerOutside(event)"
-    >
+    <div class="drawer" id="drawer" onclick="closeDrawerOutside(event)">
 
         <div class="drawer-panel">
 
@@ -1444,75 +1416,105 @@
                     EVRAA 2026
                 </h3>
 
-                <button
-                    class="close-btn"
-                    onclick="closeDrawer()"
-                    aria-label="Close menu"
-                >
+                <button class="close-btn" onclick="closeDrawer()" aria-label="Close menu">
+
                     ×
+
                 </button>
 
             </div>
 
+
             <a href="#home" onclick="goTo('home');closeDrawer();">
+
                 <span class="drawer-icon">🏠</span>
                 Home
+
             </a>
+
 
             <a href="#schedule" onclick="goTo('schedule');closeDrawer();">
+
                 <span class="drawer-icon">📅</span>
                 Schedule
+
             </a>
+
 
             <a href="#results" onclick="goTo('results');closeDrawer();">
+
                 <span class="drawer-icon">🏆</span>
                 Results
+
             </a>
+
 
             <a href="#venues" onclick="goTo('venues');closeDrawer();">
+
                 <span class="drawer-icon">📍</span>
                 Venues
+
             </a>
+
 
             <a href="#map" onclick="goTo('map');closeDrawer();">
+
                 <span class="drawer-icon">🗺️</span>
                 City Map
+
             </a>
+
 
             <a href="#announcements" onclick="goTo('announcements');closeDrawer();">
+
                 <span class="drawer-icon">📢</span>
                 Announcements
+
             </a>
+
 
             <a href="#billeting" onclick="goTo('billeting');closeDrawer();">
+
                 <span class="drawer-icon">🛏️</span>
                 Billeting
+
             </a>
+
 
             <a href="#transport" onclick="goTo('transport');closeDrawer();">
+
                 <span class="drawer-icon">🚌</span>
                 Transportation
+
             </a>
+
 
             <a href="#emergency" onclick="goTo('emergency');closeDrawer();">
+
                 <span class="drawer-icon">🚨</span>
                 Emergency
+
             </a>
 
+
             <a href="#tourism" onclick="goTo('tourism');closeDrawer();">
+
                 <span class="drawer-icon">🌴</span>
                 Explore Calbayog
+
             </a>
 
         </div>
 
+
     </div>
 
     <!-- =====================================================
-         HERO
-    ====================================================== -->
+     HERO
+===================================================== -->
 
     <section class="hero" id="home">
+
 
         <div class="hero-content">
 
@@ -1539,9 +1541,11 @@
 
             </div>
 
+
             <h2>
                 ONE REGION. ONE SPIRIT. ONE GOAL.
             </h2>
+
 
             <p>
                 Your digital guide to EVRAA 2026.
@@ -1549,69 +1553,96 @@
 
         </div>
 
+
     </section>
 
     <!-- =====================================================
-         QUICK ACCESS
-    ====================================================== -->
+     QUICK ACCESS
+===================================================== -->
 
     <div class="quick-wrap">
+
 
         <div class="quick-grid">
 
             <button class="quick" onclick="goTo('schedule')">
+
                 <span class="quick-icon">▣</span>
                 <span>SCHEDULE</span>
+
             </button>
+
 
             <button class="quick" onclick="goTo('results')">
+
                 <span class="quick-icon">🏆</span>
                 <span>RESULTS</span>
+
             </button>
+
 
             <button class="quick" onclick="goTo('venues')">
+
                 <span class="quick-icon">📍</span>
                 <span>VENUES</span>
+
             </button>
+
 
             <button class="quick" onclick="goTo('map')">
+
                 <span class="quick-icon">🗺</span>
                 <span>MAP</span>
+
             </button>
+
 
             <button class="quick" onclick="goTo('billeting')">
+
                 <span class="quick-icon">🛏</span>
                 <span>BILLETING</span>
+
             </button>
+
 
             <button class="quick" onclick="goTo('transport')">
+
                 <span class="quick-icon">🚌</span>
                 <span>TRANSPORTATION</span>
+
             </button>
+
 
             <button class="quick" onclick="goTo('emergency')">
+
                 <span class="quick-icon">✚</span>
                 <span>EMERGENCY</span>
+
             </button>
 
+
             <button class="quick" onclick="goTo('tourism')">
+
                 <span class="quick-icon">🌴</span>
                 <span>EXPLORE<br>CALBAYOG</span>
+
             </button>
 
         </div>
 
+
     </div>
 
     <!-- =====================================================
-         MAIN
-    ====================================================== -->
+     MAIN
+===================================================== -->
 
     <main>
 
         <!-- ANNOUNCEMENTS -->
 
         <section class="section" id="announcements">
+
 
             <div class="container">
 
@@ -1621,14 +1652,14 @@
                         LATEST ANNOUNCEMENTS
                     </h2>
 
-                    <button
-                        class="view-all"
-                        onclick="goTo('announcements')"
-                    >
+                    <button class="view-all" onclick="goTo('announcements')">
+
                         View All ›
+
                     </button>
 
                 </div>
+
 
                 <div class="card">
 
@@ -1660,11 +1691,13 @@
 
             </div>
 
+
         </section>
 
         <!-- SCHEDULE -->
 
         <section class="section" id="schedule">
+
 
             <div class="container">
 
@@ -1674,16 +1707,17 @@
                         TODAY'S EVENTS
                     </h2>
 
-                    <button
-                        class="view-all"
-                        onclick="goTo('schedule')"
-                    >
+                    <button class="view-all" onclick="goTo('schedule')">
+
                         View All ›
+
                     </button>
 
                 </div>
 
+
                 <div class="card">
+
 
                     <div class="event-row">
 
@@ -1698,9 +1732,11 @@
 
                         </div>
 
+
                         <div class="sport">
                             🏀
                         </div>
+
 
                         <div class="event-info">
 
@@ -1719,11 +1755,14 @@
 
                         </div>
 
+
                         <span class="event-arrow">
                             ›
                         </span>
 
                     </div>
+
+
 
                     <div class="event-row">
 
@@ -1738,9 +1777,11 @@
 
                         </div>
 
+
                         <div class="sport">
                             🏐
                         </div>
+
 
                         <div class="event-info">
 
@@ -1759,6 +1800,7 @@
 
                         </div>
 
+
                         <span class="event-arrow">
                             ›
                         </span>
@@ -1769,11 +1811,13 @@
 
             </div>
 
+
         </section>
 
         <!-- RESULTS -->
 
         <section class="section" id="results">
+
 
             <div class="container">
 
@@ -1789,7 +1833,9 @@
 
                 </div>
 
+
                 <div class="card">
+
 
                     <div class="result-row">
 
@@ -1815,6 +1861,8 @@
 
                     </div>
 
+
+
                     <div class="result-row">
 
                         <div class="mini-icon">
@@ -1838,6 +1886,8 @@
                         </div>
 
                     </div>
+
+
 
                     <div class="result-row">
 
@@ -1867,11 +1917,13 @@
 
             </div>
 
+
         </section>
 
         <!-- VENUES -->
 
         <section class="section" id="venues">
+
 
             <div class="container">
 
@@ -1883,7 +1935,9 @@
 
                 </div>
 
+
                 <div class="card">
+
 
                     <div class="venue-row">
 
@@ -1907,6 +1961,8 @@
 
                     </div>
 
+
+
                     <div class="venue-row">
 
                         <div class="mini-icon">
@@ -1928,6 +1984,8 @@
                         <span>›</span>
 
                     </div>
+
+
 
                     <div class="venue-row">
 
@@ -1955,13 +2013,15 @@
 
             </div>
 
+
         </section>
 
         <!-- =====================================================
-             MAP
-        ====================================================== -->
+     MAP
+===================================================== -->
 
         <section class="section" id="map">
+
 
             <div class="container">
 
@@ -1973,99 +2033,99 @@
 
                 </div>
 
+
                 <div class="map-venue-btns" id="mapVenueBtns">
 
-                    <button
-                        class="map-venue-btn active"
-                        data-idx="all"
-                        onclick="mapFilterVenue(this,'all')"
-                    >
+
+                    <button class="map-venue-btn active" data-idx="all" onclick="mapFilterVenue(this,'all')">
+
                         🏙️ All Venues
+
                     </button>
 
-                    <button
-                        class="map-venue-btn"
-                        data-idx="0"
-                        onclick="mapFilterVenue(this,0)"
-                    >
+
+                    <button class="map-venue-btn" data-idx="0" onclick="mapFilterVenue(this,0)">
+
                         🏅 Sports Complex
+
                     </button>
 
-                    <button
-                        class="map-venue-btn"
-                        data-idx="1"
-                        onclick="mapFilterVenue(this,1)"
-                    >
+
+                    <button class="map-venue-btn" data-idx="1" onclick="mapFilterVenue(this,1)">
+
                         🏊 Aquatic Center
+
                     </button>
 
-                    <button
-                        class="map-venue-btn"
-                        data-idx="2"
-                        onclick="mapFilterVenue(this,2)"
-                    >
+
+                    <button class="map-venue-btn" data-idx="2" onclick="mapFilterVenue(this,2)">
+
                         🏐 Convention Center
+
                     </button>
 
-                    <button
-                        class="map-venue-btn"
-                        data-idx="3"
-                        onclick="mapFilterVenue(this,3)"
-                    >
+
+                    <button class="map-venue-btn" data-idx="3" onclick="mapFilterVenue(this,3)">
+
                         🏃 Athletics Track
+
                     </button>
 
-                    <button
-                        class="map-venue-btn"
-                        data-idx="4"
-                        onclick="mapFilterVenue(this,4)"
-                    >
+
+                    <button class="map-venue-btn" data-idx="4" onclick="mapFilterVenue(this,4)">
+
                         🏸 Badminton Hall
+
                     </button>
 
-                    <button
-                        class="map-venue-btn"
-                        data-idx="5"
-                        onclick="mapFilterVenue(this,5)"
-                    >
+
+                    <button class="map-venue-btn" data-idx="5" onclick="mapFilterVenue(this,5)">
+
                         🥊 Boxing Gym
+
                     </button>
 
                 </div>
+
+
 
                 <div class="map-wrapper">
 
                     <div id="city-map"></div>
 
-                    <button
-                        class="map-locate-btn"
-                        id="locateBtn"
-                        onclick="locateMe()"
-                    >
+
+                    <button class="map-locate-btn" id="locateBtn" onclick="locateMe()">
+
                         <span class="loc-icon">
                             📍
                         </span>
 
                         Show My Location
+
                     </button>
 
                 </div>
 
+
                 <p class="map-tip">
 
-                    📌 Tap a venue button above to jump to it
+                    📌 Tap a venue button to jump to it
                     &nbsp;|&nbsp;
-                    📍 "Show My Location" requires GPS permission
+                    🧭 Tap a venue marker and choose "Go To"
+                    &nbsp;|&nbsp;
+                    📍 GPS permission required
 
                 </p>
 
             </div>
+
 
         </section>
 
         <!-- BILLETING -->
 
         <section class="section" id="billeting">
+
 
             <div class="container">
 
@@ -2077,7 +2137,9 @@
 
                 </div>
 
+
                 <div class="feature-grid">
+
 
                     <div class="feature-card">
 
@@ -2094,6 +2156,7 @@
                         </p>
 
                     </div>
+
 
                     <div class="feature-card">
 
@@ -2115,11 +2178,13 @@
 
             </div>
 
+
         </section>
 
         <!-- TRANSPORT -->
 
         <section class="section" id="transport">
+
 
             <div class="container">
 
@@ -2131,7 +2196,9 @@
 
                 </div>
 
+
                 <div class="card">
+
 
                     <div class="transport-row">
 
@@ -2155,6 +2222,8 @@
 
                     </div>
 
+
+
                     <div class="transport-row">
 
                         <div class="mini-icon">
@@ -2176,6 +2245,8 @@
                         <span>›</span>
 
                     </div>
+
+
 
                     <div class="transport-row">
 
@@ -2203,11 +2274,13 @@
 
             </div>
 
+
         </section>
 
         <!-- TOURISM -->
 
         <section class="section" id="tourism">
+
 
             <div class="container">
 
@@ -2223,15 +2296,14 @@
 
                 </div>
 
+
                 <div class="tour-scroll">
+
 
                     <article class="card tour-card">
 
-                        <img
-                            src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=600&q=80"
-                            alt="Nature destination"
-                            draggable="false"
-                        >
+                        <img src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=600&q=80"
+                            alt="Nature destination">
 
                         <div class="tour-text">
 
@@ -2247,13 +2319,12 @@
 
                     </article>
 
+
+
                     <article class="card tour-card">
 
-                        <img
-                            src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80"
-                            alt="Coastal destination"
-                            draggable="false"
-                        >
+                        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80"
+                            alt="Coastal destination">
 
                         <div class="tour-text">
 
@@ -2269,13 +2340,12 @@
 
                     </article>
 
+
+
                     <article class="card tour-card">
 
-                        <img
-                            src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=600&q=80"
-                            alt="Mountain destination"
-                            draggable="false"
-                        >
+                        <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=600&q=80"
+                            alt="Mountain destination">
 
                         <div class="tour-text">
 
@@ -2295,11 +2365,13 @@
 
             </div>
 
+
         </section>
 
         <!-- EMERGENCY -->
 
         <section class="section emergency" id="emergency">
+
 
             <div class="container">
 
@@ -2311,7 +2383,9 @@
 
                 </div>
 
+
                 <div class="emergency-grid">
+
 
                     <div class="emergency-card">
 
@@ -2327,6 +2401,8 @@
 
                     </div>
 
+
+
                     <div class="emergency-card">
 
                         <div>🚓</div>
@@ -2340,6 +2416,8 @@
                         </span>
 
                     </div>
+
+
 
                     <div class="emergency-card">
 
@@ -2359,15 +2437,17 @@
 
             </div>
 
+
         </section>
 
     </main>
 
     <!-- =====================================================
-         FOOTER
-    ====================================================== -->
+     FOOTER
+===================================================== -->
 
     <footer>
+
 
         <h3>
             EVRAA 2026 • CALBAYOG CITY
@@ -2381,125 +2461,132 @@
             © 2026 EVRAA. All Rights Reserved.
         </p>
 
+
     </footer>
 
     <!-- =====================================================
-         SCROLL BUTTONS
-    ====================================================== -->
+     SCROLL BUTTONS
+===================================================== -->
 
     <div class="scroll-buttons">
 
-        <button
-            class="scroll-btn"
-            onclick="goToTop()"
-            title="Back to top"
-            aria-label="Back to top"
-        >
+
+        <button class="scroll-btn" onclick="goToTop()" title="Back to top" aria-label="Back to top">
+
             ↑
+
         </button>
 
-        <button
-            class="scroll-btn"
-            onclick="goToBottom()"
-            title="Go to bottom"
-            aria-label="Go to bottom"
-        >
+
+        <button class="scroll-btn" onclick="goToBottom()" title="Go to bottom" aria-label="Go to bottom">
+
             ↓
+
         </button>
+
 
     </div>
 
     <!-- =====================================================
-         MOBILE BOTTOM NAV
-    ====================================================== -->
+     MOBILE BOTTOM NAV
+===================================================== -->
 
     <nav class="bottom-nav">
 
-        <button
-            class="bottom-item active"
-            onclick="goTo('home')"
-        >
+
+        <button class="bottom-item active" onclick="goTo('home')">
+
             <span class="bi">🏠</span>
             Home
+
         </button>
 
-        <button
-            class="bottom-item"
-            onclick="goTo('schedule')"
-        >
+
+        <button class="bottom-item" onclick="goTo('schedule')">
+
             <span class="bi">📅</span>
             Schedule
+
         </button>
 
-        <button
-            class="bottom-item"
-            onclick="goTo('results')"
-        >
+
+        <button class="bottom-item" onclick="goTo('results')">
+
             <span class="bi">🏆</span>
             Results
+
         </button>
 
-        <button
-            class="bottom-item"
-            onclick="goTo('map')"
-        >
+
+        <button class="bottom-item" onclick="goTo('map')">
+
             <span class="bi">🗺️</span>
             Map
+
         </button>
 
-        <button
-            class="bottom-item"
-            onclick="goTo('emergency')"
-        >
+
+        <button class="bottom-item" onclick="goTo('emergency')">
+
             <span class="bi">🚨</span>
             Emergency
+
         </button>
+
 
     </nav>
 
     <!-- =====================================================
-         LEAFLET JS
-    ====================================================== -->
+     LEAFLET JS
+===================================================== -->
 
-    <script
-        src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-        crossorigin=""
-    ></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin="">
+    </script>
 
     <script>
 
         /* =====================================================
-           GLOBAL MAP VARIABLES
-        ====================================================== */
+           GLOBAL VARIABLES
+        ===================================================== */
 
         let map = null;
+
         let locationMarker = null;
+
         let locationCircle = null;
+
+        let routeLine = null;
+
+        let destinationMarker = null;
 
         const markerLayers = [];
 
+
         /* =====================================================
            VENUE DATA
-        ====================================================== */
+        
+           EDIT LAT / LNG HERE WHEN YOU HAVE
+           THE CORRECT COORDINATES.
+        ===================================================== */
 
         const VENUES = [
 
             {
-                name: "Calbayog City Sports Complex",
+                name: "Calbayog City Sports Center",
                 emoji: "🏅",
                 color: "#1457a6",
-                lat: 12.0690,
-                lng: 124.6050,
+                lat: 12.068542137976914,
+                lng: 124.58547662662404,
                 sports: "Basketball, Volleyball, Badminton",
-                address: "Brgy. San Policarpo, Calbayog City"
+                address: "Brgy. Capoocan, Calbayog City"
             },
 
             {
                 name: "City Aquatic Center",
                 emoji: "🏊",
                 color: "#0e8fd4",
-                lat: 12.0720,
-                lng: 124.6100,
+                lat: 12.06608963537556,
+                lng: 124.5916092847248,
                 sports: "Swimming, Diving",
                 address: "Calbayog City, Samar"
             },
@@ -2515,11 +2602,11 @@
             },
 
             {
-                name: "Athletics Track & Field",
+                name: "Northwest Samar State University",
                 emoji: "🏃",
                 color: "#d97706",
-                lat: 12.0710,
-                lng: 124.5970,
+                lat: 12.071029672646386,
+                lng: 124.59598923143054,
                 sports: "100m Sprint, Long Jump, Relay",
                 address: "Calbayog City, Samar"
             },
@@ -2546,67 +2633,85 @@
 
         ];
 
+
         /* =====================================================
            DRAWER
-        ====================================================== */
+        ===================================================== */
 
         function openDrawer() {
 
-            const drawer = document.getElementById("drawer");
+            const drawer =
+                document.getElementById("drawer");
 
-            if (!drawer) return;
+            if (drawer) {
 
-            drawer.classList.add("open");
+                drawer.classList.add("open");
 
-            document.body.style.overflow = "hidden";
-
+                document.body.style.overflow =
+                    "hidden";
+            }
         }
+
 
         function closeDrawer() {
 
-            const drawer = document.getElementById("drawer");
+            const drawer =
+                document.getElementById("drawer");
 
-            if (!drawer) return;
+            if (drawer) {
 
-            drawer.classList.remove("open");
+                drawer.classList.remove("open");
 
-            document.body.style.overflow = "";
-
+                document.body.style.overflow =
+                    "";
+            }
         }
+
 
         function closeDrawerOutside(event) {
 
-            if (event.target.id === "drawer") {
-                closeDrawer();
-            }
+            if (
+                event.target &&
+                event.target.id === "drawer"
+            ) {
 
+                closeDrawer();
+
+            }
         }
 
+
         /* =====================================================
-           SCROLL TO SECTION
-        ====================================================== */
+           SCROLL
+        ===================================================== */
 
         function goTo(id) {
 
-            const el = document.getElementById(id);
+            const el =
+                document.getElementById(id);
 
             if (!el) return;
 
+
             const header =
                 document.querySelector(".topbar");
+
 
             const headerHeight =
                 header
                     ? header.offsetHeight
                     : 0;
 
+
             const extraSpace = 14;
+
 
             const targetY =
                 el.getBoundingClientRect().top +
                 window.pageYOffset -
                 headerHeight -
                 extraSpace;
+
 
             window.scrollTo({
 
@@ -2616,36 +2721,35 @@
 
             });
 
-            /*
-             * Leaflet must recalculate its dimensions
-             * after the map section is brought into view.
-             */
 
-            if (id === "map") {
+            if (
+                id === "map" &&
+                map
+            ) {
 
-                if (map) {
+                setTimeout(
+                    function () {
 
-                    setTimeout(function () {
                         map.invalidateSize(true);
-                    }, 100);
 
-                    setTimeout(function () {
+                    },
+                    300
+                );
+
+
+                setTimeout(
+                    function () {
+
                         map.invalidateSize(true);
-                    }, 400);
 
-                    setTimeout(function () {
-                        map.invalidateSize(true);
-                    }, 800);
-
-                }
+                    },
+                    800
+                );
 
             }
 
         }
 
-        /* =====================================================
-           TOP / BOTTOM
-        ====================================================== */
 
         function goToTop() {
 
@@ -2659,14 +2763,19 @@
 
         }
 
+
         function goToBottom() {
 
             const maxScroll =
                 Math.max(
+
                     0,
+
                     document.documentElement.scrollHeight -
                     window.innerHeight
+
                 );
+
 
             window.scrollTo({
 
@@ -2678,44 +2787,56 @@
 
         }
 
+
         /* =====================================================
-           ESC KEY
-        ====================================================== */
+           ESCAPE
+        ===================================================== */
 
         document.addEventListener(
             "keydown",
             function (event) {
 
                 if (event.key === "Escape") {
+
                     closeDrawer();
+
                 }
 
             }
         );
 
+
         /* =====================================================
            MOBILE ACTIVE NAV
-        ====================================================== */
+        ===================================================== */
 
         const sections =
             document.querySelectorAll(
                 "main .section,#home"
             );
 
+
         const bottomItems =
             document.querySelectorAll(
                 ".bottom-item"
             );
 
+
         window.addEventListener(
             "scroll",
             function () {
 
-                if (window.innerWidth > 760) {
+                if (
+                    window.innerWidth > 760
+                ) {
+
                     return;
+
                 }
 
+
                 let current = "home";
+
 
                 sections.forEach(
                     function (section) {
@@ -2723,63 +2844,77 @@
                         const rect =
                             section.getBoundingClientRect();
 
+
                         if (
                             rect.top <= 120 &&
                             rect.bottom >= 120
                         ) {
 
-                            current = section.id;
+                            current =
+                                section.id;
 
                         }
 
                     }
                 );
 
+
                 bottomItems.forEach(
                     function (item) {
 
-                        item.classList.remove("active");
+                        item.classList.remove(
+                            "active"
+                        );
 
                     }
                 );
 
+
                 const navMap = {
 
                     home: 0,
+
                     schedule: 1,
+
                     results: 2,
+
                     map: 3,
+
                     emergency: 4
 
                 };
 
+
+                const index =
+                    navMap[current];
+
+
                 if (
-                    Object.prototype.hasOwnProperty.call(
-                        navMap,
-                        current
-                    )
+                    index !== undefined &&
+                    bottomItems[index]
                 ) {
 
-                    bottomItems[
-                        navMap[current]
-                    ]?.classList.add("active");
+                    bottomItems[index]
+                        .classList
+                        .add("active");
 
                 }
 
-            },
-            {
-                passive: true
             }
         );
 
+
         /* =====================================================
            INITIALIZE MAP
-        ====================================================== */
+        ===================================================== */
 
         function initMap() {
 
             const mapElement =
-                document.getElementById("city-map");
+                document.getElementById(
+                    "city-map"
+                );
+
 
             if (!mapElement) {
 
@@ -2791,62 +2926,65 @@
 
             }
 
-            /*
-             * Prevent double initialization.
-             */
-
-            if (map) {
-
-                setTimeout(function () {
-                    map.invalidateSize(true);
-                }, 100);
-
-                return;
-
-            }
-
-            /*
-             * Make sure Leaflet is loaded.
-             */
 
             if (
                 typeof L === "undefined"
             ) {
 
                 console.error(
-                    "Leaflet JS failed to load."
+                    "Leaflet did not load."
                 );
 
                 return;
 
             }
 
+
             /*
-             * Create Leaflet map.
+             * Prevent duplicate map initialization.
              */
 
-            map = L.map(
-                "city-map",
-                {
-                    center: [
-                        12.0680,
-                        124.6020
-                    ],
+            if (map) {
 
-                    zoom: 14,
+                map.invalidateSize(true);
 
-                    zoomControl: true,
+                return;
 
-                    attributionControl: true
-                }
-            );
+            }
+
 
             /*
-             * OpenStreetMap
+             * Create map.
+             */
+
+            map =
+                L.map(
+                    "city-map",
+                    {
+
+                        center: [
+                            12.0680,
+                            124.6020
+                        ],
+
+                        zoom: 14,
+
+                        zoomControl: true,
+
+                        attributionControl: true
+
+                    }
+                );
+
+
+            /*
+             * OpenStreetMap tiles.
              */
 
             L.tileLayer(
+
                 "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+
                 {
 
                     attribution:
@@ -2854,39 +2992,48 @@
 
                     maxZoom: 19,
 
-                    minZoom: 10,
-
-                    crossOrigin: true
+                    minZoom: 10
 
                 }
+
             ).addTo(map);
+
 
             /*
              * Create venue markers.
              */
 
             VENUES.forEach(
+
                 function (venue, index) {
+
 
                     const icon =
                         L.divIcon({
 
                             html: `
-                                <div style="
-                                    background:${venue.color};
-                                    width:34px;
-                                    height:34px;
-                                    border-radius:50%;
-                                    display:flex;
-                                    align-items:center;
-                                    justify-content:center;
-                                    font-size:17px;
-                                    box-shadow:0 3px 10px rgba(0,0,0,.35);
-                                    border:2.5px solid #fff;
-                                ">
-                                    ${venue.emoji}
-                                </div>
-                            `,
+
+                        <div style="
+                            background:${venue.color};
+                            width:34px;
+                            height:34px;
+                            border-radius:50%;
+                            display:flex;
+                            align-items:center;
+                            justify-content:center;
+                            font-size:17px;
+                            box-shadow:
+                                0 3px 10px
+                                rgba(0,0,0,.35);
+                            border:
+                                2.5px solid #fff;
+                        ">
+
+                            ${venue.emoji}
+
+                        </div>
+
+                    `,
 
                             className: "",
 
@@ -2907,103 +3054,123 @@
 
                         });
 
+
                     const marker =
                         L.marker(
+
                             [
                                 venue.lat,
                                 venue.lng
                             ],
+
                             {
                                 icon: icon
                             }
+
                         );
+
+
+                    /*
+                     * Popup with Go To button.
+                     */
 
                     marker.bindPopup(
 
                         `
-                        <div style="
-                            min-width:170px;
-                            font-family:Arial,sans-serif;
-                        ">
 
-                            <div style="
-                                font-size:22px;
-                                text-align:center;
-                                margin-bottom:4px;
-                            ">
-                                ${venue.emoji}
-                            </div>
+                <div style="
+                    min-width:190px;
+                    font-family:Arial,sans-serif;
+                ">
 
-                            <strong style="
-                                font-size:11px;
-                                color:#1457a6;
-                                display:block;
-                                margin-bottom:3px;
-                            ">
-                                ${venue.name}
-                            </strong>
+                    <div style="
+                        font-size:24px;
+                        text-align:center;
+                        margin-bottom:4px;
+                    ">
+                        ${venue.emoji}
+                    </div>
 
-                            <p style="
-                                font-size:9px;
-                                color:#667085;
-                                margin:4px 0;
-                            ">
-                                🏆 ${venue.sports}
-                            </p>
 
-                            <p style="
-                                font-size:9px;
-                                color:#667085;
-                                margin:4px 0;
-                            ">
-                                📍 ${venue.address}
-                            </p>
+                    <strong style="
+                        font-size:11px;
+                        color:#1457a6;
+                        display:block;
+                        margin-bottom:4px;
+                    ">
+                        ${venue.name}
+                    </strong>
 
-                            <a
-                                href="https://www.openstreetmap.org/?mlat=${venue.lat}&mlon=${venue.lng}#map=17/${venue.lat}/${venue.lng}"
-                                target="_blank"
-                                rel="noopener"
-                                style="
-                                    display:inline-block;
-                                    margin-top:7px;
-                                    font-size:9px;
-                                    font-weight:700;
-                                    color:#fff;
-                                    background:#1457a6;
-                                    padding:5px 10px;
-                                    border-radius:12px;
-                                    text-decoration:none;
-                                "
-                            >
-                                Open in Maps ↗
-                            </a>
 
-                        </div>
-                        `,
+                    <p style="
+                        font-size:9px;
+                        color:#667085;
+                        margin:4px 0;
+                    ">
+                        🏆 ${venue.sports}
+                    </p>
+
+
+                    <p style="
+                        font-size:9px;
+                        color:#667085;
+                        margin:4px 0;
+                    ">
+                        📍 ${venue.address}
+                    </p>
+
+
+                    <button
+                        onclick="goToVenue(${index})"
+                        style="
+                            display:block;
+                            width:100%;
+                            margin-top:9px;
+                            font-size:10px;
+                            font-weight:700;
+                            color:#fff;
+                            background:#1457a6;
+                            padding:7px 12px;
+                            border-radius:15px;
+                            border:none;
+                            cursor:pointer;
+                        "
+                    >
+                        🧭 Go To
+                    </button>
+
+                </div>
+
+                `,
 
                         {
-                            maxWidth: 220
+                            maxWidth: 240
                         }
 
                     );
+
 
                     marker.addTo(map);
 
                     markerLayers.push(marker);
 
                 }
+
             );
+
 
             /*
              * Fit all venues.
              */
 
             setTimeout(
+
                 function () {
 
                     if (!map) return;
 
                     map.invalidateSize(true);
+
 
                     if (
                         markerLayers.length > 0
@@ -3014,23 +3181,29 @@
                                 markerLayers
                             );
 
+
                         map.fitBounds(
+
                             group
                                 .getBounds()
                                 .pad(.18)
+
                         );
 
                     }
 
                 },
+
                 500
+
             );
 
         }
 
+
         /* =====================================================
-           VENUE FILTER
-        ====================================================== */
+           MAP VENUE FILTER
+        ===================================================== */
 
         function mapFilterVenue(
             btn,
@@ -3039,24 +3212,17 @@
 
             if (!map) {
 
-                /*
-                 * If map has not initialized yet,
-                 * try initializing it instead of failing silently.
-                 */
-
-                initMap();
-
-                if (!map) {
-                    return;
-                }
+                return;
 
             }
+
 
             document
                 .querySelectorAll(
                     ".map-venue-btn"
                 )
                 .forEach(
+
                     function (button) {
 
                         button.classList.remove(
@@ -3064,45 +3230,64 @@
                         );
 
                     }
+
                 );
 
+
             if (btn) {
-                btn.classList.add("active");
+
+                btn.classList.add(
+                    "active"
+                );
+
             }
 
+
             /*
-             * ALL VENUES
+             * ALL
              */
 
             if (idx === "all") {
 
-                if (!markerLayers.length) {
+                if (
+                    markerLayers.length === 0
+                ) {
+
                     return;
+
                 }
+
 
                 const group =
                     L.featureGroup(
                         markerLayers
                     );
 
+
                 map.fitBounds(
+
                     group
                         .getBounds()
                         .pad(.18),
+
                     {
                         animate: true
                     }
+
                 );
 
                 return;
 
             }
 
+
             const venue =
                 VENUES[idx];
 
+
             const marker =
                 markerLayers[idx];
+
 
             if (
                 !venue ||
@@ -3112,6 +3297,7 @@
                 return;
 
             }
+
 
             map.setView(
 
@@ -3128,20 +3314,655 @@
 
             );
 
+
             setTimeout(
+
                 function () {
 
                     marker.openPopup();
 
                 },
+
                 450
+
             );
 
         }
 
+
         /* =====================================================
-           GEOLOCATION
-        ====================================================== */
+           GO TO VENUE
+           BASIC GPS VERSION
+           NO GOOGLE MAPS
+           NO BACKEND
+        ===================================================== */
+
+        function goToVenue(index) {
+
+            if (!map) {
+
+                alert(
+                    "Map is still loading. Please try again."
+                );
+
+                return;
+
+            }
+
+
+            const venue =
+                VENUES[index];
+
+
+            if (!venue) {
+
+                return;
+
+            }
+
+
+            if (
+                !navigator.geolocation
+            ) {
+
+                alert(
+                    "Your browser does not support location services."
+                );
+
+                return;
+
+            }
+
+
+            /*
+             * Close current popup.
+             */
+
+            map.closePopup();
+
+
+            /*
+             * Temporary loading popup.
+             */
+
+            L.popup()
+
+                .setLatLng([
+                    venue.lat,
+                    venue.lng
+                ])
+
+                .setContent(`
+
+            <div style="
+                text-align:center;
+                font-family:Arial,sans-serif;
+                padding:5px;
+            ">
+
+                <div style="
+                    font-size:22px;
+                ">
+                    🧭
+                </div>
+
+                <strong style="
+                    color:#1457a6;
+                    font-size:11px;
+                ">
+                    Finding your location...
+                </strong>
+
+                <p style="
+                    font-size:8px;
+                    color:#667085;
+                    margin-top:4px;
+                ">
+                    Please allow GPS permission.
+                </p>
+
+            </div>
+
+        `)
+
+                .openOn(map);
+
+
+            navigator.geolocation.getCurrentPosition(
+
+                function (position) {
+
+
+                    const userLat =
+                        position.coords.latitude;
+
+
+                    const userLng =
+                        position.coords.longitude;
+
+
+                    const accuracy =
+                        position.coords.accuracy;
+
+
+                    /*
+                     * Remove previous route.
+                     */
+
+                    if (routeLine) {
+
+                        map.removeLayer(
+                            routeLine
+                        );
+
+                        routeLine = null;
+
+                    }
+
+
+                    /*
+                     * Remove old destination marker.
+                     */
+
+                    if (destinationMarker) {
+
+                        map.removeLayer(
+                            destinationMarker
+                        );
+
+                        destinationMarker = null;
+
+                    }
+
+
+                    /*
+                     * Remove old location marker.
+                     */
+
+                    if (locationMarker) {
+
+                        map.removeLayer(
+                            locationMarker
+                        );
+
+                        locationMarker = null;
+
+                    }
+
+
+                    /*
+                     * USER ICON
+                     */
+
+                    const userIcon =
+                        L.divIcon({
+
+                            html: `
+
+                        <div style="
+                            width:20px;
+                            height:20px;
+                            background:#1457a6;
+                            border:3px solid #fff;
+                            border-radius:50%;
+                            box-shadow:
+                                0 0 0 5px
+                                rgba(20,87,166,.25);
+                        "></div>
+
+                    `,
+
+                            className: "",
+
+                            iconSize: [
+                                20,
+                                20
+                            ],
+
+                            iconAnchor: [
+                                10,
+                                10
+                            ]
+
+                        });
+
+
+                    /*
+                     * DESTINATION ICON
+                     */
+
+                    const destinationIcon =
+                        L.divIcon({
+
+                            html: `
+
+                        <div style="
+                            width:38px;
+                            height:38px;
+                            background:${venue.color};
+                            border:3px solid #fff;
+                            border-radius:50%;
+                            display:flex;
+                            align-items:center;
+                            justify-content:center;
+                            font-size:19px;
+                            box-shadow:
+                                0 3px 10px
+                                rgba(0,0,0,.35);
+                        ">
+
+                            ${venue.emoji}
+
+                        </div>
+
+                    `,
+
+                            className: "",
+
+                            iconSize: [
+                                38,
+                                38
+                            ],
+
+                            iconAnchor: [
+                                19,
+                                38
+                            ]
+
+                        });
+
+
+                    /*
+                     * USER MARKER
+                     */
+
+                    locationMarker =
+                        L.marker(
+
+                            [
+                                userLat,
+                                userLng
+                            ],
+
+                            {
+                                icon: userIcon
+                            }
+
+                        )
+                            .addTo(map);
+
+
+                    locationMarker.bindPopup(`
+
+                <div style="
+                    font-family:Arial,sans-serif;
+                    text-align:center;
+                ">
+
+                    <strong style="
+                        font-size:11px;
+                        color:#1457a6;
+                    ">
+                        📍 You are here
+                    </strong>
+
+                    <br>
+
+                    <span style="
+                        font-size:8px;
+                        color:#667085;
+                    ">
+                        Accuracy:
+                        ~${Math.round(accuracy)}m
+                    </span>
+
+                </div>
+
+            `);
+
+
+                    /*
+                     * DESTINATION MARKER
+                     */
+
+                    destinationMarker =
+                        L.marker(
+
+                            [
+                                venue.lat,
+                                venue.lng
+                            ],
+
+                            {
+                                icon:
+                                    destinationIcon
+                            }
+
+                        )
+                            .addTo(map);
+
+
+                    destinationMarker.bindPopup(`
+
+                <div style="
+                    font-family:Arial,sans-serif;
+                    text-align:center;
+                ">
+
+                    <div style="
+                        font-size:25px;
+                    ">
+                        ${venue.emoji}
+                    </div>
+
+                    <strong style="
+                        color:#1457a6;
+                        font-size:11px;
+                    ">
+                        ${venue.name}
+                    </strong>
+
+                    <p style="
+                        font-size:8px;
+                        color:#667085;
+                        margin-top:5px;
+                    ">
+                        📍 Destination
+                    </p>
+
+                </div>
+
+            `);
+
+
+                    /*
+                     * DRAW DASHED LINE
+                     */
+
+                    routeLine =
+                        L.polyline(
+
+                            [
+
+                                [
+                                    userLat,
+                                    userLng
+                                ],
+
+                                [
+                                    venue.lat,
+                                    venue.lng
+                                ]
+
+                            ],
+
+                            {
+
+                                color: "#1457a6",
+
+                                weight: 5,
+
+                                opacity: .85,
+
+                                dashArray: "10,10",
+
+                                lineCap: "round"
+
+                            }
+
+                        )
+                            .addTo(map);
+
+
+                    /*
+                     * Calculate approximate distance.
+                     */
+
+                    const distance =
+                        map.distance(
+
+                            [
+                                userLat,
+                                userLng
+                            ],
+
+                            [
+                                venue.lat,
+                                venue.lng
+                            ]
+
+                        );
+
+
+                    let distanceText;
+
+
+                    if (
+                        distance >= 1000
+                    ) {
+
+                        distanceText =
+                            (
+                                distance / 1000
+                            ).toFixed(2)
+                            + " km";
+
+                    }
+
+                    else {
+
+                        distanceText =
+                            Math.round(distance)
+                            + " m";
+
+                    }
+
+
+                    /*
+                     * Fit user + destination.
+                     */
+
+                    const bounds =
+                        L.latLngBounds(
+
+                            [
+                                userLat,
+                                userLng
+                            ],
+
+                            [
+                                venue.lat,
+                                venue.lng
+                            ]
+
+                        );
+
+
+                    map.fitBounds(
+
+                        bounds.pad(.25),
+
+                        {
+                            animate: true
+                        }
+
+                    );
+
+
+                    /*
+                     * Show destination information.
+                     */
+
+                    setTimeout(
+
+                        function () {
+
+                            L.popup()
+
+                                .setLatLng([
+
+                                    venue.lat,
+                                    venue.lng
+
+                                ])
+
+                                .setContent(`
+
+                            <div style="
+                                font-family:Arial,sans-serif;
+                                min-width:190px;
+                                text-align:center;
+                            ">
+
+                                <div style="
+                                    font-size:27px;
+                                ">
+                                    ${venue.emoji}
+                                </div>
+
+
+                                <strong style="
+                                    display:block;
+                                    color:#1457a6;
+                                    font-size:12px;
+                                    margin-top:3px;
+                                ">
+                                    ${venue.name}
+                                </strong>
+
+
+                                <div style="
+                                    margin-top:8px;
+                                    padding:8px;
+                                    background:#edf5ff;
+                                    border-radius:9px;
+                                ">
+
+                                    <div style="
+                                        font-size:9px;
+                                        color:#667085;
+                                    ">
+                                        Approximate distance
+                                    </div>
+
+
+                                    <strong style="
+                                        display:block;
+                                        color:#1457a6;
+                                        font-size:15px;
+                                        margin-top:2px;
+                                    ">
+                                        ${distanceText}
+                                    </strong>
+
+                                </div>
+
+
+                                <p style="
+                                    font-size:8px;
+                                    color:#98a2b3;
+                                    margin-top:7px;
+                                    line-height:1.4;
+                                ">
+                                    🧭 The dashed line shows
+                                    the direction from your
+                                    location to this venue.
+                                </p>
+
+                            </div>
+
+                        `)
+
+                                .openOn(map);
+
+                        },
+
+                        600
+
+                    );
+
+                },
+
+
+                function (error) {
+
+                    let message =
+                        "Unable to get your location.";
+
+
+                    if (
+                        error.code === 1
+                    ) {
+
+                        message =
+                            "Location access denied. Please allow location permission in your browser.";
+
+                    }
+
+
+                    else if (
+                        error.code === 2
+                    ) {
+
+                        message =
+                            "Location unavailable. Please check your GPS or network connection.";
+
+                    }
+
+
+                    else if (
+                        error.code === 3
+                    ) {
+
+                        message =
+                            "Location request timed out. Please try again.";
+
+                    }
+
+
+                    alert(message);
+
+
+                    /*
+                     * Return map to venue.
+                     */
+
+                    map.setView(
+
+                        [
+                            venue.lat,
+                            venue.lng
+                        ],
+
+                        16,
+
+                        {
+                            animate: true
+                        }
+
+                    );
+
+                },
+
+
+                {
+
+                    enableHighAccuracy: true,
+
+                    timeout: 15000,
+
+                    maximumAge: 0
+
+                }
+
+            );
+
+        }
+
+
+        /* =====================================================
+           SHOW MY LOCATION
+        ===================================================== */
 
         function locateMe() {
 
@@ -3150,11 +3971,10 @@
                     "locateBtn"
                 );
 
-            if (!btn) {
-                return;
-            }
 
-            if (!navigator.geolocation) {
+            if (
+                !navigator.geolocation
+            ) {
 
                 alert(
                     "Geolocation is not supported by your browser."
@@ -3164,39 +3984,40 @@
 
             }
 
+
             if (!map) {
 
-                initMap();
+                alert(
+                    "Map is still loading. Please try again."
+                );
 
-                if (!map) {
-
-                    alert(
-                        "Map is still loading. Please try again."
-                    );
-
-                    return;
-
-                }
+                return;
 
             }
+
 
             btn.innerHTML =
                 "⏳ Locating...";
 
             btn.disabled = true;
 
+
             navigator.geolocation.getCurrentPosition(
 
                 function (position) {
 
+
                     const lat =
                         position.coords.latitude;
+
 
                     const lng =
                         position.coords.longitude;
 
+
                     const accuracy =
                         position.coords.accuracy;
+
 
                     /*
                      * Remove previous location.
@@ -3210,6 +4031,7 @@
 
                     }
 
+
                     if (locationCircle) {
 
                         map.removeLayer(
@@ -3218,16 +4040,19 @@
 
                     }
 
+
                     /*
                      * Accuracy circle.
                      */
 
                     locationCircle =
                         L.circle(
+
                             [
                                 lat,
                                 lng
                             ],
+
                             {
 
                                 radius: accuracy,
@@ -3241,7 +4066,10 @@
                                 weight: 1.5
 
                             }
-                        ).addTo(map);
+
+                        )
+                            .addTo(map);
+
 
                     /*
                      * User icon.
@@ -3251,17 +4079,19 @@
                         L.divIcon({
 
                             html: `
-                                <div style="
-                                    width:18px;
-                                    height:18px;
-                                    background:#1457a6;
-                                    border:3px solid #fff;
-                                    border-radius:50%;
-                                    box-shadow:
-                                        0 0 0 4px
-                                        rgba(20,87,166,.28);
-                                "></div>
-                            `,
+
+                        <div style="
+                            width:18px;
+                            height:18px;
+                            background:#1457a6;
+                            border:3px solid #fff;
+                            border-radius:50%;
+                            box-shadow:
+                                0 0 0 4px
+                                rgba(20,87,166,.28);
+                        "></div>
+
+                    `,
 
                             className: "",
 
@@ -3273,50 +4103,49 @@
                             iconAnchor: [
                                 9,
                                 9
-                            ],
-
-                            popupAnchor: [
-                                0,
-                                -12
                             ]
 
                         });
 
+
                     locationMarker =
                         L.marker(
+
                             [
                                 lat,
                                 lng
                             ],
+
                             {
                                 icon: myIcon
                             }
-                        )
-                        .bindPopup(
-
-                            `
-                            <b style="font-size:10px">
-                                📍 You are here
-                            </b>
-
-                            <br>
-
-                            <span style="
-                                font-size:8px;
-                                color:#667085;
-                            ">
-                                Accuracy:
-                                ~${Math.round(accuracy)}m
-                            </span>
-                            `
 
                         )
-                        .addTo(map);
+                            .bindPopup(`
+
+                    <b style="font-size:10px">
+                        📍 You are here
+                    </b>
+
+                    <br>
+
+                    <span style="
+                        font-size:8px;
+                        color:#667085;
+                    ">
+                        Accuracy:
+                        ~${Math.round(accuracy)}m
+                    </span>
+
+                `)
+                            .addTo(map);
+
 
                     locationMarker.openPopup();
 
+
                     /*
-                     * Move map to user.
+                     * Move map.
                      */
 
                     map.flyTo(
@@ -3334,49 +4163,64 @@
 
                     );
 
+
                     btn.innerHTML =
                         '<span class="loc-icon">📍</span> My Location';
+
 
                     btn.disabled = false;
 
                 },
+
 
                 function (error) {
 
                     let message =
                         "Unable to get your location.";
 
-                    if (error.code === 1) {
+
+                    if (
+                        error.code === 1
+                    ) {
 
                         message =
                             "Location access denied. Please allow location permission in your browser.";
 
                     }
 
-                    else if (error.code === 2) {
+                    else if (
+                        error.code === 2
+                    ) {
 
                         message =
                             "Location unavailable. Please check your GPS or network connection.";
 
                     }
 
-                    else if (error.code === 3) {
+                    else if (
+                        error.code === 3
+                    ) {
 
                         message =
                             "Location request timed out. Please try again.";
 
                     }
 
+
                     alert(message);
+
 
                     btn.innerHTML =
                         '<span class="loc-icon">📍</span> Show My Location';
+
 
                     btn.disabled = false;
 
                 },
 
+
                 {
+
                     enableHighAccuracy: true,
 
                     timeout: 15000,
@@ -3389,9 +4233,10 @@
 
         }
 
+
         /* =====================================================
            WINDOW RESIZE
-        ====================================================== */
+        ===================================================== */
 
         window.addEventListener(
             "resize",
@@ -3400,12 +4245,15 @@
                 if (map) {
 
                     setTimeout(
+
                         function () {
 
                             map.invalidateSize(true);
 
                         },
+
                         150
+
                     );
 
                 }
@@ -3413,240 +4261,119 @@
             }
         );
 
+
         /* =====================================================
            PAGE LOAD
-        ====================================================== */
+        ===================================================== */
 
         window.addEventListener(
             "load",
             function () {
 
-                /*
-                 * Give browser enough time to calculate
-                 * page dimensions before Leaflet starts.
-                 */
-
                 setTimeout(
+
                     function () {
 
                         initMap();
 
                     },
+
                     300
+
                 );
 
             }
         );
 
-    </script>
 
-    <!-- =====================================================
-         BASIC SECURITY / ANTI-COPY DETERRENTS
-         
-         IMPORTANT:
-         These are deterrents only.
-         They do NOT provide real source-code protection.
-         
-         They intentionally do NOT block:
-         - normal clicks
-         - map dragging
-         - map zooming
-         - GPS
-         - scrolling
-         - Leaflet controls
-         - normal touch events
-         - Ctrl+C globally
-    ====================================================== -->
+        /* =====================================================
+           BASIC ANTI-COPY / DEVTOOLS BLOCKING
+        ===================================================== */
 
-    <script>
+        /*
+         * Right click
+         */
 
-        (function () {
+        document.addEventListener(
+            "contextmenu",
+            function (e) {
 
-            "use strict";
+                e.preventDefault();
 
-            /*
-             * Prevent context menu.
-             *
-             * We use a normal document listener instead of
-             * disabling pointer events, so Leaflet remains usable.
-             */
+            }
+        );
 
-            document.addEventListener(
-                "contextmenu",
-                function (event) {
 
-                    event.preventDefault();
+        /*
+         * Keyboard shortcuts
+         */
 
-                },
-                false
-            );
+        document.addEventListener(
+            "keydown",
+            function (e) {
 
-            /*
-             * Prevent common developer-tool / source shortcuts.
-             *
-             * This does NOT interfere with normal map controls.
-             */
+                /*
+                 * F12
+                 */
 
-            document.addEventListener(
-                "keydown",
-                function (event) {
+                if (
+                    e.key === "F12"
+                ) {
 
-                    const key =
-                        String(event.key || "").toLowerCase();
-
-                    /*
-                     * F12
-                     */
-
-                    if (event.key === "F12") {
-
-                        event.preventDefault();
-                        event.stopPropagation();
-
-                        return false;
-
-                    }
-
-                    /*
-                     * Ctrl + Shift + I
-                     */
-
-                    if (
-                        event.ctrlKey &&
-                        event.shiftKey &&
-                        key === "i"
-                    ) {
-
-                        event.preventDefault();
-                        event.stopPropagation();
-
-                        return false;
-
-                    }
-
-                    /*
-                     * Ctrl + Shift + J
-                     */
-
-                    if (
-                        event.ctrlKey &&
-                        event.shiftKey &&
-                        key === "j"
-                    ) {
-
-                        event.preventDefault();
-                        event.stopPropagation();
-
-                        return false;
-
-                    }
-
-                    /*
-                     * Ctrl + Shift + C
-                     *
-                     * Browser inspect-element shortcut.
-                     */
-
-                    if (
-                        event.ctrlKey &&
-                        event.shiftKey &&
-                        key === "c"
-                    ) {
-
-                        event.preventDefault();
-                        event.stopPropagation();
-
-                        return false;
-
-                    }
-
-                    /*
-                     * Ctrl + U
-                     *
-                     * View page source.
-                     */
-
-                    if (
-                        event.ctrlKey &&
-                        key === "u"
-                    ) {
-
-                        event.preventDefault();
-                        event.stopPropagation();
-
-                        return false;
-
-                    }
-
-                },
-                true
-            );
-
-            /*
-             * Prevent dragging ordinary page images.
-             *
-             * Leaflet map tiles/markers are excluded.
-             */
-
-            document.addEventListener(
-                "dragstart",
-                function (event) {
-
-                    const target =
-                        event.target;
-
-                    if (
-                        target &&
-                        target.tagName === "IMG" &&
-                        !target.closest("#city-map")
-                    ) {
-
-                        event.preventDefault();
-
-                    }
-
-                },
-                false
-            );
-
-            /*
-             * Prevent selecting text on most UI elements.
-             *
-             * We do NOT disable selection globally because that
-             * can interfere with accessibility and browser behavior.
-             */
-
-            const protectedSelectors = [
-                ".topbar",
-                ".quick",
-                ".drawer",
-                ".bottom-nav",
-                ".scroll-buttons",
-                ".map-venue-btn",
-                ".map-locate-btn"
-            ];
-
-            protectedSelectors.forEach(
-                function (selector) {
-
-                    document
-                        .querySelectorAll(selector)
-                        .forEach(
-                            function (element) {
-
-                                element.style.webkitUserSelect =
-                                    "none";
-
-                                element.style.userSelect =
-                                    "none";
-
-                            }
-                        );
+                    e.preventDefault();
+                    return;
 
                 }
-            );
 
-        })();
+
+                /*
+                 * Ctrl + Shift + I
+                 */
+
+                if (
+                    e.ctrlKey &&
+                    e.shiftKey &&
+                    e.key.toLowerCase() === "i"
+                ) {
+
+                    e.preventDefault();
+                    return;
+
+                }
+
+
+                /*
+                 * Ctrl + Shift + J
+                 */
+
+                if (
+                    e.ctrlKey &&
+                    e.shiftKey &&
+                    e.key.toLowerCase() === "j"
+                ) {
+
+                    e.preventDefault();
+                    return;
+
+                }
+
+
+                /*
+                 * Ctrl + U
+                 */
+
+                if (
+                    e.ctrlKey &&
+                    e.key.toLowerCase() === "u"
+                ) {
+
+                    e.preventDefault();
+                    return;
+
+                }
+
+            }
+        );
 
     </script>
 
