@@ -1,43 +1,69 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#1457a6">
+    <meta name="theme-color" content="#0B4F9C">
+    <meta name="description" content="EVRAA 2027 — Eastern Visayas Regional Athletic Association, Calbayog City">
+    <title>EVRAA 2027 | Calbayog City</title>
 
-    <title>EVRAA 2026 | Calbayog City</title>
+    <!-- POPPINS FONT -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
 
     <!-- LEAFLET CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
 
+    <!-- TAILWIND CSS (utility classes for icon sizing/coloring) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
     <style>
-        /* =====================================================
-           RESET
-        ===================================================== */
+        :root {
+            --primary: #0B4F9C;
+            --primary-dark: #073B78;
+            --primary-light: #EAF3FF;
+            --blue: #176FC7;
+            --gold: #F4B400;
+            --gold-light: #FFF4CC;
+            --dark: #172033;
+            --text: #344054;
+            --muted: #667085;
+            --light-muted: #98A2B3;
+            --background: #F4F7FB;
+            --white: #FFFFFF;
+            --border: #E4E7EC;
+            --danger: #D92D20;
+            --success: #16A34A;
+            --shadow: 0 8px 25px rgba(25, 45, 80, .08);
+            --shadow-hover: 0 12px 30px rgba(25, 45, 80, .14);
+            --radius: 16px;
+        }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: Arial, Helvetica, sans-serif;
+            font-family: 'Poppins', sans-serif;
         }
 
         html {
             scroll-behavior: smooth;
-            scroll-padding-top: 78px;
+            scroll-padding-top: 82px;
         }
 
         body {
-            background: #eef1f7;
-            color: #172033;
+            background: var(--background);
+            color: var(--dark);
             overflow-x: hidden;
-            padding-bottom: 0;
         }
 
         button,
-        a {
+        input,
+        textarea,
+        select {
             font: inherit;
         }
 
@@ -50,34 +76,34 @@
             color: inherit;
         }
 
+        .icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 0;
+        }
 
-        /* =====================================================
-           WELCOME / AD POPUP
-        ===================================================== */
+        .icon svg {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
 
+        /* WELCOME POPUP */
         .welcome-popup {
             position: fixed;
             inset: 0;
-
             z-index: 9999;
-
             display: flex;
             align-items: center;
             justify-content: center;
-
             padding: 20px;
-
-            background: rgba(5, 20, 45, .72);
-
-            backdrop-filter: blur(7px);
-            -webkit-backdrop-filter: blur(7px);
-
+            background: rgba(4, 24, 50, .76);
+            backdrop-filter: blur(9px);
+            -webkit-backdrop-filter: blur(9px);
             opacity: 0;
             visibility: hidden;
-
-            transition:
-                opacity .3s ease,
-                visibility .3s ease;
+            transition: opacity .3s ease, visibility .3s ease;
         }
 
         .welcome-popup.show {
@@ -86,223 +112,140 @@
         }
 
         .welcome-box {
-            width: min(390px, 92vw);
-
-            background: #fff;
-
+            width: min(430px, 94vw);
+            background: var(--white);
             border-radius: 22px;
-
             overflow: hidden;
-
             position: relative;
-
-            box-shadow:
-                0 18px 55px rgba(0, 0, 0, .30);
-
-            transform:
-                translateY(25px) scale(.96);
-
-            transition:
-                transform .3s ease;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, .30);
+            transform: translateY(25px) scale(.96);
+            transition: transform .3s ease;
         }
 
         .welcome-popup.show .welcome-box {
-            transform:
-                translateY(0) scale(1);
+            transform: translateY(0) scale(1);
         }
-
-
-        /* CLOSE BUTTON */
 
         .welcome-close {
             position: absolute;
-
-            top: 10px;
-            right: 10px;
-
+            top: 12px;
+            right: 12px;
             z-index: 5;
-
-            width: 36px;
-            height: 36px;
-
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
-
-            background: rgba(0, 0, 0, .50);
-
+            background: rgba(0, 0, 0, .55);
             color: #fff;
-
-            font-size: 21px;
-
             display: grid;
             place-items: center;
-
             cursor: pointer;
-
             transition: .2s;
         }
 
         .welcome-close:hover {
-            background: rgba(0, 0, 0, .75);
-
+            background: rgba(0, 0, 0, .8);
             transform: rotate(90deg);
         }
-
-
-        /* POPUP IMAGE */
 
         .popup-image {
             display: block;
             width: 100%;
             height: auto;
-            max-height: 70vh;
+            max-height: 62vh;
             object-fit: contain;
             object-position: center;
-            margin: 0 auto;
+            background: #eef3f8;
         }
 
-
-        /* POPUP CONTENT */
-
         .welcome-content {
-            padding: 18px 20px 21px;
-
+            padding: 23px 24px 26px;
             text-align: center;
         }
 
         .welcome-badge {
-            display: inline-block;
-
-            background: #edf5ff;
-
-            color: #1457a6;
-
-            padding: 5px 10px;
-
-            border-radius: 20px;
-
-            font-size: 9px;
-
-            font-weight: 900;
-
-            letter-spacing: .5px;
-
-            margin-bottom: 8px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--gold-light);
+            color: #9A6700;
+            padding: 7px 13px;
+            border-radius: 30px;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: .4px;
+            margin-bottom: 11px;
         }
 
         .welcome-content h2 {
-            color: #1457a6;
-
-            font-size: 22px;
-
-            font-weight: 900;
-
-            margin-bottom: 6px;
+            color: var(--primary);
+            font-size: 24px;
+            line-height: 1.25;
+            font-weight: 800;
+            margin-bottom: 8px;
         }
 
         .welcome-content p {
-            color: #667085;
-
-            font-size: 10px;
-
-            line-height: 1.5;
-
-            margin-bottom: 15px;
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.7;
+            margin-bottom: 19px;
         }
-
-
-        /* POPUP BUTTON */
 
         .welcome-button {
             display: inline-flex;
-
             align-items: center;
             justify-content: center;
-
-            gap: 6px;
-
-            min-width: 145px;
-
-            padding: 10px 18px;
-
-            border-radius: 22px;
-
-            background:
-                linear-gradient(135deg,
-                    #1457a6,
-                    #176fc7);
-
+            gap: 9px;
+            min-width: 165px;
+            padding: 12px 21px;
+            border-radius: 30px;
+            background: linear-gradient(135deg, var(--primary), var(--blue));
             color: #fff;
-
-            font-size: 10px;
-
+            font-size: 12px;
             font-weight: 800;
-
             cursor: pointer;
-
-            box-shadow:
-                0 5px 13px rgba(20, 87, 166, .25);
-
+            box-shadow: 0 7px 18px rgba(11, 79, 156, .25);
             transition: .2s;
         }
 
         .welcome-button:hover {
             transform: translateY(-2px);
-
-            box-shadow:
-                0 7px 16px rgba(20, 87, 166, .32);
+            box-shadow: 0 10px 23px rgba(11, 79, 156, .32);
         }
 
         .welcome-button:active {
             transform: scale(.96);
         }
 
-
-        /* =====================================================
-           TOP BAR
-        ===================================================== */
-
+        /* TOP BAR */
         .topbar {
             position: sticky;
             top: 0;
             z-index: 1000;
-
-            height: 62px;
-            padding: 0 18px;
-
+            height: 70px;
+            padding: 0 22px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-
             color: #fff;
-
-            background:
-                linear-gradient(135deg,
-                    #0d4e9a,
-                    #176fc7);
-
-            box-shadow:
-                0 3px 12px rgba(0, 0, 0, .18);
+            background: linear-gradient(135deg, #073B78, #0B4F9C, #176FC7);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, .18);
         }
 
         .menu-btn {
-            width: 40px;
-            height: 40px;
-
-            border-radius: 50%;
-
-            background: transparent;
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, .10);
             color: #fff;
-
             display: grid;
             place-items: center;
-
             cursor: pointer;
-
-            font-size: 25px;
+            transition: .2s;
         }
 
         .menu-btn:hover {
-            background: rgba(255, 255, 255, .12);
+            background: rgba(255, 255, 255, .18);
         }
 
         .top-title {
@@ -311,35 +254,33 @@
 
         .top-title strong {
             display: block;
-
-            font-size: 16px;
-
+            font-size: 18px;
+            font-weight: 800;
             letter-spacing: .3px;
         }
 
         .top-title span {
-            font-size: 9px;
-
+            display: block;
+            font-size: 10px;
+            font-weight: 500;
             opacity: .82;
+            margin-top: 1px;
+            letter-spacing: .5px;
         }
 
+        .top-spacer {
+            width: 44px;
+        }
 
-        /* =====================================================
-           DRAWER
-        ===================================================== */
-
+        /* DRAWER */
         .drawer {
             position: fixed;
             inset: 0;
-
             z-index: 3000;
-
-            background: rgba(0, 0, 0, .42);
-
+            background: rgba(0, 0, 0, .45);
             visibility: hidden;
             opacity: 0;
-
-            transition: .22s;
+            transition: .25s;
         }
 
         .drawer.open {
@@ -348,20 +289,13 @@
         }
 
         .drawer-panel {
-            width: min(300px, 84vw);
+            width: min(340px, 88vw);
             height: 100%;
-
             background: #fff;
-
-            padding: 22px 18px;
-
+            padding: 25px 20px;
             transform: translateX(-100%);
-
-            transition: .25s;
-
-            box-shadow:
-                8px 0 30px rgba(0, 0, 0, .18);
-
+            transition: .28s;
+            box-shadow: 10px 0 35px rgba(0, 0, 0, .20);
             overflow-y: auto;
         }
 
@@ -373,447 +307,334 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-
-            margin-bottom: 22px;
+            margin-bottom: 25px;
+            padding-bottom: 18px;
+            border-bottom: 1px solid var(--border);
         }
 
         .drawer-head h3 {
-            color: #1457a6;
+            color: var(--primary);
+            font-size: 20px;
+            font-weight: 800;
         }
 
         .close-btn {
-            width: 38px;
-            height: 38px;
-
-            border-radius: 50%;
-
-            background: #f0f3f8;
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: #F2F4F7;
             color: #555;
-
             cursor: pointer;
-
-            font-size: 20px;
+            transition: .2s;
+            display: grid;
+            place-items: center;
         }
 
         .close-btn:hover {
-            background: #e4e8ef;
+            background: #E4E7EC;
         }
 
         .drawer a {
             display: flex;
             align-items: center;
-
-            gap: 13px;
-
-            padding: 14px 10px;
-
-            border-radius: 11px;
-
-            font-weight: 700;
-
-            color: #344054;
-
+            gap: 14px;
+            padding: 13px 12px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text);
             margin-bottom: 5px;
+            transition: .2s;
         }
 
         .drawer a:hover {
-            background: #edf5ff;
-            color: #1457a6;
+            background: var(--primary-light);
+            color: var(--primary);
+            transform: translateX(3px);
         }
 
         .drawer-icon {
-            width: 30px;
-
-            text-align: center;
-
-            font-size: 20px;
+            width: 34px;
+            height: 34px;
+            border-radius: 9px;
+            background: #F1F5F9;
+            display: grid;
+            place-items: center;
+            flex-shrink: 0;
+            color: var(--primary);
         }
 
-
-        /* =====================================================
-           HERO
-        ===================================================== */
-
+        /* HERO */
         .hero {
-            min-height: 250px;
-
+            min-height: 360px;
             position: relative;
             overflow: hidden;
-
             color: #fff;
-
-            background:
-                linear-gradient(180deg,
-                    rgba(7, 54, 116, .25),
-                    rgba(5, 65, 135, .9)),
-                url("https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=1400&q=85");
-
+            background: linear-gradient(180deg, rgba(5, 45, 95, .22), rgba(4, 48, 100, .93)), url("https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=1600&q=90");
             background-size: cover;
             background-position: center;
         }
 
+        .hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, transparent 15%, rgba(3, 30, 65, .20) 100%);
+        }
+
         .hero::after {
             content: "";
-
             position: absolute;
-
-            left: -12%;
-            right: -12%;
-            bottom: -38px;
-
-            height: 85px;
-
-            background: #eef1f7;
-
-            border-radius:
-                50% 50% 0 0 / 100% 100% 0 0;
+            left: -10%;
+            right: -10%;
+            bottom: -48px;
+            height: 100px;
+            background: var(--background);
+            border-radius: 50% 50% 0 0 / 100% 100% 0 0;
         }
 
         .hero-content {
             position: relative;
-
             z-index: 1;
-
-            padding: 27px 22px 62px;
-
+            padding: 58px 22px 80px;
             text-align: center;
         }
 
         .brand {
             display: inline-flex;
-
             align-items: center;
-
-            gap: 9px;
-
+            gap: 14px;
             text-align: left;
-
-            margin-bottom: 10px;
+            margin-bottom: 19px;
         }
 
         .brand-mark {
-            width: 52px;
-            height: 52px;
-
-            border-radius: 50%;
-
-            background:
-                linear-gradient(145deg,
-                    #ff5a24,
-                    #ffca28);
-
+            width: 72px;
+            height: 72px;
+            border-radius: 18px;
+            background: linear-gradient(145deg, #F4B400, #FFD95A);
             display: grid;
             place-items: center;
-
-            font-size: 27px;
-
-            box-shadow:
-                0 4px 10px rgba(0, 0, 0, .18);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, .22);
+            transform: rotate(-3deg);
+            color: #073B78;
         }
 
         .brand h1 {
-            font-size: 31px;
-
-            line-height: .82;
-
+            font-size: 47px;
+            line-height: .95;
             font-weight: 900;
-
-            font-style: italic;
+            letter-spacing: -1.5px;
         }
 
         .brand small {
             display: block;
-
-            font-size: 7px;
-
-            letter-spacing: .55px;
-
-            margin-top: 6px;
-
-            line-height: 1.35;
+            font-size: 9px;
+            line-height: 1.55;
+            letter-spacing: .7px;
+            margin-top: 7px;
+            opacity: .88;
         }
 
         .hero h2 {
-            font-size: 10px;
-
-            letter-spacing: 1px;
-
-            margin-top: 5px;
+            font-size: 16px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            margin-top: 10px;
         }
 
         .hero p {
-            font-size: 9px;
-
+            font-size: 13px;
+            font-weight: 400;
             opacity: .9;
-
-            margin-top: 5px;
+            margin-top: 7px;
         }
 
-
-        /* =====================================================
-           QUICK MENU
-        ===================================================== */
-
+        /* QUICK ACCESS */
         .quick-wrap {
-            width: min(94%, 760px);
-
-            margin: -45px auto 0;
-
+            width: min(94%, 900px);
+            margin: -56px auto 0;
             position: relative;
-
             z-index: 20;
-
             background: #fff;
-
-            border-radius: 27px;
-
-            padding: 15px 10px 12px;
-
-            box-shadow:
-                0 7px 22px rgba(25, 45, 80, .13);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: var(--shadow);
         }
 
         .quick-grid {
             display: grid;
-
-            grid-template-columns:
-                repeat(4, 1fr);
-
-            gap: 16px 8px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px 12px;
         }
 
         .quick {
             background: none;
-
             cursor: pointer;
-
             display: flex;
-
             flex-direction: column;
-
             align-items: center;
-
-            gap: 5px;
-
-            color: #252b38;
-
+            justify-content: center;
+            gap: 8px;
+            color: var(--text);
             min-width: 0;
         }
 
         .quick-icon {
-            width: 39px;
-            height: 39px;
-
-            border-radius: 11px;
-
+            width: 54px;
+            height: 54px;
+            border-radius: 15px;
             display: grid;
             place-items: center;
-
             color: #fff;
-
-            font-size: 20px;
-
-            box-shadow:
-                0 3px 7px rgba(0, 0, 0, .1);
-
+            box-shadow: 0 5px 13px rgba(0, 0, 0, .12);
             transition: .2s;
         }
 
         .quick:hover .quick-icon {
-            transform: translateY(-2px);
+            transform: translateY(-4px);
+            box-shadow: 0 9px 18px rgba(0, 0, 0, .16);
         }
 
         .quick:nth-child(1) .quick-icon {
-            background: #2c78d0;
+            background: #2878D0;
         }
 
         .quick:nth-child(2) .quick-icon {
-            background: #35a85b;
+            background: #168A52;
         }
 
         .quick:nth-child(3) .quick-icon {
-            background: #7a48c7;
+            background: #7044B8;
         }
 
         .quick:nth-child(4) .quick-icon {
-            background: #f08422;
+            background: #E47716;
         }
 
         .quick:nth-child(5) .quick-icon {
-            background: #2e9d91;
+            background: #238F84;
         }
 
         .quick:nth-child(6) .quick-icon {
-            background: #e2386d;
+            background: #D6336C;
         }
 
         .quick:nth-child(7) .quick-icon {
-            background: #2e83b7;
+            background: #247AA8;
         }
 
         .quick:nth-child(8) .quick-icon {
-            background: #df2939;
+            background: #D92D20;
         }
 
-        .quick span {
-            font-size: 6.5px;
-
+        .quick span:last-child {
+            font-size: 11px;
             font-weight: 800;
-
             text-align: center;
-
             white-space: nowrap;
-
-            letter-spacing: .15px;
+            letter-spacing: .2px;
         }
 
-
-        /* =====================================================
-           CONTENT
-        ===================================================== */
-
+        /* CONTENT */
         .container {
-            width: min(94%, 760px);
-
+            width: min(94%, 900px);
             margin: auto;
         }
 
         .section {
-            padding: 17px 0;
-
-            scroll-margin-top: 78px;
+            padding: 27px 0;
+            scroll-margin-top: 84px;
         }
 
         .section-head {
             display: flex;
-
             align-items: center;
             justify-content: space-between;
-
-            margin-bottom: 9px;
-
+            margin-bottom: 13px;
             padding: 0 3px;
         }
 
         .section-title {
-            font-size: 10px;
-
-            font-weight: 900;
-
-            border-left:
-                3px solid #1457a6;
-
-            padding-left: 7px;
-
+            font-size: 17px;
+            font-weight: 800;
+            border-left: 4px solid var(--gold);
+            padding-left: 10px;
             text-transform: uppercase;
-
-            letter-spacing: .35px;
+            letter-spacing: .2px;
+            color: var(--dark);
         }
 
         .view-all {
-            font-size: 8px;
-
+            font-size: 12px;
             font-weight: 700;
-
-            color: #1457a6;
-
+            color: var(--primary);
             cursor: pointer;
-
             background: none;
+        }
+
+        .view-all:hover {
+            color: var(--blue);
         }
 
         .card {
             background: #fff;
-
-            border-radius: 12px;
-
-            box-shadow:
-                0 3px 12px rgba(25, 45, 80, .08);
-
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
             overflow: hidden;
         }
 
-
-        /* =====================================================
-           ANNOUNCEMENTS
-        ===================================================== */
-
+        /* ANNOUNCEMENTS */
         .announce-row {
             display: flex;
-
             align-items: center;
-
-            gap: 10px;
-
-            padding: 10px;
+            gap: 15px;
+            padding: 17px;
         }
 
         .announce-icon {
-            width: 38px;
-            height: 38px;
-
+            width: 50px;
+            height: 50px;
             flex-shrink: 0;
-
-            border-radius: 10px;
-
-            background: #7546bd;
-
+            border-radius: 14px;
+            background: #7044B8;
             color: #fff;
-
             display: grid;
             place-items: center;
-
-            font-size: 19px;
         }
 
         .announce-info {
             flex: 1;
-
             min-width: 0;
         }
 
         .announce-info h3 {
-            font-size: 8px;
-
-            margin-bottom: 3px;
+            font-size: 14px;
+            font-weight: 800;
+            margin-bottom: 4px;
         }
 
         .announce-info p {
-            font-size: 7px;
-
-            color: #667085;
-
-            line-height: 1.4;
+            font-size: 12px;
+            color: var(--muted);
+            line-height: 1.6;
         }
 
         .announce-date {
-            font-size: 6.5px;
-
-            color: #98a2b3;
-
+            font-size: 10px;
+            color: var(--light-muted);
             align-self: flex-start;
-
             white-space: nowrap;
         }
 
-
-        /* =====================================================
-           EVENTS
-        ===================================================== */
-
+        /* EVENTS */
         .event-row {
-            min-height: 67px;
-
-            padding: 9px 10px;
-
+            min-height: 100px;
+            padding: 15px 17px;
             display: flex;
-
             align-items: center;
-
-            gap: 10px;
-
-            border-bottom:
-                1px solid #edf0f5;
+            gap: 14px;
+            border-bottom: 1px solid var(--border);
         }
 
         .event-row:last-child {
@@ -821,156 +642,90 @@
         }
 
         .event-date {
-            width: 42px;
-
+            width: 62px;
             flex-shrink: 0;
-
             text-align: center;
-
-            font-size: 7px;
-
-            font-weight: 800;
-
-            color: #1457a6;
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--primary);
         }
 
         .event-date strong {
             display: block;
-
-            font-size: 16px;
+            font-size: 25px;
+            font-weight: 900;
+            line-height: 1;
         }
 
         .event-date span {
-            font-size: 7px;
-
-            color: #667085;
+            font-size: 9px;
+            color: var(--muted);
+            line-height: 1.4;
         }
 
         .sport {
-            width: 38px;
-            height: 38px;
-
+            width: 48px;
+            height: 48px;
             flex-shrink: 0;
-
-            border-radius: 50%;
-
+            border-radius: 14px;
             display: grid;
             place-items: center;
-
-            font-size: 21px;
-
-            background: #f0f3f7;
+            background: #F1F5F9;
+            color: var(--primary);
         }
 
         .event-info {
             flex: 1;
-
             min-width: 0;
         }
 
         .tag {
             display: inline-block;
-
-            padding: 3px 5px;
-
-            border-radius: 4px;
-
-            background: #edf5ff;
-
-            color: #1457a6;
-
-            font-size: 6px;
-
-            font-weight: 900;
-
-            margin-bottom: 3px;
+            padding: 4px 8px;
+            border-radius: 6px;
+            background: var(--primary-light);
+            color: var(--primary);
+            font-size: 9px;
+            font-weight: 800;
+            margin-bottom: 5px;
+            letter-spacing: .2px;
         }
 
         .event-info h3 {
-            font-size: 9px;
-
-            margin-bottom: 3px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 5px;
         }
 
         .event-info p {
-            font-size: 7px;
+            font-size: 10px;
+            color: var(--muted);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
 
-            color: #667085;
-
-            line-height: 1.45;
+        .event-info p .icon {
+            width: 11px;
+            height: 11px;
+            margin-right: 4px;
+            vertical-align: -1px;
         }
 
         .event-arrow {
-            font-size: 18px;
-
-            color: #98a2b3;
+            color: #98A2B3;
         }
 
-
-        /* =====================================================
-           FEATURES
-        ===================================================== */
-
-        .feature-grid {
-            display: grid;
-
-            grid-template-columns:
-                repeat(2, 1fr);
-
-            gap: 9px;
-        }
-
-        .feature-card {
-            background: #fff;
-
-            border-radius: 12px;
-
-            padding: 14px;
-
-            box-shadow:
-                0 3px 12px rgba(25, 45, 80, .07);
-        }
-
-        .feature-card .big-icon {
-            font-size: 24px;
-
-            margin-bottom: 7px;
-        }
-
-        .feature-card h3 {
-            font-size: 10px;
-
-            color: #1457a6;
-
-            margin-bottom: 4px;
-        }
-
-        .feature-card p {
-            font-size: 7.5px;
-
-            color: #667085;
-
-            line-height: 1.45;
-        }
-
-
-        /* =====================================================
-           ROWS
-        ===================================================== */
-
+        /* RESULTS / VENUES / TRANSPORT ROWS */
         .result-row,
         .venue-row,
         .transport-row {
-            padding: 11px 12px;
-
-            border-bottom:
-                1px solid #edf0f5;
-
+            padding: 15px 17px;
+            border-bottom: 1px solid var(--border);
             display: flex;
-
             align-items: center;
-
-            gap: 10px;
+            gap: 13px;
         }
 
         .result-row:last-child,
@@ -980,202 +735,191 @@
         }
 
         .mini-icon {
-            width: 35px;
-            height: 35px;
-
+            width: 46px;
+            height: 46px;
             flex-shrink: 0;
-
-            border-radius: 9px;
-
-            background: #edf5ff;
-
+            border-radius: 13px;
+            background: var(--primary-light);
             display: grid;
             place-items: center;
-
-            font-size: 18px;
+            color: var(--primary);
         }
 
         .row-main {
             flex: 1;
-
             min-width: 0;
         }
 
         .row-main strong {
             display: block;
-
-            font-size: 9px;
+            font-size: 13px;
+            font-weight: 700;
         }
 
         .row-main span {
             display: block;
-
-            font-size: 7px;
-
-            color: #667085;
-
+            font-size: 10px;
+            color: var(--muted);
             margin-top: 3px;
-
-            line-height: 1.4;
+            line-height: 1.55;
         }
 
         .score {
-            font-size: 10px;
-
+            font-size: 15px;
             font-weight: 900;
-
-            color: #1457a6;
-
+            color: var(--primary);
             white-space: nowrap;
         }
 
+        /* FEATURES */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+        }
 
-        /* =====================================================
-           MAP
-        ===================================================== */
+        .feature-card {
+            background: #fff;
+            border-radius: var(--radius);
+            padding: 20px;
+            box-shadow: var(--shadow);
+            transition: .2s;
+        }
 
+        .feature-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .feature-card .big-icon {
+            width: 52px;
+            height: 52px;
+            display: grid;
+            place-items: center;
+            background: var(--primary-light);
+            border-radius: 14px;
+            margin-bottom: 12px;
+            color: var(--primary);
+        }
+
+        .feature-card h3 {
+            font-size: 15px;
+            color: var(--primary);
+            font-weight: 800;
+            margin-bottom: 6px;
+        }
+
+        .feature-card p {
+            font-size: 11px;
+            color: var(--muted);
+            line-height: 1.65;
+        }
+
+        /* MAP */
         .map-venue-btns {
             display: flex;
-
             flex-wrap: wrap;
-
-            gap: 7px;
-
-            margin-top: 10px;
-
-            margin-bottom: 10px;
+            gap: 8px;
+            margin-top: 11px;
+            margin-bottom: 12px;
         }
 
         .map-venue-btn {
             background: #fff;
-
-            border:
-                1.5px solid #d0d8e8;
-
-            border-radius: 20px;
-
-            padding: 6px 11px;
-
-            font-size: 9px;
-
+            border: 1.5px solid #D0D8E8;
+            border-radius: 30px;
+            padding: 8px 13px;
+            font-size: 11px;
             font-weight: 700;
-
-            color: #344054;
-
+            color: var(--text);
             cursor: pointer;
-
             transition: .18s;
-
             display: flex;
-
             align-items: center;
+            gap: 6px;
+        }
 
-            gap: 5px;
+        .map-venue-btn .icon {
+            width: 13px;
+            height: 13px;
         }
 
         .map-venue-btn:hover,
         .map-venue-btn.active {
-            background: #1457a6;
-
+            background: var(--primary);
             color: #fff;
-
-            border-color: #1457a6;
+            border-color: var(--primary);
         }
 
         .map-wrapper {
             width: 100%;
-
-            height: 320px;
-
-            min-height: 320px;
-
+            height: 400px;
+            min-height: 400px;
             position: relative;
-
-            border-radius: 14px;
-
+            border-radius: 16px;
             overflow: hidden;
-
-            box-shadow:
-                0 4px 18px rgba(20, 40, 80, .13);
-
-            background: #dfe7ef;
+            box-shadow: 0 5px 20px rgba(20, 40, 80, .14);
+            background: #DDE6EF;
         }
 
         #city-map {
             width: 100%;
             height: 100%;
-
-            min-height: 320px;
-
-            background: #dfe7ef;
+            min-height: 400px;
+            background: #DDE6EF;
         }
 
         .map-locate-btn {
             position: absolute;
-
-            bottom: 14px;
-            right: 14px;
-
+            bottom: 16px;
+            right: 16px;
             z-index: 1000;
-
-            background: #1457a6;
-
+            background: var(--primary);
             color: #fff;
-
             border: none;
-
-            border-radius: 22px;
-
-            padding: 9px 14px;
-
+            border-radius: 30px;
+            padding: 10px 15px;
             font-size: 11px;
-
             font-weight: 700;
-
             cursor: pointer;
-
             display: flex;
-
             align-items: center;
-
-            gap: 6px;
-
-            box-shadow:
-                0 4px 12px rgba(20, 40, 80, .28);
-
+            gap: 7px;
+            box-shadow: 0 5px 14px rgba(20, 40, 80, .28);
             transition: .2s;
         }
 
         .map-locate-btn:hover {
-            background: #0d4080;
-
+            background: var(--primary-dark);
             transform: translateY(-1px);
-        }
-
-        .map-locate-btn:active {
-            transform: scale(.95);
         }
 
         .map-locate-btn:disabled {
             opacity: .7;
-
             cursor: wait;
         }
 
         .map-locate-btn .loc-icon {
-            font-size: 15px;
+            width: 15px;
+            height: 15px;
         }
 
         .map-tip {
-            font-size: 8px;
-
-            color: #98a2b3;
-
-            margin-top: 7px;
-
+            font-size: 10px;
+            color: var(--light-muted);
+            margin-top: 8px;
             text-align: center;
+            line-height: 1.6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
 
-            line-height: 1.5;
+        .map-tip .icon {
+            width: 11px;
+            height: 11px;
         }
 
         .leaflet-container {
@@ -1197,1700 +941,1508 @@
         }
 
         .leaflet-popup-content-wrapper {
-            border-radius: 12px;
+            border-radius: 14px;
         }
 
         .leaflet-popup-content {
-            margin: 10px;
+            margin: 12px;
         }
 
-
-        /* =====================================================
-           TOURISM
-        ===================================================== */
-
+        /* TOURISM */
         .tour-scroll {
             display: grid;
-
-            grid-template-columns:
-                repeat(3, 1fr);
-
-            gap: 8px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 13px;
         }
 
         .tour-card {
             min-width: 0;
+            transition: .2s;
+        }
+
+        .tour-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
         }
 
         .tour-card img {
             width: 100%;
-
-            height: 145px;
-
+            height: 190px;
             object-fit: cover;
-
             display: block;
         }
 
         .tour-text {
-            padding: 11px;
+            padding: 14px;
         }
 
         .tour-text h3 {
-            font-size: 10px;
-
-            color: #1457a6;
+            font-size: 14px;
+            color: var(--primary);
+            font-weight: 800;
         }
 
         .tour-text p {
-            font-size: 7.5px;
-
-            color: #667085;
-
-            margin-top: 4px;
-
-            line-height: 1.45;
+            font-size: 10px;
+            color: var(--muted);
+            margin-top: 5px;
+            line-height: 1.6;
         }
 
-
-        /* =====================================================
-           EMERGENCY
-        ===================================================== */
-
+        /* EMERGENCY */
         .emergency {
-            background: #fff4f4;
+            background: #FFF7F6;
         }
 
         .emergency-grid {
             display: grid;
-
-            grid-template-columns:
-                repeat(3, 1fr);
-
-            gap: 7px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
         }
 
         .emergency-card {
             background: #fff;
-
-            border-radius: 10px;
-
-            padding: 11px 5px;
-
+            border-radius: 14px;
+            padding: 18px 10px;
             text-align: center;
-
-            box-shadow:
-                0 2px 8px rgba(80, 20, 20, .06);
+            box-shadow: 0 3px 12px rgba(80, 20, 20, .07);
         }
 
         .emergency-card div {
-            font-size: 18px;
+            width: 48px;
+            height: 48px;
+            margin: 0 auto;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            background: #FFF0EE;
+            color: var(--danger);
         }
 
         .emergency-card strong {
             display: block;
-
-            color: #d92d20;
-
-            font-size: 11px;
-
-            margin-top: 4px;
+            color: var(--danger);
+            font-size: 18px;
+            font-weight: 900;
+            margin-top: 7px;
         }
 
         .emergency-card span {
-            font-size: 6.5px;
-
-            color: #667085;
+            font-size: 10px;
+            color: var(--muted);
         }
 
-
-        /* =====================================================
-           FOOTER
-        ===================================================== */
-
+        /* FOOTER */
         footer {
-            background: #0a3768;
-
+            background: #073B78;
             color: #fff;
-
             text-align: center;
-
-            padding: 24px 15px;
-
+            padding: 30px 15px;
             margin: 0;
         }
 
         footer h3 {
-            font-size: 11px;
+            font-size: 14px;
+            font-weight: 800;
         }
 
         footer p {
-            font-size: 7px;
-
+            font-size: 10px;
             opacity: .72;
-
             margin-top: 5px;
+            line-height: 1.5;
         }
 
-
-        /* =====================================================
-           SCROLL BUTTONS
-        ===================================================== */
-
+        /* SCROLL BUTTONS */
         .scroll-buttons {
             position: fixed;
-
-            right: 14px;
-
-            bottom: 78px;
-
+            right: 17px;
+            bottom: 22px;
             z-index: 2100;
-
             display: flex;
-
             flex-direction: column;
-
             gap: 8px;
-
             pointer-events: none;
         }
 
         .scroll-btn {
-            width: 40px;
-            height: 40px;
-
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
-
-            background: #1457a6;
-
+            background: var(--primary);
             color: #fff;
-
             cursor: pointer;
-
             display: grid;
             place-items: center;
-
-            font-size: 20px;
-
-            font-weight: bold;
-
-            box-shadow:
-                0 4px 12px rgba(0, 0, 0, .22);
-
+            font-weight: 800;
+            box-shadow: 0 5px 14px rgba(0, 0, 0, .22);
             transition: .2s;
-
             pointer-events: auto;
         }
 
         .scroll-btn:hover {
             transform: translateY(-2px);
-
-            background: #0d4080;
+            background: var(--primary-dark);
         }
 
         .scroll-btn:active {
             transform: scale(.92);
         }
 
-
-        /* =====================================================
-           BOTTOM NAV
-        ===================================================== */
-
+        /* MOBILE BOTTOM NAV */
         .bottom-nav {
             position: fixed;
-
             left: 0;
             right: 0;
             bottom: 0;
-
-            height: 67px;
-
-            background:
-                rgba(255, 255, 255, .97);
-
-            backdrop-filter: blur(10px);
-
-            border-top:
-                1px solid #e4e7ec;
-
+            height: 70px;
+            background: rgba(255, 255, 255, .97);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid var(--border);
             z-index: 2000;
-
             display: flex;
-
             justify-content: space-around;
-
-            padding-top: 7px;
+            padding: 7px 3px 4px;
         }
 
         .bottom-item {
             width: 20%;
-
             text-align: center;
-
             background: none;
-
-            color: #667085;
-
+            color: var(--muted);
             cursor: pointer;
-
-            font-size: 7px;
-
+            font-size: 9px;
             font-weight: 700;
+            transition: .2s;
         }
 
         .bottom-item .bi {
-            display: block;
-
-            font-size: 19px;
-
-            margin-bottom: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 31px;
+            height: 31px;
+            margin: 0 auto 3px;
+            border-radius: 9px;
+            transition: .2s;
         }
 
         .bottom-item.active {
-            color: #1457a6;
+            color: var(--primary);
         }
 
+        .bottom-item.active .bi {
+            background: var(--primary-light);
+        }
 
-        /* =====================================================
-           MOBILE
-        ===================================================== */
-
-        @media (max-width:480px) {
-
-            .welcome-popup {
-                padding: 15px;
+        /* TABLET */
+        @media (min-width: 600px) and (max-width: 760px) {
+            .quick-grid {
+                grid-template-columns: repeat(4, 1fr);
             }
 
-            .welcome-box {
-                width: min(350px, 94vw);
+            .quick-icon {
+                width: 50px;
+                height: 50px;
+            }
+        }
 
-                border-radius: 20px;
+        /* MOBILE */
+        @media (max-width: 599px) {
+            html {
+                scroll-padding-top: 74px;
             }
 
-            .welcome-image {
-                height: 190px;
+            body {
+                padding-bottom: 70px;
             }
 
-            .welcome-content {
-                padding: 16px 17px 18px;
+            .topbar {
+                height: 64px;
+                padding: 0 14px;
             }
 
-            .welcome-content h2 {
-                font-size: 20px;
+            .menu-btn {
+                width: 40px;
+                height: 40px;
             }
 
-            .welcome-content p {
-                font-size: 9px;
+            .top-title strong {
+                font-size: 16px;
             }
 
-            .welcome-close {
-                width: 33px;
-                height: 33px;
+            .top-title span {
+                font-size: 8px;
+            }
 
-                font-size: 19px;
+            .top-spacer {
+                width: 40px;
+            }
+
+            .hero {
+                min-height: 310px;
+            }
+
+            .hero-content {
+                padding: 42px 16px 70px;
+            }
+
+            .brand {
+                gap: 10px;
+                margin-bottom: 16px;
+            }
+
+            .brand-mark {
+                width: 57px;
+                height: 57px;
+                border-radius: 15px;
+            }
+
+            .brand h1 {
+                font-size: 36px;
+                letter-spacing: -1px;
+            }
+
+            .brand small {
+                font-size: 7px;
+                letter-spacing: .45px;
+                margin-top: 5px;
+            }
+
+            .hero h2 {
+                font-size: 11px;
+                letter-spacing: .9px;
+            }
+
+            .hero p {
+                font-size: 10px;
             }
 
             .quick-wrap {
                 width: 94%;
+                margin-top: -45px;
+                padding: 17px 10px;
+                border-radius: 18px;
             }
 
             .quick-grid {
-                gap: 15px 5px;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 17px 4px;
             }
 
-            .tour-scroll {
-                grid-template-columns: 1fr;
+            .quick {
+                gap: 6px;
             }
 
-            .tour-card img {
-                height: 170px;
+            .quick-icon {
+                width: 43px;
+                height: 43px;
+                border-radius: 12px;
             }
 
-            .feature-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .map-venue-btn {
+            .quick span:last-child {
                 font-size: 8px;
-
-                padding: 5px 9px;
             }
 
-            .map-wrapper {
-                height: 300px;
-
-                min-height: 300px;
+            .section {
+                padding: 22px 0;
             }
 
-            #city-map {
-                height: 300px;
-
-                min-height: 300px;
+            .section-title {
+                font-size: 13px;
+                border-left-width: 3px;
+                padding-left: 7px;
             }
 
-            .scroll-buttons {
-                right: 12px;
-
-                bottom: 82px;
+            .view-all {
+                font-size: 10px;
             }
 
-            .scroll-btn {
-                width: 38px;
-                height: 38px;
-
-                font-size: 18px;
+            .announce-row {
+                padding: 14px;
+                gap: 11px;
             }
 
-            .map-locate-btn {
-                font-size: 9px;
+            .announce-icon {
+                width: 43px;
+                height: 43px;
+                border-radius: 12px;
+            }
 
-                padding: 8px 11px;
+            .announce-info h3 {
+                font-size: 12px;
+            }
+
+            .announce-info p {
+                font-size: 10px;
             }
 
             .announce-date {
                 display: none;
             }
 
-            footer {
-                padding-bottom: 90px;
-            }
-        }
-
-
-        /* =====================================================
-           DESKTOP
-        ===================================================== */
-
-        @media (min-width:761px) {
-
-            .topbar {
-                height: 72px;
-
-                padding: 0 28px;
+            .event-row {
+                min-height: 92px;
+                padding: 13px;
+                gap: 9px;
             }
 
-            .hero {
-                min-height: 370px;
-            }
-
-            .hero-content {
-                padding-top: 60px;
-            }
-
-            .brand h1 {
-                font-size: 48px;
-            }
-
-            .brand-mark {
-                width: 70px;
-                height: 70px;
-
-                font-size: 35px;
-            }
-
-            .hero p {
-                font-size: 12px;
-            }
-
-            .quick-wrap {
-                margin-top: -55px;
-
-                padding: 22px;
-            }
-
-            .quick-icon {
-                width: 52px;
-                height: 52px;
-
-                font-size: 25px;
-            }
-
-            .quick span {
-                font-size: 9px;
-            }
-
-            .quick-grid {
-                gap: 20px 10px;
-            }
-
-            .section {
-                padding: 24px 0;
-            }
-
-            .section-title {
-                font-size: 13px;
-            }
-
-            .event-info h3 {
-                font-size: 12px;
-            }
-
-            .event-info p,
-            .announce-info p {
-                font-size: 9px;
+            .event-date {
+                width: 48px;
             }
 
             .event-date strong {
-                font-size: 20px;
+                font-size: 21px;
+            }
+
+            .event-date span {
+                font-size: 7px;
+            }
+
+            .sport {
+                width: 41px;
+                height: 41px;
+                border-radius: 11px;
+            }
+
+            .tag {
+                font-size: 7px;
+                padding: 3px 5px;
+            }
+
+            .event-info h3 {
+                font-size: 10px;
+            }
+
+            .event-info p {
+                font-size: 8px;
+            }
+
+            .result-row,
+            .venue-row,
+            .transport-row {
+                padding: 13px;
+                gap: 9px;
+            }
+
+            .mini-icon {
+                width: 40px;
+                height: 40px;
+                border-radius: 11px;
+            }
+
+            .row-main strong {
+                font-size: 11px;
+            }
+
+            .row-main span {
+                font-size: 8.5px;
+            }
+
+            .score {
+                font-size: 12px;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .feature-card {
+                padding: 17px;
+            }
+
+            .feature-card .big-icon {
+                width: 46px;
+                height: 46px;
+            }
+
+            .feature-card h3 {
+                font-size: 13px;
+            }
+
+            .feature-card p {
+                font-size: 10px;
+            }
+
+            .map-venue-btns {
+                gap: 6px;
+            }
+
+            .map-venue-btn {
+                font-size: 9px;
+                padding: 7px 10px;
+            }
+
+            .map-wrapper {
+                height: 310px;
+                min-height: 310px;
+                border-radius: 14px;
+            }
+
+            #city-map {
+                height: 310px;
+                min-height: 310px;
+            }
+
+            .map-locate-btn {
+                bottom: 12px;
+                right: 12px;
+                font-size: 9px;
+                padding: 8px 11px;
+            }
+
+            .map-tip {
+                font-size: 8px;
+            }
+
+            .tour-scroll {
+                grid-template-columns: 1fr;
+                gap: 12px;
             }
 
             .tour-card img {
                 height: 190px;
             }
 
-            .bottom-nav {
-                display: none;
+            .tour-text h3 {
+                font-size: 13px;
+            }
+
+            .tour-text p {
+                font-size: 9px;
+            }
+
+            .emergency-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 7px;
+            }
+
+            .emergency-card {
+                padding: 13px 4px;
+            }
+
+            .emergency-card div {
+                width: 40px;
+                height: 40px;
+            }
+
+            .emergency-card strong {
+                font-size: 15px;
+            }
+
+            .emergency-card span {
+                font-size: 8px;
+            }
+
+            footer {
+                padding: 25px 14px 88px;
+            }
+
+            footer h3 {
+                font-size: 11px;
+            }
+
+            footer p {
+                font-size: 8px;
             }
 
             .scroll-buttons {
-                bottom: 20px;
+                right: 12px;
+                bottom: 82px;
+            }
+
+            .scroll-btn {
+                width: 39px;
+                height: 39px;
+            }
+        }
+
+        /* SMALL PHONES */
+        @media (max-width: 360px) {
+            .quick-grid {
+                gap: 14px 2px;
+            }
+
+            .quick-icon {
+                width: 39px;
+                height: 39px;
+            }
+
+            .quick span:last-child {
+                font-size: 7px;
+            }
+
+            .brand h1 {
+                font-size: 32px;
+            }
+
+            .brand-mark {
+                width: 52px;
+                height: 52px;
             }
         }
     </style>
-
 </head>
 
 <body>
 
-
-    <!-- =====================================================
-         EVRAA 2026 WELCOME / AD POPUP
-    ===================================================== -->
-
+    <!-- WELCOME POPUP -->
     <div class="welcome-popup" id="welcomePopup">
-
         <div class="welcome-box">
-
-            <!-- CLOSE -->
-
             <button class="welcome-close" onclick="closeWelcomePopup()" aria-label="Close">
-                ×
+                <span class="icon w-4 h-4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M6 6l12 12M18 6 6 18" />
+                    </svg></span>
             </button>
-
-
-            <!-- GOOGLE DRIVE IMAGE -->
-
-            <!--
-                IMPORTANT:
-                Palitan ang YOUR_GOOGLE_DRIVE_FILE_ID_HERE
-                ng actual File ID ng picture mo.
-            -->
-
             <img class="popup-image" src="https://github.com/Giloxxx4901/EvraApp/blob/main/IMG_9641%20(1).JPG?raw=true"
-                alt="EVRAA 2026">
-
-            <!-- POPUP CONTENT -->
-
+                alt="EVRAA 2027">
             <div class="welcome-content">
-
                 <span class="welcome-badge">
-                    🏆 EVRAA 2026
+                    <span class="icon w-3.5 h-3.5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M7 4h10v3a5 5 0 0 1-10 0V4Z" />
+                            <path d="M7 5H4.5A2.5 2.5 0 0 0 7 8.5" />
+                            <path d="M17 5h2.5A2.5 2.5 0 0 1 17 8.5" />
+                            <path d="M12 12v3" />
+                            <path d="M9 20h6" />
+                            <path d="M10 15.5 9 20" />
+                            <path d="M14 15.5 15 20" />
+                        </svg></span>
+                    EVRAA 2027
                 </span>
-
-                <h2>
-                    Welcome to EVRAA 2026!
-                </h2>
-
-                <p>
-                    Your digital guide to the
-                    Eastern Visayas Regional Athletic Association
-                    in Calbayog City.
-                </p>
-
+                <h2>Welcome to EVRAA 2027!</h2>
+                <p>Your digital guide to the Eastern Visayas Regional Athletic Association in Calbayog City.</p>
                 <button class="welcome-button" onclick="startEVRAA()">
-
                     GET STARTED
-                    <span>→</span>
-
+                    <span class="icon w-3.5 h-3.5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m9 6 6 6-6 6" />
+                        </svg></span>
                 </button>
-
             </div>
-
         </div>
-
     </div>
 
-
-    <!-- =====================================================
-         TOP BAR
-    ===================================================== -->
-
+    <!-- TOP BAR -->
     <header class="topbar">
-
         <button class="menu-btn" onclick="openDrawer()" aria-label="Open menu">
-
-            ☰
-
+            <span class="icon w-5 h-5 text-white"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 7h16M4 12h16M4 17h16" />
+                </svg></span>
         </button>
-
-
         <div class="top-title">
-
-            <strong>
-                EVRAA 2026
-            </strong>
-
-            <span>
-                CALBAYOG CITY • HOST CITY
-            </span>
-
+            <strong>EVRAA 2027</strong>
+            <span>CALBAYOG CITY • HOST CITY</span>
         </div>
-
-
-        <div style="width:40px;"></div>
-
+        <div class="top-spacer"></div>
     </header>
 
-
-    <!-- =====================================================
-         DRAWER
-    ===================================================== -->
-
+    <!-- DRAWER -->
     <div class="drawer" id="drawer" onclick="closeDrawerOutside(event)">
-
         <div class="drawer-panel">
-
             <div class="drawer-head">
-
-                <h3>
-                    EVRAA 2026
-                </h3>
-
+                <h3>EVRAA 2027</h3>
                 <button class="close-btn" onclick="closeDrawer()" aria-label="Close menu">
-
-                    ×
-
+                    <span class="icon w-4 h-4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M6 6l12 12M18 6 6 18" />
+                        </svg></span>
                 </button>
-
             </div>
 
-
             <a href="#home" onclick="goTo('home');closeDrawer();">
-
-                <span class="drawer-icon">🏠</span>
+                <span class="drawer-icon"><span class="icon w-[18px] h-[18px]"><svg viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 10.5 12 3l9 7.5" />
+                            <path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5" />
+                        </svg></span></span>
                 Home
-
             </a>
-
-
             <a href="#schedule" onclick="goTo('schedule');closeDrawer();">
-
-                <span class="drawer-icon">📅</span>
+                <span class="drawer-icon"><span class="icon w-[18px] h-[18px]"><svg viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="5" width="18" height="16" rx="2" />
+                            <path d="M16 3v4M8 3v4M3 10h18" />
+                        </svg></span></span>
                 Schedule
-
             </a>
-
-
             <a href="#results" onclick="goTo('results');closeDrawer();">
-
-                <span class="drawer-icon">🏆</span>
+                <span class="drawer-icon"><span class="icon w-[18px] h-[18px]"><svg viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M7 4h10v3a5 5 0 0 1-10 0V4Z" />
+                            <path d="M7 5H4.5A2.5 2.5 0 0 0 7 8.5" />
+                            <path d="M17 5h2.5A2.5 2.5 0 0 1 17 8.5" />
+                            <path d="M12 12v3" />
+                            <path d="M9 20h6" />
+                            <path d="M10 15.5 9 20" />
+                            <path d="M14 15.5 15 20" />
+                        </svg></span></span>
                 Results
-
             </a>
-
-
             <a href="#venues" onclick="goTo('venues');closeDrawer();">
-
-                <span class="drawer-icon">📍</span>
+                <span class="drawer-icon"><span class="icon w-[18px] h-[18px]"><svg viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21Z" />
+                            <circle cx="12" cy="9.5" r="2.4" />
+                        </svg></span></span>
                 Venues
-
             </a>
-
-
             <a href="#map" onclick="goTo('map');closeDrawer();">
-
-                <span class="drawer-icon">🗺️</span>
+                <span class="drawer-icon"><span class="icon w-[18px] h-[18px]"><svg viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 6.5 9 4l6 2.5 6-2.5v15L15 21.5 9 19l-6 2.5v-15Z" />
+                            <path d="M9 4v15M15 6.5v15" />
+                        </svg></span></span>
                 City Map
-
             </a>
-
-
             <a href="#announcements" onclick="goTo('announcements');closeDrawer();">
-
-                <span class="drawer-icon">📢</span>
+                <span class="drawer-icon"><span class="icon w-[18px] h-[18px]"><svg viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 10.5v3a1.5 1.5 0 0 0 1.5 1.5h1l3 3.5v-13l-3 3.5h-1A1.5 1.5 0 0 0 4 10.5Z" />
+                            <path d="M13.5 8.5a3.5 3.5 0 0 1 0 7" />
+                            <path d="M17 6a7 7 0 0 1 0 12" />
+                        </svg></span></span>
                 Announcements
-
             </a>
-
-
             <a href="#billeting" onclick="goTo('billeting');closeDrawer();">
-
-                <span class="drawer-icon">🛏️</span>
+                <span class="drawer-icon"><span class="icon w-[18px] h-[18px]"><svg viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 18.5V13a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3v5.5" />
+                            <path d="M3 18.5h18" />
+                            <path d="M7 10V8.5A1.5 1.5 0 0 1 8.5 7h2A1.5 1.5 0 0 1 12 8.5V10" />
+                        </svg></span></span>
                 Billeting
-
             </a>
-
-
             <a href="#transport" onclick="goTo('transport');closeDrawer();">
-
-                <span class="drawer-icon">🚌</span>
+                <span class="drawer-icon"><span class="icon w-[18px] h-[18px]"><svg viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="4.5" width="18" height="12" rx="2.5" />
+                            <path d="M3 12h18M7 4.5v3M17 4.5v3" />
+                            <circle cx="7.5" cy="19" r="1.5" />
+                            <circle cx="16.5" cy="19" r="1.5" />
+                        </svg></span></span>
                 Transportation
-
             </a>
-
-
             <a href="#emergency" onclick="goTo('emergency');closeDrawer();">
-
-                <span class="drawer-icon">🚨</span>
+                <span class="drawer-icon"><span class="icon w-[18px] h-[18px]"><svg viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 3a5 5 0 0 1 5 5v6.5H7V8a5 5 0 0 1 5-5Z" />
+                            <path d="M12 21v-2.5" />
+                            <path d="M4.5 21 6 17" />
+                            <path d="M19.5 21 18 17" />
+                            <path d="M2.5 14.5h19" />
+                        </svg></span></span>
                 Emergency
-
             </a>
-
-
             <a href="#tourism" onclick="goTo('tourism');closeDrawer();">
-
-                <span class="drawer-icon">🌴</span>
+                <span class="drawer-icon"><span class="icon w-[18px] h-[18px]"><svg viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 21V11" />
+                            <path d="M12 11c-2.5-2.8-6.5-2.5-9-.3 3 .6 4.3 2.3 4.6 4.6" />
+                            <path d="M12 11c2.5-2.8 6.5-2.5 9-.3-3 .6-4.3 2.3-4.6 4.6" />
+                            <path d="M12 11c-.8-2.8.2-5.5 2.3-7.3" />
+                        </svg></span></span>
                 Explore Calbayog
-
             </a>
-
         </div>
-
     </div>
 
-
-    <!-- =====================================================
-         HERO
-    ===================================================== -->
-
+    <!-- HERO -->
     <section class="hero" id="home">
-
         <div class="hero-content">
-
             <div class="brand">
-
                 <div class="brand-mark">
-                    🔥
+                    <span class="icon w-9 h-9"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <path
+                                d="M12 2.5c1.2 3.4-2.3 4.7-2.3 8.2a2.3 2.3 0 0 0 4.6 0c0-.7-.5-1.3-.5-1.3s1.7.7 1.7 3.4a4 4 0 0 1-8 0c0-4.3 3.6-5.3 4.5-10.3Z" />
+                        </svg></span>
                 </div>
-
                 <div>
-
-                    <h1>
-                        EVRAA<br>
-                        2026
-                    </h1>
-
+                    <h1>EVRAA<br>2027</h1>
                     <small>
                         EASTERN VISAYAS REGIONAL<br>
                         ATHLETIC ASSOCIATION<br>
                         CALBAYOG CITY • HOST CITY
                     </small>
-
                 </div>
-
             </div>
-
-
-            <h2>
-                ONE REGION. ONE SPIRIT. ONE GOAL.
-            </h2>
-
-
-            <p>
-                Your digital guide to EVRAA 2026.
-            </p>
-
+            <h2>ONE REGION. ONE SPIRIT. ONE GOAL.</h2>
+            <p>Your digital guide to EVRAA 2027.</p>
         </div>
-
     </section>
 
-
-    <!-- =====================================================
-         QUICK ACCESS
-    ===================================================== -->
-
+    <!-- QUICK ACCESS -->
     <div class="quick-wrap">
-
         <div class="quick-grid">
-
             <button class="quick" onclick="goTo('schedule')">
-
-                <span class="quick-icon">▣</span>
+                <span class="quick-icon"><span class="icon w-6 h-6 text-white"><svg viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="5" width="18" height="16" rx="2" />
+                            <path d="M16 3v4M8 3v4M3 10h18" />
+                        </svg></span></span>
                 <span>SCHEDULE</span>
-
             </button>
-
-
             <button class="quick" onclick="goTo('results')">
-
-                <span class="quick-icon">🏆</span>
+                <span class="quick-icon"><span class="icon w-6 h-6 text-white"><svg viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M7 4h10v3a5 5 0 0 1-10 0V4Z" />
+                            <path d="M7 5H4.5A2.5 2.5 0 0 0 7 8.5" />
+                            <path d="M17 5h2.5A2.5 2.5 0 0 1 17 8.5" />
+                            <path d="M12 12v3" />
+                            <path d="M9 20h6" />
+                            <path d="M10 15.5 9 20" />
+                            <path d="M14 15.5 15 20" />
+                        </svg></span></span>
                 <span>RESULTS</span>
-
             </button>
-
-
             <button class="quick" onclick="goTo('venues')">
-
-                <span class="quick-icon">📍</span>
+                <span class="quick-icon"><span class="icon w-6 h-6 text-white"><svg viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21Z" />
+                            <circle cx="12" cy="9.5" r="2.4" />
+                        </svg></span></span>
                 <span>VENUES</span>
-
             </button>
-
-
             <button class="quick" onclick="goTo('map')">
-
-                <span class="quick-icon">🗺</span>
+                <span class="quick-icon"><span class="icon w-6 h-6 text-white"><svg viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 6.5 9 4l6 2.5 6-2.5v15L15 21.5 9 19l-6 2.5v-15Z" />
+                            <path d="M9 4v15M15 6.5v15" />
+                        </svg></span></span>
                 <span>MAP</span>
-
             </button>
-
-
             <button class="quick" onclick="goTo('billeting')">
-
-                <span class="quick-icon">🛏</span>
+                <span class="quick-icon"><span class="icon w-6 h-6 text-white"><svg viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 18.5V13a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3v5.5" />
+                            <path d="M3 18.5h18" />
+                            <path d="M7 10V8.5A1.5 1.5 0 0 1 8.5 7h2A1.5 1.5 0 0 1 12 8.5V10" />
+                        </svg></span></span>
                 <span>BILLETING</span>
-
             </button>
-
-
             <button class="quick" onclick="goTo('transport')">
-
-                <span class="quick-icon">🚌</span>
-                <span>TRANSPORTATION</span>
-
+                <span class="quick-icon"><span class="icon w-6 h-6 text-white"><svg viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="4.5" width="18" height="12" rx="2.5" />
+                            <path d="M3 12h18M7 4.5v3M17 4.5v3" />
+                            <circle cx="7.5" cy="19" r="1.5" />
+                            <circle cx="16.5" cy="19" r="1.5" />
+                        </svg></span></span>
+                <span>TRANSPORT</span>
             </button>
-
-
             <button class="quick" onclick="goTo('emergency')">
-
-                <span class="quick-icon">✚</span>
+                <span class="quick-icon"><span class="icon w-6 h-6 text-white"><svg viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 3a5 5 0 0 1 5 5v6.5H7V8a5 5 0 0 1 5-5Z" />
+                            <path d="M12 21v-2.5" />
+                            <path d="M4.5 21 6 17" />
+                            <path d="M19.5 21 18 17" />
+                            <path d="M2.5 14.5h19" />
+                        </svg></span></span>
                 <span>EMERGENCY</span>
-
             </button>
-
-
             <button class="quick" onclick="goTo('tourism')">
-
-                <span class="quick-icon">🌴</span>
-
-                <span>
-                    EXPLORE<br>
-                    CALBAYOG
-                </span>
-
+                <span class="quick-icon"><span class="icon w-6 h-6 text-white"><svg viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 21V11" />
+                            <path d="M12 11c-2.5-2.8-6.5-2.5-9-.3 3 .6 4.3 2.3 4.6 4.6" />
+                            <path d="M12 11c2.5-2.8 6.5-2.5 9-.3-3 .6-4.3 2.3-4.6 4.6" />
+                            <path d="M12 11c-.8-2.8.2-5.5 2.3-7.3" />
+                        </svg></span></span>
+                <span>EXPLORE</span>
             </button>
-
         </div>
-
     </div>
-
-
-    <!-- =====================================================
-         MAIN
-    ===================================================== -->
 
     <main>
 
-
         <!-- ANNOUNCEMENTS -->
-
         <section class="section" id="announcements">
-
             <div class="container">
-
                 <div class="section-head">
-
-                    <h2 class="section-title">
-                        LATEST ANNOUNCEMENTS
-                    </h2>
-
-                    <button class="view-all" onclick="goTo('announcements')">
-
-                        View All ›
-
-                    </button>
-
+                    <h2 class="section-title">Latest Announcements</h2>
+                    <button class="view-all" onclick="goTo('announcements')">View All ›</button>
                 </div>
-
-
                 <div class="card">
-
                     <div class="announce-row">
-
                         <div class="announce-icon">
-                            📢
+                            <span class="icon w-6 h-6 text-white"><svg viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path
+                                        d="M4 10.5v3a1.5 1.5 0 0 0 1.5 1.5h1l3 3.5v-13l-3 3.5h-1A1.5 1.5 0 0 0 4 10.5Z" />
+                                    <path d="M13.5 8.5a3.5 3.5 0 0 1 0 7" />
+                                    <path d="M17 6a7 7 0 0 1 0 12" />
+                                </svg></span>
                         </div>
-
                         <div class="announce-info">
-
-                            <h3>
-                                Change of Venue
-                            </h3>
-
-                            <p>
-                                Volleyball games on May 10
-                                will be held at Calbayog City
-                                Convention Center.
-                            </p>
-
+                            <h3>Change of Venue</h3>
+                            <p>Volleyball games on May 10 will be held at Calbayog City Convention Center.</p>
                         </div>
-
-                        <span class="announce-date">
-                            May 8, 2026 ›
-                        </span>
-
+                        <span class="announce-date">May 8, 2027</span>
                     </div>
-
                 </div>
-
             </div>
-
         </section>
-
 
         <!-- SCHEDULE -->
-
         <section class="section" id="schedule">
-
             <div class="container">
-
                 <div class="section-head">
-
-                    <h2 class="section-title">
-                        TODAY'S EVENTS
-                    </h2>
-
-                    <button class="view-all" onclick="goTo('schedule')">
-
-                        View All ›
-
-                    </button>
-
+                    <h2 class="section-title">Today's Events</h2>
+                    <button class="view-all" onclick="goTo('schedule')">View All ›</button>
                 </div>
-
-
                 <div class="card">
-
-
                     <div class="event-row">
-
                         <div class="event-date">
-
                             <strong>09</strong>
-
-                            <span>
-                                MAY<br>
-                                FRIDAY
-                            </span>
-
+                            <span>MAY<br>FRIDAY</span>
                         </div>
-
-
                         <div class="sport">
-                            🏀
+                            <span class="icon w-6 h-6"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="9" />
+                                    <path d="M3 12h18M12 3v18" />
+                                    <path d="M5.6 5.6c1.8 1.8 2.8 4 2.8 6.4s-1 4.6-2.8 6.4" />
+                                    <path d="M18.4 5.6c-1.8 1.8-2.8 4-2.8 6.4s1 4.6 2.8 6.4" />
+                                </svg></span>
                         </div>
-
-
                         <div class="event-info">
-
-                            <span class="tag">
-                                BASKETBALL • BOYS
-                            </span>
-
-                            <h3>
-                                Region VIII vs Region
-                                Eastern Samar
-                            </h3>
-
+                            <span class="tag">BASKETBALL • BOYS</span>
+                            <h3>Region VIII vs Region Eastern Samar</h3>
                             <p>
-                                📍 Calbayog City Sports Complex<br>
-                                ◷ 2:00 PM
+                                <span><span class="icon w-3 h-3 text-[#667085]"
+                                        style="display:inline-flex;vertical-align:-1px;margin-right:4px"><svg
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21Z" />
+                                            <circle cx="12" cy="9.5" r="2.4" />
+                                        </svg></span></span>Calbayog City Sports Complex</span>
+                                <span><span class="icon w-3 h-3 text-[#667085]"
+                                        style="display:inline-flex;vertical-align:-1px;margin-right:4px"><svg
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <circle cx="12" cy="12" r="9" />
+                                            <path d="M12 7.5V12l3 2" />
+                                        </svg></span></span>2:00 PM</span>
                             </p>
-
                         </div>
-
-
-                        <span class="event-arrow">
-                            ›
-                        </span>
-
+                        <span class="event-arrow"><span class="icon w-5 h-5"><svg viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="m9 6 6 6-6 6" />
+                                </svg></span></span>
                     </div>
 
-
-
                     <div class="event-row">
-
                         <div class="event-date">
-
                             <strong>09</strong>
-
-                            <span>
-                                MAY<br>
-                                FRIDAY
-                            </span>
-
+                            <span>MAY<br>FRIDAY</span>
                         </div>
-
-
                         <div class="sport">
-                            🏐
+                            <span class="icon w-6 h-6"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="9" />
+                                    <path d="M12 3.2c2.8 1.8 4 4.6 3.2 8.8" />
+                                    <path d="M4.2 8c2.8.9 5.6 0 7.5-2.8" />
+                                    <path d="M4.5 16.2c3.6-.9 6.3 0 8.3 2.8" />
+                                </svg></span>
                         </div>
-
-
                         <div class="event-info">
-
-                            <span class="tag">
-                                VOLLEYBALL • GIRLS
-                            </span>
-
-                            <h3>
-                                Region Leyte vs Region
-                                Northern Samar
-                            </h3>
-
+                            <span class="tag">VOLLEYBALL • GIRLS</span>
+                            <h3>Region Leyte vs Region Northern Samar</h3>
                             <p>
-                                📍 Calbayog City Sports Complex<br>
-                                ◷ 4:00 PM
+                                <span><span class="icon w-3 h-3 text-[#667085]"
+                                        style="display:inline-flex;vertical-align:-1px;margin-right:4px"><svg
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21Z" />
+                                            <circle cx="12" cy="9.5" r="2.4" />
+                                        </svg></span></span>Calbayog City Sports Complex</span>
+                                <span><span class="icon w-3 h-3 text-[#667085]"
+                                        style="display:inline-flex;vertical-align:-1px;margin-right:4px"><svg
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <circle cx="12" cy="12" r="9" />
+                                            <path d="M12 7.5V12l3 2" />
+                                        </svg></span></span>4:00 PM</span>
                             </p>
-
                         </div>
-
-
-                        <span class="event-arrow">
-                            ›
-                        </span>
-
+                        <span class="event-arrow"><span class="icon w-5 h-5"><svg viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="m9 6 6 6-6 6" />
+                                </svg></span></span>
                     </div>
-
                 </div>
-
             </div>
-
         </section>
-
 
         <!-- RESULTS -->
-
         <section class="section" id="results">
-
             <div class="container">
-
                 <div class="section-head">
-
-                    <h2 class="section-title">
-                        LATEST RESULTS
-                    </h2>
-
-                    <span class="view-all">
-                        View All ›
-                    </span>
-
+                    <h2 class="section-title">Latest Results</h2>
+                    <span class="view-all">View All ›</span>
                 </div>
-
-
                 <div class="card">
-
-
                     <div class="result-row">
-
-                        <div class="mini-icon">
-                            🏀
-                        </div>
-
+                        <div class="mini-icon"><span class="icon w-6 h-6"><svg viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="9" />
+                                    <path d="M3 12h18M12 3v18" />
+                                    <path d="M5.6 5.6c1.8 1.8 2.8 4 2.8 6.4s-1 4.6-2.8 6.4" />
+                                    <path d="M18.4 5.6c-1.8 1.8-2.8 4-2.8 6.4s1 4.6 2.8 6.4" />
+                                </svg></span></div>
                         <div class="row-main">
-
-                            <strong>
-                                Basketball • Boys
-                            </strong>
-
-                            <span>
-                                Calbayog vs Eastern Samar
-                            </span>
-
+                            <strong>Basketball • Boys</strong>
+                            <span>Calbayog vs Eastern Samar</span>
                         </div>
-
-                        <div class="score">
-                            78 - 71
-                        </div>
-
+                        <div class="score">78 - 71</div>
                     </div>
-
-
-
                     <div class="result-row">
-
-                        <div class="mini-icon">
-                            🏐
-                        </div>
-
+                        <div class="mini-icon"><span class="icon w-6 h-6"><svg viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="9" />
+                                    <path d="M12 3.2c2.8 1.8 4 4.6 3.2 8.8" />
+                                    <path d="M4.2 8c2.8.9 5.6 0 7.5-2.8" />
+                                    <path d="M4.5 16.2c3.6-.9 6.3 0 8.3 2.8" />
+                                </svg></span></div>
                         <div class="row-main">
-
-                            <strong>
-                                Volleyball • Girls
-                            </strong>
-
-                            <span>
-                                Leyte vs Northern Samar
-                            </span>
-
+                            <strong>Volleyball • Girls</strong>
+                            <span>Leyte vs Northern Samar</span>
                         </div>
-
-                        <div class="score">
-                            2 - 1
-                        </div>
-
+                        <div class="score">2 - 1</div>
                     </div>
-
-
-
                     <div class="result-row">
-
-                        <div class="mini-icon">
-                            🏃
-                        </div>
-
+                        <div class="mini-icon"><span class="icon w-6 h-6"><svg viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M5 15.5c0-2 1-3.5 2-3.5s2 1.5 2 3.5-1 3.5-2 3.5-2-1.5-2-3.5Z" />
+                                    <path d="M12.5 8.5c0-2 1-3.5 2-3.5s2 1.5 2 3.5-1 3.5-2 3.5-2-1.5-2-3.5Z" />
+                                    <path d="M7 19v-3M14.5 12v-3" />
+                                </svg></span></div>
                         <div class="row-main">
-
-                            <strong>
-                                Athletics • 100m
-                            </strong>
-
-                            <span>
-                                Final results posted
-                            </span>
-
+                            <strong>Athletics • 100m</strong>
+                            <span>Final results posted</span>
                         </div>
-
-                        <div class="score">
-                            Final
-                        </div>
-
+                        <div class="score">Final</div>
                     </div>
-
                 </div>
-
             </div>
-
         </section>
-
 
         <!-- VENUES -->
-
         <section class="section" id="venues">
-
             <div class="container">
-
                 <div class="section-head">
-
-                    <h2 class="section-title">
-                        COMPETITION VENUES
-                    </h2>
-
+                    <h2 class="section-title">Competition Venues</h2>
                 </div>
-
-
                 <div class="card">
-
-
                     <div class="venue-row">
-
-                        <div class="mini-icon">
-                            🏟️
-                        </div>
-
+                        <div class="mini-icon"><span class="icon w-6 h-6"><svg viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M4 20.5V9L12 4l8 5v11.5" />
+                                    <path d="M8.5 20.5v-7.5h7v7.5" />
+                                    <path d="M3 20.5h18" />
+                                </svg></span></div>
                         <div class="row-main">
-
-                            <strong>
-                                Calbayog City Sports Complex
-                            </strong>
-
-                            <span>
-                                Main athletics and selected
-                                team events
-                            </span>
-
+                            <strong>Calbayog City Sports Complex</strong>
+                            <span>Main athletics and selected team events</span>
                         </div>
-
-                        <span>›</span>
-
+                        <span class="event-arrow"><span class="icon w-5 h-5"><svg viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="m9 6 6 6-6 6" />
+                                </svg></span></span>
                     </div>
-
-
-
                     <div class="venue-row">
-
-                        <div class="mini-icon">
-                            🏀
-                        </div>
-
+                        <div class="mini-icon"><span class="icon w-6 h-6"><svg viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="9" />
+                                    <path d="M3 12h18M12 3v18" />
+                                    <path d="M5.6 5.6c1.8 1.8 2.8 4 2.8 6.4s-1 4.6-2.8 6.4" />
+                                    <path d="M18.4 5.6c-1.8 1.8-2.8 4-2.8 6.4s1 4.6 2.8 6.4" />
+                                </svg></span></div>
                         <div class="row-main">
-
-                            <strong>
-                                City Sports Gymnasium
-                            </strong>
-
-                            <span>
-                                Basketball and indoor
-                                competitions
-                            </span>
-
+                            <strong>City Sports Gymnasium</strong>
+                            <span>Basketball and indoor competitions</span>
                         </div>
-
-                        <span>›</span>
-
+                        <span class="event-arrow"><span class="icon w-5 h-5"><svg viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="m9 6 6 6-6 6" />
+                                </svg></span></span>
                     </div>
-
-
-
                     <div class="venue-row">
-
-                        <div class="mini-icon">
-                            🏊
-                        </div>
-
+                        <div class="mini-icon"><span class="icon w-6 h-6"><svg viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path
+                                        d="M2 9c1.4-1.5 2.9-1.5 4.3 0 1.4 1.5 2.9 1.5 4.3 0 1.4-1.5 2.9-1.5 4.3 0 1.4 1.5 2.9 1.5 4.3 0" />
+                                    <path
+                                        d="M2 15c1.4-1.5 2.9-1.5 4.3 0 1.4 1.5 2.9 1.5 4.3 0 1.4-1.5 2.9-1.5 4.3 0 1.4 1.5 2.9 1.5 4.3 0" />
+                                </svg></span></div>
                         <div class="row-main">
-
-                            <strong>
-                                City Aquatic Center
-                            </strong>
-
-                            <span>
-                                Swimming events
-                            </span>
-
+                            <strong>City Aquatic Center</strong>
+                            <span>Swimming events</span>
                         </div>
-
-                        <span>›</span>
-
+                        <span class="event-arrow"><span class="icon w-5 h-5"><svg viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="m9 6 6 6-6 6" />
+                                </svg></span></span>
                     </div>
-
                 </div>
-
             </div>
-
         </section>
-
 
         <!-- MAP -->
-
         <section class="section" id="map">
-
             <div class="container">
-
                 <div class="section-head">
-
                     <h2 class="section-title">
-                        🗺️ CITY MAP
+                        <span style="display:inline-flex;align-items:center;gap:6px">
+                            <span class="icon w-4 h-4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M3 6.5 9 4l6 2.5 6-2.5v15L15 21.5 9 19l-6 2.5v-15Z" />
+                                    <path d="M9 4v15M15 6.5v15" />
+                                </svg></span>
+                            City Map
+                        </span>
                     </h2>
-
                 </div>
-
 
                 <div class="map-venue-btns" id="mapVenueBtns">
-
-
                     <button class="map-venue-btn active" data-idx="all" onclick="mapFilterVenue(this,'all')">
-
-                        🏙️ All Venues
-
+                        <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 20.5V9L12 4l8 5v11.5" />
+                                <path d="M3 20.5h18" />
+                            </svg></span>
+                        All Venues
                     </button>
-
-
                     <button class="map-venue-btn" data-idx="0" onclick="mapFilterVenue(this,0)">
-
-                        🏅 Sports Complex
-
+                        <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 20.5V9L12 4l8 5v11.5" />
+                                <path d="M8.5 20.5v-7.5h7v7.5" />
+                                <path d="M3 20.5h18" />
+                            </svg></span>
+                        Sports Complex
                     </button>
-
-
                     <button class="map-venue-btn" data-idx="1" onclick="mapFilterVenue(this,1)">
-
-                        🏊 Aquatic Center
-
+                        <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path
+                                    d="M2 9c1.4-1.5 2.9-1.5 4.3 0 1.4 1.5 2.9 1.5 4.3 0 1.4-1.5 2.9-1.5 4.3 0 1.4 1.5 2.9 1.5 4.3 0" />
+                                <path
+                                    d="M2 15c1.4-1.5 2.9-1.5 4.3 0 1.4 1.5 2.9 1.5 4.3 0 1.4-1.5 2.9-1.5 4.3 0 1.4 1.5 2.9 1.5 4.3 0" />
+                            </svg></span>
+                        Aquatic Center
                     </button>
-
-
                     <button class="map-venue-btn" data-idx="2" onclick="mapFilterVenue(this,2)">
-
-                        🏐 Convention Center
-
+                        <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="9" />
+                                <path d="M12 3.2c2.8 1.8 4 4.6 3.2 8.8" />
+                                <path d="M4.2 8c2.8.9 5.6 0 7.5-2.8" />
+                                <path d="M4.5 16.2c3.6-.9 6.3 0 8.3 2.8" />
+                            </svg></span>
+                        Convention Center
                     </button>
-
-
                     <button class="map-venue-btn" data-idx="3" onclick="mapFilterVenue(this,3)">
-
-                        🏃 Athletics Track
-
+                        <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M5 15.5c0-2 1-3.5 2-3.5s2 1.5 2 3.5-1 3.5-2 3.5-2-1.5-2-3.5Z" />
+                                <path d="M12.5 8.5c0-2 1-3.5 2-3.5s2 1.5 2 3.5-1 3.5-2 3.5-2-1.5-2-3.5Z" />
+                                <path d="M7 19v-3M14.5 12v-3" />
+                            </svg></span>
+                        Athletics Track
                     </button>
-
-
                     <button class="map-venue-btn" data-idx="4" onclick="mapFilterVenue(this,4)">
-
-                        🏸 Badminton Hall
-
+                        <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="8.5" cy="8.5" r="4.5" />
+                                <path d="M8.5 4v9M4 8.5h9" />
+                                <path d="M11.8 11.8 19.5 19.5" />
+                                <path d="M17 17l3 3" />
+                            </svg></span>
+                        Badminton Hall
                     </button>
-
-
                     <button class="map-venue-btn" data-idx="5" onclick="mapFilterVenue(this,5)">
-
-                        🥊 Boxing Gym
-
+                        <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path
+                                    d="M8 5.5A2.5 2.5 0 0 1 13 5.5v2.7h1.5A3 3 0 0 1 17.5 11v3a4.5 4.5 0 0 1-4.5 4.5h-2A3.5 3.5 0 0 1 7.5 15v-4" />
+                                <path d="M5.5 11a2 2 0 0 1 2-2" />
+                            </svg></span>
+                        Boxing Gym
                     </button>
-
                 </div>
-
 
                 <div class="map-wrapper">
-
                     <div id="city-map"></div>
-
-
                     <button class="map-locate-btn" id="locateBtn" onclick="locateMe()">
-
-                        <span class="loc-icon">
-                            📍
-                        </span>
-
+                        <span class="loc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21Z" />
+                                <circle cx="12" cy="9.5" r="2.4" />
+                            </svg></span>
                         Show My Location
-
                     </button>
-
                 </div>
-
 
                 <p class="map-tip">
-
-                    📌 Tap a venue button to jump to it
-                    &nbsp;|&nbsp;
-                    🧭 Tap a venue marker and choose
-                    "Go To"
-                    &nbsp;|&nbsp;
-                    📍 GPS permission required
-
+                    <span class="icon w-3 h-3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21Z" />
+                            <circle cx="12" cy="9.5" r="2.4" />
+                        </svg></span>
+                    Tap a venue button to jump to it
+                    &nbsp;•&nbsp;
+                    <span class="icon w-3 h-3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="9" />
+                            <path d="m15 9-1.7 5.3L8 16l1.7-5.3L15 9Z" />
+                        </svg></span>
+                    Tap a marker and choose "Go To"
+                    &nbsp;•&nbsp;
+                    <span class="icon w-3 h-3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21Z" />
+                            <circle cx="12" cy="9.5" r="2.4" />
+                        </svg></span>
+                    GPS permission required
                 </p>
-
             </div>
-
         </section>
-
 
         <!-- BILLETING -->
-
         <section class="section" id="billeting">
-
             <div class="container">
-
                 <div class="section-head">
-
-                    <h2 class="section-title">
-                        BILLETING INFORMATION
-                    </h2>
-
+                    <h2 class="section-title">Billeting Information</h2>
                 </div>
-
-
                 <div class="feature-grid">
-
-
                     <div class="feature-card">
-
-                        <div class="big-icon">
-                            🏫
-                        </div>
-
-                        <h3>
-                            Billeting Centers
-                        </h3>
-
-                        <p>
-                            View assigned schools, rooms,
-                            contact persons, and available
-                            facilities.
-                        </p>
-
+                        <div class="big-icon"><span class="icon w-6 h-6"><svg viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M4 20.5V10L12 4.5 20 10v10.5" />
+                                    <path d="M9.5 20.5v-6h5v6" />
+                                    <path d="M3.5 20.5h17" />
+                                </svg></span></div>
+                        <h3>Billeting Centers</h3>
+                        <p>View assigned schools, rooms, contact persons, and available facilities.</p>
                     </div>
-
-
                     <div class="feature-card">
-
-                        <div class="big-icon">
-                            🛏️
-                        </div>
-
-                        <h3>
-                            Accommodation
-                        </h3>
-
-                        <p>
-                            Check your delegation's billeting
-                            assignment and important reminders.
-                        </p>
-
+                        <div class="big-icon"><span class="icon w-6 h-6"><svg viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M3 18.5V13a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3v5.5" />
+                                    <path d="M3 18.5h18" />
+                                    <path d="M7 10V8.5A1.5 1.5 0 0 1 8.5 7h2A1.5 1.5 0 0 1 12 8.5V10" />
+                                </svg></span></div>
+                        <h3>Accommodation</h3>
+                        <p>Check your delegation's billeting assignment and important reminders.</p>
                     </div>
-
                 </div>
-
             </div>
-
         </section>
-
 
         <!-- TRANSPORT -->
-
         <section class="section" id="transport">
-
             <div class="container">
-
                 <div class="section-head">
-
-                    <h2 class="section-title">
-                        TRANSPORTATION
-                    </h2>
-
+                    <h2 class="section-title">Transportation</h2>
                 </div>
-
-
                 <div class="card">
-
-
                     <div class="transport-row">
-
-                        <div class="mini-icon">
-                            🚌
-                        </div>
-
+                        <div class="mini-icon"><span class="icon w-6 h-6"><svg viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <rect x="3" y="4.5" width="18" height="12" rx="2.5" />
+                                    <path d="M3 12h18M7 4.5v3M17 4.5v3" />
+                                    <circle cx="7.5" cy="19" r="1.5" />
+                                    <circle cx="16.5" cy="19" r="1.5" />
+                                </svg></span></div>
                         <div class="row-main">
-
-                            <strong>
-                                EVRAA Shuttle Route A
-                            </strong>
-
-                            <span>
-                                Billeting Center →
-                                Sports Complex
-                            </span>
-
+                            <strong>EVRAA Shuttle Route A</strong>
+                            <span>Billeting Center → Sports Complex</span>
                         </div>
-
-                        <span>›</span>
-
+                        <span class="event-arrow"><span class="icon w-5 h-5"><svg viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="m9 6 6 6-6 6" />
+                                </svg></span></span>
                     </div>
-
-
-
                     <div class="transport-row">
-
-                        <div class="mini-icon">
-                            🚌
-                        </div>
-
+                        <div class="mini-icon"><span class="icon w-6 h-6"><svg viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <rect x="3" y="4.5" width="18" height="12" rx="2.5" />
+                                    <path d="M3 12h18M7 4.5v3M17 4.5v3" />
+                                    <circle cx="7.5" cy="19" r="1.5" />
+                                    <circle cx="16.5" cy="19" r="1.5" />
+                                </svg></span></div>
                         <div class="row-main">
-
-                            <strong>
-                                EVRAA Shuttle Route B
-                            </strong>
-
-                            <span>
-                                Convention Center →
-                                City Gymnasium
-                            </span>
-
+                            <strong>EVRAA Shuttle Route B</strong>
+                            <span>Convention Center → City Gymnasium</span>
                         </div>
-
-                        <span>›</span>
-
+                        <span class="event-arrow"><span class="icon w-5 h-5"><svg viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="m9 6 6 6-6 6" />
+                                </svg></span></span>
                     </div>
-
-
-
                     <div class="transport-row">
-
-                        <div class="mini-icon">
-                            🚕
-                        </div>
-
+                        <div class="mini-icon"><span class="icon w-6 h-6"><svg viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M5 17.5h14" />
+                                    <circle cx="7.5" cy="17.5" r="1.7" />
+                                    <circle cx="16.5" cy="17.5" r="1.7" />
+                                    <path d="M4 17.5v-4l1.8-4.5h12.4l1.8 4.5v4" />
+                                    <path d="M7 9l1-2h8l1 2" />
+                                </svg></span></div>
                         <div class="row-main">
-
-                            <strong>
-                                Public Transportation
-                            </strong>
-
-                            <span>
-                                Tricycle, multicab, and taxi
-                                information
-                            </span>
-
+                            <strong>Public Transportation</strong>
+                            <span>Tricycle, multicab, and taxi information</span>
                         </div>
-
-                        <span>›</span>
-
+                        <span class="event-arrow"><span class="icon w-5 h-5"><svg viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="m9 6 6 6-6 6" />
+                                </svg></span></span>
                     </div>
-
                 </div>
-
             </div>
-
         </section>
-
 
         <!-- TOURISM -->
-
         <section class="section" id="tourism">
-
             <div class="container">
-
                 <div class="section-head">
-
-                    <h2 class="section-title">
-                        EXPLORE CALBAYOG
-                    </h2>
-
-                    <span class="view-all">
-                        View All ›
-                    </span>
-
+                    <h2 class="section-title">Explore Calbayog</h2>
+                    <span class="view-all">View All ›</span>
                 </div>
-
-
                 <div class="tour-scroll">
-
-
                     <article class="card tour-card">
-
-                        <img src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=600&q=80"
+                        <img src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=700&q=85"
                             alt="Nature destination">
-
                         <div class="tour-text">
-
-                            <h3>
-                                Bangon-Bugtong Falls
-                            </h3>
-
-                            <p>
-                                Discover one of Calbayog City's
-                                natural attractions.
-                            </p>
-
+                            <h3>Bangon-Bugtong Falls</h3>
+                            <p>Discover one of Calbayog City's natural attractions.</p>
                         </div>
-
                     </article>
-
-
-
                     <article class="card tour-card">
-
-                        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80"
+                        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=700&q=85"
                             alt="Coastal destination">
-
                         <div class="tour-text">
-
-                            <h3>
-                                Coastal Destinations
-                            </h3>
-
-                            <p>
-                                Explore scenic beaches and
-                                waterfront areas.
-                            </p>
-
+                            <h3>Coastal Destinations</h3>
+                            <p>Explore scenic beaches and waterfront areas.</p>
                         </div>
-
                     </article>
-
-
-
                     <article class="card tour-card">
-
-                        <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=600&q=80"
+                        <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=700&q=85"
                             alt="Mountain destination">
-
                         <div class="tour-text">
-
-                            <h3>
-                                Calbayog Nature
-                            </h3>
-
-                            <p>
-                                Experience the city's lush
-                                landscapes.
-                            </p>
-
+                            <h3>Calbayog Nature</h3>
+                            <p>Experience the city's lush landscapes.</p>
                         </div>
-
                     </article>
-
                 </div>
-
             </div>
-
         </section>
 
-
         <!-- EMERGENCY -->
-
         <section class="section emergency" id="emergency">
-
             <div class="container">
-
                 <div class="section-head">
-
-                    <h2 class="section-title">
-                        EMERGENCY CONTACTS
-                    </h2>
-
+                    <h2 class="section-title">Emergency Contacts</h2>
                 </div>
-
-
                 <div class="emergency-grid">
-
-
                     <div class="emergency-card">
-
-                        <div>🚑</div>
-
-                        <strong>
-                            911
-                        </strong>
-
-                        <span>
-                            Medical
-                        </span>
-
+                        <div><span class="icon w-6 h-6"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="3" y="8" width="14" height="9.5" rx="1.5" />
+                                    <path d="M17 11.5h2.5L21 14v3.5h-4" />
+                                    <circle cx="7" cy="18.5" r="1.6" />
+                                    <circle cx="17.5" cy="18.5" r="1.6" />
+                                    <path d="M8 10.5v4M6 12.5h4" />
+                                </svg></span></div>
+                        <strong>911</strong>
+                        <span>Medical</span>
                     </div>
-
-
-
                     <div class="emergency-card">
-
-                        <div>🚓</div>
-
-                        <strong>
-                            911
-                        </strong>
-
-                        <span>
-                            Police
-                        </span>
-
+                        <div><span class="icon w-6 h-6"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 3.5 19 6.3v5.4c0 4.6-3.1 7.7-7 8.8-3.9-1.1-7-4.2-7-8.8V6.3L12 3.5Z" />
+                                </svg></span></div>
+                        <strong>911</strong>
+                        <span>Police</span>
                     </div>
-
-
-
                     <div class="emergency-card">
-
-                        <div>🚒</div>
-
-                        <strong>
-                            911
-                        </strong>
-
-                        <span>
-                            Fire
-                        </span>
-
+                        <div><span class="icon w-6 h-6"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                    <path
+                                        d="M12 2.5c1.2 3.4-2.3 4.7-2.3 8.2a2.3 2.3 0 0 0 4.6 0c0-.7-.5-1.3-.5-1.3s1.7.7 1.7 3.4a4 4 0 0 1-8 0c0-4.3 3.6-5.3 4.5-10.3Z" />
+                                </svg></span></div>
+                        <strong>911</strong>
+                        <span>Fire</span>
                     </div>
-
                 </div>
-
             </div>
-
         </section>
 
     </main>
 
-
-    <!-- =====================================================
-         FOOTER
-    ===================================================== -->
-
+    <!-- FOOTER -->
     <footer>
-
-        <h3>
-            EVRAA 2026 • CALBAYOG CITY
-        </h3>
-
-        <p>
-            Eastern Visayas Regional Athletic Association
-        </p>
-
-        <p>
-            © 2026 EVRAA. All Rights Reserved.
-        </p>
-
+        <h3>EVRAA 2027 • CALBAYOG CITY • ICT</h3>
+        <p>Eastern Visayas Regional Athletic Association</p>
+        <p>© 2027 EVRAA. All Rights Reserved.</p>
     </footer>
 
-
-    <!-- =====================================================
-         SCROLL BUTTONS
-    ===================================================== -->
-
+    <!-- SCROLL BUTTONS -->
     <div class="scroll-buttons">
-
         <button class="scroll-btn" onclick="goToTop()" title="Back to top" aria-label="Back to top">
-
-            ↑
-
+            <span class="icon w-5 h-5 text-white"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 19V5M6 11l6-6 6 6" />
+                </svg></span>
         </button>
-
-
         <button class="scroll-btn" onclick="goToBottom()" title="Go to bottom" aria-label="Go to bottom">
-
-            ↓
-
+            <span class="icon w-5 h-5 text-white"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 5v14M18 13l-6 6-6-6" />
+                </svg></span>
         </button>
-
     </div>
 
-
-    <!-- =====================================================
-         MOBILE BOTTOM NAV
-    ===================================================== -->
-
+    <!-- MOBILE NAV -->
     <nav class="bottom-nav">
-
-
         <button class="bottom-item active" onclick="goTo('home')">
-
-            <span class="bi">🏠</span>
+            <span class="bi"><span class="icon w-[18px] h-[18px]"><svg viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 10.5 12 3l9 7.5" />
+                        <path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5" />
+                    </svg></span></span>
             Home
-
         </button>
-
-
         <button class="bottom-item" onclick="goTo('schedule')">
-
-            <span class="bi">📅</span>
+            <span class="bi"><span class="icon w-[18px] h-[18px]"><svg viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="5" width="18" height="16" rx="2" />
+                        <path d="M16 3v4M8 3v4M3 10h18" />
+                    </svg></span></span>
             Schedule
-
         </button>
-
-
         <button class="bottom-item" onclick="goTo('results')">
-
-            <span class="bi">🏆</span>
+            <span class="bi"><span class="icon w-[18px] h-[18px]"><svg viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M7 4h10v3a5 5 0 0 1-10 0V4Z" />
+                        <path d="M7 5H4.5A2.5 2.5 0 0 0 7 8.5" />
+                        <path d="M17 5h2.5A2.5 2.5 0 0 1 17 8.5" />
+                        <path d="M12 12v3" />
+                        <path d="M9 20h6" />
+                        <path d="M10 15.5 9 20" />
+                        <path d="M14 15.5 15 20" />
+                    </svg></span></span>
             Results
-
         </button>
-
-
         <button class="bottom-item" onclick="goTo('map')">
-
-            <span class="bi">🗺️</span>
+            <span class="bi"><span class="icon w-[18px] h-[18px]"><svg viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 6.5 9 4l6 2.5 6-2.5v15L15 21.5 9 19l-6 2.5v-15Z" />
+                        <path d="M9 4v15M15 6.5v15" />
+                    </svg></span></span>
             Map
-
         </button>
-
-
         <button class="bottom-item" onclick="goTo('emergency')">
-
-            <span class="bi">🚨</span>
+            <span class="bi"><span class="icon w-[18px] h-[18px]"><svg viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 3a5 5 0 0 1 5 5v6.5H7V8a5 5 0 0 1 5-5Z" />
+                        <path d="M12 21v-2.5" />
+                        <path d="M4.5 21 6 17" />
+                        <path d="M19.5 21 18 17" />
+                        <path d="M2.5 14.5h19" />
+                    </svg></span></span>
             Emergency
-
         </button>
-
     </nav>
 
-
-    <!-- =====================================================
-         LEAFLET JS
-    ===================================================== -->
-
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin="">
-    </script>
-
+    <!-- LEAFLET JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
 
     <script>
+
+        /* =====================================================
+           ICON LIBRARY (replaces emoji glyphs everywhere)
+        ===================================================== */
+
+        const ICON_PATHS = {
+
+            trophy: '<path d="M7 4h10v3a5 5 0 0 1-10 0V4Z"/><path d="M7 5H4.5A2.5 2.5 0 0 0 7 8.5"/><path d="M17 5h2.5A2.5 2.5 0 0 1 17 8.5"/><path d="M12 12v3"/><path d="M9 20h6"/><path d="M10 15.5 9 20"/><path d="M14 15.5 15 20"/>',
+
+            mapPin: '<path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.4"/>',
+
+            compass: '<circle cx="12" cy="12" r="9"/><path d="m15 9-1.7 5.3L8 16l1.7-5.3L15 9Z"/>',
+
+            stadium: '<path d="M4 20.5V9L12 4l8 5v11.5"/><path d="M8.5 20.5v-7.5h7v7.5"/><path d="M3 20.5h18"/>',
+
+            basketball: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3v18"/><path d="M5.6 5.6c1.8 1.8 2.8 4 2.8 6.4s-1 4.6-2.8 6.4"/><path d="M18.4 5.6c-1.8 1.8-2.8 4-2.8 6.4s1 4.6 2.8 6.4"/>',
+
+            volleyball: '<circle cx="12" cy="12" r="9"/><path d="M12 3.2c2.8 1.8 4 4.6 3.2 8.8"/><path d="M4.2 8c2.8.9 5.6 0 7.5-2.8"/><path d="M4.5 16.2c3.6-.9 6.3 0 8.3 2.8"/>',
+
+            footprints: '<path d="M5 15.5c0-2 1-3.5 2-3.5s2 1.5 2 3.5-1 3.5-2 3.5-2-1.5-2-3.5Z"/><path d="M12.5 8.5c0-2 1-3.5 2-3.5s2 1.5 2 3.5-1 3.5-2 3.5-2-1.5-2-3.5Z"/><path d="M7 19v-3M14.5 12v-3"/>',
+
+            waves: '<path d="M2 9c1.4-1.5 2.9-1.5 4.3 0 1.4 1.5 2.9 1.5 4.3 0 1.4-1.5 2.9-1.5 4.3 0 1.4 1.5 2.9 1.5 4.3 0"/><path d="M2 15c1.4-1.5 2.9-1.5 4.3 0 1.4 1.5 2.9 1.5 4.3 0 1.4-1.5 2.9-1.5 4.3 0 1.4 1.5 2.9 1.5 4.3 0"/>',
+
+            badminton: '<circle cx="8.5" cy="8.5" r="4.5"/><path d="M8.5 4v9M4 8.5h9"/><path d="M11.8 11.8 19.5 19.5"/><path d="M17 17l3 3"/>',
+
+            boxing: '<path d="M8 5.5A2.5 2.5 0 0 1 13 5.5v2.7h1.5A3 3 0 0 1 17.5 11v3a4.5 4.5 0 0 1-4.5 4.5h-2A3.5 3.5 0 0 1 7.5 15v-4"/><path d="M5.5 11a2 2 0 0 1 2-2"/>',
+
+            crosshair: '<circle cx="12" cy="12" r="9"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/><circle cx="12" cy="12" r="2"/>'
+
+        };
+
+
+
+        function iconSVG(key, opts) {
+
+            opts = opts || {};
+
+            const cls = opts.cls || "";
+
+            const size = opts.size || 16;
+
+            const color = opts.color || "currentColor";
+
+            const d = ICON_PATHS[key] || "";
+
+
+            return (
+
+                '<svg class="' + cls + '" viewBox="0 0 24 24" width="' + size + '" height="' + size +
+                '" fill="none" stroke="' + color + '" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">' +
+                d +
+                '</svg>'
+
+            );
+
+        }
+
+
 
         /* =====================================================
            GLOBAL VARIABLES
@@ -2909,6 +2461,7 @@
         const markerLayers = [];
 
 
+
         /* =====================================================
            VENUE DATA
         ===================================================== */
@@ -2916,66 +2469,115 @@
         const VENUES = [
 
             {
+
                 name: "Calbayog City Sports Center",
-                emoji: "🏅",
+
+                icon: "stadium",
+
                 color: "#1457a6",
+
                 lat: 12.068542137976914,
+
                 lng: 124.58547662662404,
+
                 sports: "Basketball, Volleyball, Badminton",
+
                 address: "Brgy. Capoocan, Calbayog City"
+
             },
 
             {
+
                 name: "City Aquatic Center",
-                emoji: "🏊",
+
+                icon: "waves",
+
                 color: "#0e8fd4",
+
                 lat: 12.06608963537556,
+
                 lng: 124.5916092847248,
+
                 sports: "Swimming, Diving",
+
                 address: "Calbayog City, Samar"
+
             },
 
             {
+
                 name: "Calbayog City Convention Center",
-                emoji: "🏐",
+
+                icon: "volleyball",
+
                 color: "#7546bd",
+
                 lat: 12.0660,
+
                 lng: 124.6010,
+
                 sports: "Volleyball, Gymnastics",
+
                 address: "Poblacion, Calbayog City"
+
             },
 
             {
+
                 name: "Northwest Samar State University",
-                emoji: "🏃",
+
+                icon: "footprints",
+
                 color: "#d97706",
+
                 lat: 12.071029672646386,
+
                 lng: 124.59598923143054,
+
                 sports: "100m Sprint, Long Jump, Relay",
+
                 address: "Calbayog City, Samar"
+
             },
 
             {
+
                 name: "Calbayog Badminton Hall",
-                emoji: "🏸",
+
+                icon: "badminton",
+
                 color: "#16a34a",
+
                 lat: 12.0640,
+
                 lng: 124.6080,
+
                 sports: "Badminton (singles, doubles)",
+
                 address: "Calbayog City, Samar"
+
             },
 
             {
+
                 name: "City Boxing Gymnasium",
-                emoji: "🥊",
+
+                icon: "boxing",
+
                 color: "#dc2626",
+
                 lat: 12.0675,
+
                 lng: 124.5940,
+
                 sports: "Boxing",
+
                 address: "Calbayog City, Samar"
+
             }
 
         ];
+
 
 
         /* =====================================================
@@ -2984,47 +2586,40 @@
 
         function openWelcomePopup() {
 
-            const popup =
-                document.getElementById(
-                    "welcomePopup"
-                );
+            const popup = document.getElementById("welcomePopup");
 
             if (!popup) return;
 
             popup.classList.add("show");
 
-            document.body.style.overflow =
-                "hidden";
+            document.body.style.overflow = "hidden";
+
         }
+
 
 
         function closeWelcomePopup() {
 
-            const popup =
-                document.getElementById(
-                    "welcomePopup"
-                );
+            const popup = document.getElementById("welcomePopup");
 
             if (!popup) return;
 
             popup.classList.remove("show");
 
-            document.body.style.overflow =
-                "";
+            document.body.style.overflow = "";
+
         }
+
 
 
         function startEVRAA() {
 
             closeWelcomePopup();
 
-            setTimeout(function () {
-
-                goTo("home");
-
-            }, 100);
+            setTimeout(function () { goTo("home"); }, 100);
 
         }
+
 
 
         /* =====================================================
@@ -3033,40 +2628,39 @@
 
         function openDrawer() {
 
-            const drawer =
-                document.getElementById("drawer");
+            const drawer = document.getElementById("drawer");
 
             if (drawer) {
 
                 drawer.classList.add("open");
 
-                document.body.style.overflow =
-                    "hidden";
+                document.body.style.overflow = "hidden";
+
             }
+
         }
+
 
 
         function closeDrawer() {
 
-            const drawer =
-                document.getElementById("drawer");
+            const drawer = document.getElementById("drawer");
 
             if (drawer) {
 
                 drawer.classList.remove("open");
 
-                document.body.style.overflow =
-                    "";
+                document.body.style.overflow = "";
+
             }
+
         }
+
 
 
         function closeDrawerOutside(event) {
 
-            if (
-                event.target &&
-                event.target.id === "drawer"
-            ) {
+            if (event.target && event.target.id === "drawer") {
 
                 closeDrawer();
 
@@ -3075,264 +2669,129 @@
         }
 
 
+
         /* =====================================================
            SCROLL
         ===================================================== */
 
         function goTo(id) {
 
-            const el =
-                document.getElementById(id);
+            const el = document.getElementById(id);
 
             if (!el) return;
 
+            const header = document.querySelector(".topbar");
 
-            const header =
-                document.querySelector(".topbar");
-
-
-            const headerHeight =
-                header
-                    ? header.offsetHeight
-                    : 0;
-
+            const headerHeight = header ? header.offsetHeight : 0;
 
             const extraSpace = 14;
 
+            const targetY = el.getBoundingClientRect().top + window.pageYOffset - headerHeight - extraSpace;
 
-            const targetY =
-                el.getBoundingClientRect().top +
-                window.pageYOffset -
-                headerHeight -
-                extraSpace;
+            window.scrollTo({ top: Math.max(0, targetY), behavior: "smooth" });
 
+            if (id === "map" && map) {
 
-            window.scrollTo({
+                setTimeout(function () { map.invalidateSize(true); }, 300);
 
-                top:
-                    Math.max(0, targetY),
-
-                behavior:
-                    "smooth"
-
-            });
-
-
-            if (
-                id === "map" &&
-                map
-            ) {
-
-                setTimeout(
-                    function () {
-
-                        map.invalidateSize(true);
-
-                    },
-                    300
-                );
-
-
-                setTimeout(
-                    function () {
-
-                        map.invalidateSize(true);
-
-                    },
-                    800
-                );
+                setTimeout(function () { map.invalidateSize(true); }, 800);
 
             }
 
         }
 
 
+
         function goToTop() {
 
-            window.scrollTo({
-
-                top: 0,
-
-                behavior: "smooth"
-
-            });
+            window.scrollTo({ top: 0, behavior: "smooth" });
 
         }
+
 
 
         function goToBottom() {
 
-            const maxScroll =
-                Math.max(
+            const maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
 
-                    0,
-
-                    document.documentElement
-                        .scrollHeight -
-                    window.innerHeight
-
-                );
-
-
-            window.scrollTo({
-
-                top: maxScroll,
-
-                behavior: "smooth"
-
-            });
+            window.scrollTo({ top: maxScroll, behavior: "smooth" });
 
         }
+
 
 
         /* =====================================================
            ESCAPE
         ===================================================== */
 
-        document.addEventListener(
-            "keydown",
-            function (event) {
+        document.addEventListener("keydown", function (event) {
 
-                if (event.key === "Escape") {
+            if (event.key === "Escape") {
 
-                    closeDrawer();
+                closeDrawer();
 
-                    closeWelcomePopup();
-
-                }
+                closeWelcomePopup();
 
             }
-        );
+
+        });
+
 
 
         /* =====================================================
-           CLOSE POPUP WHEN CLICKING OUTSIDE
+           CLOSE POPUP OUTSIDE
         ===================================================== */
 
-        document.addEventListener(
-            "click",
-            function (event) {
+        document.addEventListener("click", function (event) {
 
-                const popup =
-                    document.getElementById(
-                        "welcomePopup"
-                    );
+            const popup = document.getElementById("welcomePopup");
 
-                const box =
-                    document.querySelector(
-                        ".welcome-box"
-                    );
+            if (popup && popup.classList.contains("show") && event.target === popup) {
 
-                if (
-                    popup &&
-                    popup.classList.contains("show") &&
-                    event.target === popup
-                ) {
-
-                    closeWelcomePopup();
-
-                }
+                closeWelcomePopup();
 
             }
-        );
+
+        });
+
 
 
         /* =====================================================
            MOBILE ACTIVE NAV
         ===================================================== */
 
-        const sections =
-            document.querySelectorAll(
-                "main .section,#home"
-            );
+        const sections = document.querySelectorAll("main .section,#home");
 
+        const bottomItems = document.querySelectorAll(".bottom-item");
 
-        const bottomItems =
-            document.querySelectorAll(
-                ".bottom-item"
-            );
+        window.addEventListener("scroll", function () {
 
+            if (window.innerWidth > 760) return;
 
-        window.addEventListener(
-            "scroll",
-            function () {
+            let current = "home";
 
-                if (
-                    window.innerWidth > 760
-                ) {
+            sections.forEach(function (section) {
 
-                    return;
+                const rect = section.getBoundingClientRect();
 
-                }
+                if (rect.top <= 120 && rect.bottom >= 120) current = section.id;
 
+            });
 
-                let current = "home";
+            bottomItems.forEach(function (item) { item.classList.remove("active"); });
 
+            const navMap = { home: 0, schedule: 1, results: 2, map: 3, emergency: 4 };
 
-                sections.forEach(
-                    function (section) {
+            const index = navMap[current];
 
-                        const rect =
-                            section.getBoundingClientRect();
+            if (index !== undefined && bottomItems[index]) {
 
-
-                        if (
-                            rect.top <= 120 &&
-                            rect.bottom >= 120
-                        ) {
-
-                            current =
-                                section.id;
-
-                        }
-
-                    }
-                );
-
-
-                bottomItems.forEach(
-                    function (item) {
-
-                        item.classList.remove(
-                            "active"
-                        );
-
-                    }
-                );
-
-
-                const navMap = {
-
-                    home: 0,
-
-                    schedule: 1,
-
-                    results: 2,
-
-                    map: 3,
-
-                    emergency: 4
-
-                };
-
-
-                const index =
-                    navMap[current];
-
-
-                if (
-                    index !== undefined &&
-                    bottomItems[index]
-                ) {
-
-                    bottomItems[index]
-                        .classList
-                        .add("active");
-
-                }
+                bottomItems[index].classList.add("active");
 
             }
-        );
+
+        });
+
 
 
         /* =====================================================
@@ -3341,391 +2800,160 @@
 
         function initMap() {
 
-            const mapElement =
-                document.getElementById(
-                    "city-map"
+            const mapElement = document.getElementById("city-map");
+
+            if (!mapElement) { console.error("Map container not found."); return; }
+
+            if (typeof L === "undefined") { console.error("Leaflet did not load."); return; }
+
+            if (map) { map.invalidateSize(true); return; }
+
+            map = L.map("city-map", { center: [12.0680, 124.6020], zoom: 14, zoomControl: true, attributionControl: true });
+
+            L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors',
+
+                maxZoom: 19,
+
+                minZoom: 10
+
+            }).addTo(map);
+
+            VENUES.forEach(function (venue, index) {
+
+                const icon = L.divIcon({
+
+                    html: `
+                        <div style="
+                            background:${venue.color};
+                            width:38px;
+                            height:38px;
+                            border-radius:50%;
+                            display:flex;
+                            align-items:center;
+                            justify-content:center;
+                            box-shadow:0 4px 12px rgba(0,0,0,.30);
+                            border:3px solid #fff;
+                        ">
+                            ${iconSVG(venue.icon, { size: 19, color: "#fff" })}
+                        </div>
+                    `,
+
+                    className: "",
+
+                    iconSize: [38, 38],
+
+                    iconAnchor: [19, 38],
+
+                    popupAnchor: [0, -40]
+
+                });
+
+                const marker = L.marker([venue.lat, venue.lng], { icon: icon });
+
+                marker.bindPopup(
+
+                    `
+                        <div style="min-width:210px;font-family:Poppins,sans-serif;">
+                            <div style="display:flex;justify-content:center;color:${venue.color};margin-bottom:5px;">
+                                ${iconSVG(venue.icon, { size: 27, color: venue.color })}
+                            </div>
+                            <strong style="font-size:12px;color:#0B4F9C;display:block;margin-bottom:6px;line-height:1.4;">
+                                ${venue.name}
+                            </strong>
+                            <p style="font-size:9px;color:#667085;margin:5px 0;line-height:1.5;display:flex;align-items:flex-start;gap:5px;">
+                                ${iconSVG("trophy", { size: 11, color: "#667085" })}
+                                <span>${venue.sports}</span>
+                            </p>
+                            <p style="font-size:9px;color:#667085;margin:5px 0;line-height:1.5;display:flex;align-items:flex-start;gap:5px;">
+                                ${iconSVG("mapPin", { size: 11, color: "#667085" })}
+                                <span>${venue.address}</span>
+                            </p>
+                            <button
+                                onclick="goToVenue(${index})"
+                                style="
+                                    display:flex;align-items:center;justify-content:center;gap:6px;
+                                    width:100%;margin-top:10px;font-size:10px;font-weight:700;color:#fff;
+                                    background:#0B4F9C;padding:8px 12px;border-radius:18px;border:none;cursor:pointer;
+                                "
+                            >
+                                ${iconSVG("compass", { size: 13, color: "#fff" })}
+                                Go To
+                            </button>
+                        </div>
+                    `,
+
+                    { maxWidth: 260 }
+
                 );
 
+                marker.addTo(map);
 
-            if (!mapElement) {
+                markerLayers.push(marker);
 
-                console.error(
-                    "Map container #city-map was not found."
-                );
+            });
 
-                return;
+            setTimeout(function () {
 
-            }
-
-
-            if (
-                typeof L === "undefined"
-            ) {
-
-                console.error(
-                    "Leaflet did not load."
-                );
-
-                return;
-
-            }
-
-
-            if (map) {
+                if (!map) return;
 
                 map.invalidateSize(true);
 
-                return;
+                if (markerLayers.length > 0) {
 
-            }
+                    const group = L.featureGroup(markerLayers);
 
-
-            map =
-                L.map(
-                    "city-map",
-                    {
-
-                        center: [
-                            12.0680,
-                            124.6020
-                        ],
-
-                        zoom: 14,
-
-                        zoomControl: true,
-
-                        attributionControl: true
-
-                    }
-                );
-
-
-            L.tileLayer(
-
-                "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-
-                {
-
-                    attribution:
-                        '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors',
-
-                    maxZoom: 19,
-
-                    minZoom: 10
+                    map.fitBounds(group.getBounds().pad(.18));
 
                 }
 
-            ).addTo(map);
-
-
-            VENUES.forEach(
-
-                function (venue, index) {
-
-                    const icon =
-                        L.divIcon({
-
-                            html: `
-
-                                <div style="
-                                    background:${venue.color};
-                                    width:34px;
-                                    height:34px;
-                                    border-radius:50%;
-                                    display:flex;
-                                    align-items:center;
-                                    justify-content:center;
-                                    font-size:17px;
-                                    box-shadow:
-                                        0 3px 10px
-                                        rgba(0,0,0,.35);
-                                    border:
-                                        2.5px solid #fff;
-                                ">
-
-                                    ${venue.emoji}
-
-                                </div>
-
-                            `,
-
-                            className: "",
-
-                            iconSize: [
-                                34,
-                                34
-                            ],
-
-                            iconAnchor: [
-                                17,
-                                34
-                            ],
-
-                            popupAnchor: [
-                                0,
-                                -36
-                            ]
-
-                        });
-
-
-                    const marker =
-                        L.marker(
-
-                            [
-                                venue.lat,
-                                venue.lng
-                            ],
-
-                            {
-                                icon: icon
-                            }
-
-                        );
-
-
-                    marker.bindPopup(
-
-                        `
-
-                            <div style="
-                                min-width:190px;
-                                font-family:Arial,sans-serif;
-                            ">
-
-                                <div style="
-                                    font-size:24px;
-                                    text-align:center;
-                                    margin-bottom:4px;
-                                ">
-                                    ${venue.emoji}
-                                </div>
-
-                                <strong style="
-                                    font-size:11px;
-                                    color:#1457a6;
-                                    display:block;
-                                    margin-bottom:4px;
-                                ">
-                                    ${venue.name}
-                                </strong>
-
-                                <p style="
-                                    font-size:9px;
-                                    color:#667085;
-                                    margin:4px 0;
-                                ">
-                                    🏆 ${venue.sports}
-                                </p>
-
-                                <p style="
-                                    font-size:9px;
-                                    color:#667085;
-                                    margin:4px 0;
-                                ">
-                                    📍 ${venue.address}
-                                </p>
-
-                                <button
-                                    onclick="goToVenue(${index})"
-                                    style="
-                                        display:block;
-                                        width:100%;
-                                        margin-top:9px;
-                                        font-size:10px;
-                                        font-weight:700;
-                                        color:#fff;
-                                        background:#1457a6;
-                                        padding:7px 12px;
-                                        border-radius:15px;
-                                        border:none;
-                                        cursor:pointer;
-                                    "
-                                >
-                                    🧭 Go To
-                                </button>
-
-                            </div>
-
-                        `,
-
-                        {
-                            maxWidth: 240
-                        }
-
-                    );
-
-
-                    marker.addTo(map);
-
-                    markerLayers.push(marker);
-
-                }
-
-            );
-
-
-            setTimeout(
-
-                function () {
-
-                    if (!map) return;
-
-                    map.invalidateSize(true);
-
-
-                    if (
-                        markerLayers.length > 0
-                    ) {
-
-                        const group =
-                            L.featureGroup(
-                                markerLayers
-                            );
-
-
-                        map.fitBounds(
-
-                            group
-                                .getBounds()
-                                .pad(.18)
-
-                        );
-
-                    }
-
-                },
-
-                500
-
-            );
+            }, 500);
 
         }
+
 
 
         /* =====================================================
            MAP VENUE FILTER
         ===================================================== */
 
-        function mapFilterVenue(
-            btn,
-            idx
-        ) {
+        function mapFilterVenue(btn, idx) {
 
-            if (!map) {
+            if (!map) return;
 
-                return;
+            document.querySelectorAll(".map-venue-btn").forEach(function (button) {
 
-            }
+                button.classList.remove("active");
 
+            });
 
-            document
-                .querySelectorAll(
-                    ".map-venue-btn"
-                )
-                .forEach(
-
-                    function (button) {
-
-                        button.classList.remove(
-                            "active"
-                        );
-
-                    }
-
-                );
-
-
-            if (btn) {
-
-                btn.classList.add(
-                    "active"
-                );
-
-            }
-
+            if (btn) btn.classList.add("active");
 
             if (idx === "all") {
 
-                if (
-                    markerLayers.length === 0
-                ) {
+                if (markerLayers.length === 0) return;
 
-                    return;
+                const group = L.featureGroup(markerLayers);
 
-                }
-
-
-                const group =
-                    L.featureGroup(
-                        markerLayers
-                    );
-
-
-                map.fitBounds(
-
-                    group
-                        .getBounds()
-                        .pad(.18),
-
-                    {
-                        animate: true
-                    }
-
-                );
+                map.fitBounds(group.getBounds().pad(.18), { animate: true });
 
                 return;
 
             }
 
+            const venue = VENUES[idx];
 
-            const venue =
-                VENUES[idx];
+            const marker = markerLayers[idx];
 
+            if (!venue || !marker) return;
 
-            const marker =
-                markerLayers[idx];
+            map.setView([venue.lat, venue.lng], 16, { animate: true });
 
-
-            if (
-                !venue ||
-                !marker
-            ) {
-
-                return;
-
-            }
-
-
-            map.setView(
-
-                [
-                    venue.lat,
-                    venue.lng
-                ],
-
-                16,
-
-                {
-                    animate: true
-                }
-
-            );
-
-
-            setTimeout(
-
-                function () {
-
-                    marker.openPopup();
-
-                },
-
-                450
-
-            );
+            setTimeout(function () { marker.openPopup(); }, 450);
 
         }
+
 
 
         /* =====================================================
@@ -3734,560 +2962,194 @@
 
         function goToVenue(index) {
 
-            if (!map) {
+            if (!map) { alert("Map is still loading. Please try again."); return; }
 
-                alert(
-                    "Map is still loading. Please try again."
-                );
+            const venue = VENUES[index];
 
-                return;
+            if (!venue) return;
 
-            }
-
-
-            const venue =
-                VENUES[index];
-
-
-            if (!venue) {
-
-                return;
-
-            }
-
-
-            if (
-                !navigator.geolocation
-            ) {
-
-                alert(
-                    "Your browser does not support location services."
-                );
-
-                return;
-
-            }
-
+            if (!navigator.geolocation) { alert("Your browser does not support location services."); return; }
 
             map.closePopup();
 
-
             L.popup()
 
-                .setLatLng([
-
-                    venue.lat,
-                    venue.lng
-
-                ])
+                .setLatLng([venue.lat, venue.lng])
 
                 .setContent(`
-
-                    <div style="
-                        text-align:center;
-                        font-family:Arial,sans-serif;
-                        padding:5px;
-                    ">
-
-                        <div style="
-                            font-size:22px;
-                        ">
-                            🧭
+                    <div style="text-align:center;font-family:Poppins,sans-serif;padding:5px;">
+                        <div style="display:flex;justify-content:center;color:#0B4F9C;">
+                            ${iconSVG("compass", { size: 24, color: "#0B4F9C" })}
                         </div>
-
-                        <strong style="
-                            color:#1457a6;
-                            font-size:11px;
-                        ">
-                            Finding your location...
-                        </strong>
-
-                        <p style="
-                            font-size:8px;
-                            color:#667085;
-                            margin-top:4px;
-                        ">
-                            Please allow GPS permission.
-                        </p>
-
+                        <strong style="color:#0B4F9C;font-size:11px;">Finding your location...</strong>
+                        <p style="font-size:8px;color:#667085;margin-top:4px;">Please allow GPS permission.</p>
                     </div>
-
                 `)
 
                 .openOn(map);
-
 
             navigator.geolocation.getCurrentPosition(
 
                 function (position) {
 
-                    const userLat =
-                        position.coords.latitude;
+                    const userLat = position.coords.latitude;
 
-                    const userLng =
-                        position.coords.longitude;
+                    const userLng = position.coords.longitude;
 
-                    const accuracy =
-                        position.coords.accuracy;
+                    const accuracy = position.coords.accuracy;
 
+                    if (routeLine) { map.removeLayer(routeLine); routeLine = null; }
 
-                    if (routeLine) {
+                    if (destinationMarker) { map.removeLayer(destinationMarker); destinationMarker = null; }
 
-                        map.removeLayer(
-                            routeLine
-                        );
+                    if (locationMarker) { map.removeLayer(locationMarker); locationMarker = null; }
 
-                        routeLine = null;
+                    const userIcon = L.divIcon({
 
-                    }
+                        html: `
+                            <div style="
+                                width:22px;height:22px;background:#0B4F9C;border:3px solid #fff;
+                                border-radius:50%;box-shadow:0 0 0 5px rgba(11,79,156,.25);
+                            "></div>
+                        `,
 
+                        className: "",
 
-                    if (destinationMarker) {
+                        iconSize: [22, 22],
 
-                        map.removeLayer(
-                            destinationMarker
-                        );
+                        iconAnchor: [11, 11]
 
-                        destinationMarker = null;
+                    });
 
-                    }
+                    const destinationIcon = L.divIcon({
 
+                        html: `
+                            <div style="
+                                width:42px;height:42px;background:${venue.color};border:3px solid #fff;
+                                border-radius:50%;display:flex;align-items:center;justify-content:center;
+                                box-shadow:0 4px 12px rgba(0,0,0,.35);
+                            ">
+                                ${iconSVG(venue.icon, { size: 21, color: "#fff" })}
+                            </div>
+                        `,
 
-                    if (locationMarker) {
+                        className: "",
 
-                        map.removeLayer(
-                            locationMarker
-                        );
+                        iconSize: [42, 42],
 
-                        locationMarker = null;
+                        iconAnchor: [21, 42]
 
-                    }
+                    });
 
-
-                    const userIcon =
-                        L.divIcon({
-
-                            html: `
-
-                                <div style="
-                                    width:20px;
-                                    height:20px;
-                                    background:#1457a6;
-                                    border:3px solid #fff;
-                                    border-radius:50%;
-                                    box-shadow:
-                                        0 0 0 5px
-                                        rgba(20,87,166,.25);
-                                "></div>
-
-                            `,
-
-                            className: "",
-
-                            iconSize: [
-                                20,
-                                20
-                            ],
-
-                            iconAnchor: [
-                                10,
-                                10
-                            ]
-
-                        });
-
-
-                    const destinationIcon =
-                        L.divIcon({
-
-                            html: `
-
-                                <div style="
-                                    width:38px;
-                                    height:38px;
-                                    background:${venue.color};
-                                    border:3px solid #fff;
-                                    border-radius:50%;
-                                    display:flex;
-                                    align-items:center;
-                                    justify-content:center;
-                                    font-size:19px;
-                                    box-shadow:
-                                        0 3px 10px
-                                        rgba(0,0,0,.35);
-                                ">
-
-                                    ${venue.emoji}
-
-                                </div>
-
-                            `,
-
-                            className: "",
-
-                            iconSize: [
-                                38,
-                                38
-                            ],
-
-                            iconAnchor: [
-                                19,
-                                38
-                            ]
-
-                        });
-
-
-                    locationMarker =
-                        L.marker(
-
-                            [
-                                userLat,
-                                userLng
-                            ],
-
-                            {
-                                icon: userIcon
-                            }
-
-                        )
-                            .addTo(map);
-
+                    locationMarker = L.marker([userLat, userLng], { icon: userIcon }).addTo(map);
 
                     locationMarker.bindPopup(`
-
-                        <div style="
-                            font-family:Arial,sans-serif;
-                            text-align:center;
-                        ">
-
-                            <strong style="
-                                font-size:11px;
-                                color:#1457a6;
-                            ">
-                                📍 You are here
+                        <div style="font-family:Poppins,sans-serif;text-align:center;">
+                            <strong style="font-size:11px;color:#0B4F9C;display:flex;align-items:center;justify-content:center;gap:5px;">
+                                ${iconSVG("mapPin", { size: 12, color: "#0B4F9C" })}
+                                You are here
                             </strong>
-
                             <br>
-
-                            <span style="
-                                font-size:8px;
-                                color:#667085;
-                            ">
-                                Accuracy:
-                                ~${Math.round(accuracy)}m
-                            </span>
-
+                            <span style="font-size:8px;color:#667085;">Accuracy: ~${Math.round(accuracy)}m</span>
                         </div>
-
                     `);
 
-
-                    destinationMarker =
-                        L.marker(
-
-                            [
-                                venue.lat,
-                                venue.lng
-                            ],
-
-                            {
-                                icon:
-                                    destinationIcon
-                            }
-
-                        )
-                            .addTo(map);
-
+                    destinationMarker = L.marker([venue.lat, venue.lng], { icon: destinationIcon }).addTo(map);
 
                     destinationMarker.bindPopup(`
-
-                        <div style="
-                            font-family:Arial,sans-serif;
-                            text-align:center;
-                        ">
-
-                            <div style="
-                                font-size:25px;
-                            ">
-                                ${venue.emoji}
+                        <div style="font-family:Poppins,sans-serif;text-align:center;">
+                            <div style="display:flex;justify-content:center;color:${venue.color};">
+                                ${iconSVG(venue.icon, { size: 27, color: venue.color })}
                             </div>
-
-                            <strong style="
-                                color:#1457a6;
-                                font-size:11px;
-                            ">
-                                ${venue.name}
-                            </strong>
-
-                            <p style="
-                                font-size:8px;
-                                color:#667085;
-                                margin-top:5px;
-                            ">
-                                📍 Destination
+                            <strong style="color:#0B4F9C;font-size:11px;">${venue.name}</strong>
+                            <p style="font-size:8px;color:#667085;margin-top:5px;display:flex;align-items:center;justify-content:center;gap:4px;">
+                                ${iconSVG("mapPin", { size: 10, color: "#667085" })}
+                                Destination
                             </p>
-
                         </div>
-
                     `);
 
+                    routeLine = L.polyline(
 
-                    routeLine =
-                        L.polyline(
+                        [[userLat, userLng], [venue.lat, venue.lng]],
 
-                            [
+                        { color: "#0B4F9C", weight: 5, opacity: .85, dashArray: "10,10", lineCap: "round" }
 
-                                [
-                                    userLat,
-                                    userLng
-                                ],
+                    ).addTo(map);
 
-                                [
-                                    venue.lat,
-                                    venue.lng
-                                ]
-
-                            ],
-
-                            {
-
-                                color: "#1457a6",
-
-                                weight: 5,
-
-                                opacity: .85,
-
-                                dashArray: "10,10",
-
-                                lineCap: "round"
-
-                            }
-
-                        )
-                            .addTo(map);
-
-
-                    const distance =
-                        map.distance(
-
-                            [
-                                userLat,
-                                userLng
-                            ],
-
-                            [
-                                venue.lat,
-                                venue.lng
-                            ]
-
-                        );
-
+                    const distance = map.distance([userLat, userLng], [venue.lat, venue.lng]);
 
                     let distanceText;
 
+                    if (distance >= 1000) {
 
-                    if (
-                        distance >= 1000
-                    ) {
+                        distanceText = (distance / 1000).toFixed(2) + " km";
 
-                        distanceText =
-                            (
-                                distance / 1000
-                            ).toFixed(2)
-                            + " km";
+                    } else {
+
+                        distanceText = Math.round(distance) + " m";
 
                     }
 
-                    else {
+                    const bounds = L.latLngBounds([userLat, userLng], [venue.lat, venue.lng]);
 
-                        distanceText =
-                            Math.round(distance)
-                            + " m";
+                    map.fitBounds(bounds.pad(.25), { animate: true });
 
-                    }
+                    setTimeout(function () {
 
+                        L.popup()
 
-                    const bounds =
-                        L.latLngBounds(
+                            .setLatLng([venue.lat, venue.lng])
 
-                            [
-                                userLat,
-                                userLng
-                            ],
-
-                            [
-                                venue.lat,
-                                venue.lng
-                            ]
-
-                        );
-
-
-                    map.fitBounds(
-
-                        bounds.pad(.25),
-
-                        {
-                            animate: true
-                        }
-
-                    );
-
-
-                    setTimeout(
-
-                        function () {
-
-                            L.popup()
-
-                                .setLatLng([
-
-                                    venue.lat,
-                                    venue.lng
-
-                                ])
-
-                                .setContent(`
-
-                                    <div style="
-                                        font-family:Arial,sans-serif;
-                                        min-width:190px;
-                                        text-align:center;
-                                    ">
-
-                                        <div style="
-                                            font-size:27px;
-                                        ">
-                                            ${venue.emoji}
-                                        </div>
-
-                                        <strong style="
-                                            display:block;
-                                            color:#1457a6;
-                                            font-size:12px;
-                                            margin-top:3px;
-                                        ">
-                                            ${venue.name}
-                                        </strong>
-
-                                        <div style="
-                                            margin-top:8px;
-                                            padding:8px;
-                                            background:#edf5ff;
-                                            border-radius:9px;
-                                        ">
-
-                                            <div style="
-                                                font-size:9px;
-                                                color:#667085;
-                                            ">
-                                                Approximate distance
-                                            </div>
-
-                                            <strong style="
-                                                display:block;
-                                                color:#1457a6;
-                                                font-size:15px;
-                                                margin-top:2px;
-                                            ">
-                                                ${distanceText}
-                                            </strong>
-
-                                        </div>
-
-                                        <p style="
-                                            font-size:8px;
-                                            color:#98a2b3;
-                                            margin-top:7px;
-                                            line-height:1.4;
-                                        ">
-                                            🧭 The dashed line shows
-                                            the direction from your
-                                            location to this venue.
-                                        </p>
-
+                            .setContent(`
+                                <div style="font-family:Poppins,sans-serif;min-width:210px;text-align:center;">
+                                    <div style="display:flex;justify-content:center;color:${venue.color};">
+                                        ${iconSVG(venue.icon, { size: 28, color: venue.color })}
                                     </div>
+                                    <strong style="display:block;color:#0B4F9C;font-size:12px;margin-top:3px;line-height:1.4;">
+                                        ${venue.name}
+                                    </strong>
+                                    <div style="margin-top:9px;padding:9px;background:#EAF3FF;border-radius:10px;">
+                                        <div style="font-size:9px;color:#667085;">Approximate distance</div>
+                                        <strong style="display:block;color:#0B4F9C;font-size:16px;margin-top:2px;">
+                                            ${distanceText}
+                                        </strong>
+                                    </div>
+                                    <p style="font-size:8px;color:#98A2B3;margin-top:8px;line-height:1.5;display:flex;align-items:center;justify-content:center;gap:4px;">
+                                        ${iconSVG("compass", { size: 10, color: "#98A2B3" })}
+                                        The dashed line shows the direction from your location to this venue.
+                                    </p>
+                                </div>
+                            `)
 
-                                `)
+                            .openOn(map);
 
-                                .openOn(map);
-
-                        },
-
-                        600
-
-                    );
+                    }, 600);
 
                 },
 
                 function (error) {
 
-                    let message =
-                        "Unable to get your location.";
+                    let message = "Unable to get your location.";
 
+                    if (error.code === 1) message = "Location access denied. Please allow location permission in your browser.";
 
-                    if (
-                        error.code === 1
-                    ) {
+                    else if (error.code === 2) message = "Location unavailable. Please check your GPS or network connection.";
 
-                        message =
-                            "Location access denied. Please allow location permission in your browser.";
-
-                    }
-
-                    else if (
-                        error.code === 2
-                    ) {
-
-                        message =
-                            "Location unavailable. Please check your GPS or network connection.";
-
-                    }
-
-                    else if (
-                        error.code === 3
-                    ) {
-
-                        message =
-                            "Location request timed out. Please try again.";
-
-                    }
-
+                    else if (error.code === 3) message = "Location request timed out. Please try again.";
 
                     alert(message);
 
-
-                    map.setView(
-
-                        [
-                            venue.lat,
-                            venue.lng
-                        ],
-
-                        16,
-
-                        {
-                            animate: true
-                        }
-
-                    );
+                    map.setView([venue.lat, venue.lng], 16, { animate: true });
 
                 },
 
-                {
-
-                    enableHighAccuracy: true,
-
-                    timeout: 15000,
-
-                    maximumAge: 0
-
-                }
+                { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
 
             );
 
         }
+
 
 
         /* =====================================================
@@ -4296,188 +3158,79 @@
 
         function locateMe() {
 
-            const btn =
-                document.getElementById(
-                    "locateBtn"
-                );
+            const btn = document.getElementById("locateBtn");
 
+            if (!navigator.geolocation) { alert("Geolocation is not supported by your browser."); return; }
 
-            if (
-                !navigator.geolocation
-            ) {
+            if (!map) { alert("Map is still loading. Please try again."); return; }
 
-                alert(
-                    "Geolocation is not supported by your browser."
-                );
-
-                return;
-
-            }
-
-
-            if (!map) {
-
-                alert(
-                    "Map is still loading. Please try again."
-                );
-
-                return;
-
-            }
-
-
-            btn.innerHTML =
-                "⏳ Locating...";
+            btn.innerHTML = iconSVG("compass", { size: 15, cls: "animate-spin" }) + " Locating...";
 
             btn.disabled = true;
-
 
             navigator.geolocation.getCurrentPosition(
 
                 function (position) {
 
-                    const lat =
-                        position.coords.latitude;
+                    const lat = position.coords.latitude;
 
-                    const lng =
-                        position.coords.longitude;
+                    const lng = position.coords.longitude;
 
-                    const accuracy =
-                        position.coords.accuracy;
+                    const accuracy = position.coords.accuracy;
 
+                    if (locationMarker) map.removeLayer(locationMarker);
 
-                    if (locationMarker) {
+                    if (locationCircle) map.removeLayer(locationCircle);
 
-                        map.removeLayer(
-                            locationMarker
-                        );
+                    locationCircle = L.circle([lat, lng], {
 
-                    }
+                        radius: accuracy,
 
+                        color: "#0B4F9C",
 
-                    if (locationCircle) {
+                        fillColor: "#0B4F9C",
 
-                        map.removeLayer(
-                            locationCircle
-                        );
+                        fillOpacity: .12,
 
-                    }
+                        weight: 1.5
 
+                    }).addTo(map);
 
-                    locationCircle =
-                        L.circle(
+                    const myIcon = L.divIcon({
 
-                            [
-                                lat,
-                                lng
-                            ],
+                        html: `
+                            <div style="
+                                width:20px;height:20px;background:#0B4F9C;border:3px solid #fff;
+                                border-radius:50%;box-shadow:0 0 0 4px rgba(11,79,156,.28);
+                            "></div>
+                        `,
 
-                            {
+                        className: "",
 
-                                radius: accuracy,
+                        iconSize: [20, 20],
 
-                                color: "#1457a6",
+                        iconAnchor: [10, 10]
 
-                                fillColor: "#1457a6",
+                    });
 
-                                fillOpacity: .12,
+                    locationMarker = L.marker([lat, lng], { icon: myIcon })
 
-                                weight: 1.5
+                        .bindPopup(`
+                            <b style="font-size:11px;display:flex;align-items:center;gap:5px;">
+                                ${iconSVG("mapPin", { size: 12, color: "#0B4F9C" })}
+                                You are here
+                            </b>
+                            <br>
+                            <span style="font-size:8px;color:#667085;">Accuracy: ~${Math.round(accuracy)}m</span>
+                        `)
 
-                            }
-
-                        )
-                            .addTo(map);
-
-
-                    const myIcon =
-                        L.divIcon({
-
-                            html: `
-
-                                <div style="
-                                    width:18px;
-                                    height:18px;
-                                    background:#1457a6;
-                                    border:3px solid #fff;
-                                    border-radius:50%;
-                                    box-shadow:
-                                        0 0 0 4px
-                                        rgba(20,87,166,.28);
-                                "></div>
-
-                            `,
-
-                            className: "",
-
-                            iconSize: [
-                                18,
-                                18
-                            ],
-
-                            iconAnchor: [
-                                9,
-                                9
-                            ]
-
-                        });
-
-
-                    locationMarker =
-                        L.marker(
-
-                            [
-                                lat,
-                                lng
-                            ],
-
-                            {
-                                icon: myIcon
-                            }
-
-                        )
-                            .bindPopup(`
-
-                                <b style="font-size:10px">
-                                    📍 You are here
-                                </b>
-
-                                <br>
-
-                                <span style="
-                                    font-size:8px;
-                                    color:#667085;
-                                ">
-                                    Accuracy:
-                                    ~${Math.round(accuracy)}m
-                                </span>
-
-                            `)
-                            .addTo(map);
-
+                        .addTo(map);
 
                     locationMarker.openPopup();
 
+                    map.flyTo([lat, lng], 16, { duration: 1.5 });
 
-                    map.flyTo(
-
-                        [
-                            lat,
-                            lng
-                        ],
-
-                        16,
-
-                        {
-                            duration: 1.5
-                        }
-
-                    );
-
-
-                    btn.innerHTML =
-                        '<span class="loc-icon">📍</span> My Location';
-
+                    btn.innerHTML = iconSVG("mapPin", { size: 15 }) + " My Location";
 
                     btn.disabled = false;
 
@@ -4485,201 +3238,73 @@
 
                 function (error) {
 
-                    let message =
-                        "Unable to get your location.";
+                    let message = "Unable to get your location.";
 
+                    if (error.code === 1) message = "Location access denied. Please allow location permission in your browser.";
 
-                    if (
-                        error.code === 1
-                    ) {
+                    else if (error.code === 2) message = "Location unavailable. Please check your GPS or network connection.";
 
-                        message =
-                            "Location access denied. Please allow location permission in your browser.";
-
-                    }
-
-                    else if (
-                        error.code === 2
-                    ) {
-
-                        message =
-                            "Location unavailable. Please check your GPS or network connection.";
-
-                    }
-
-                    else if (
-                        error.code === 3
-                    ) {
-
-                        message =
-                            "Location request timed out. Please try again.";
-
-                    }
-
+                    else if (error.code === 3) message = "Location request timed out. Please try again.";
 
                     alert(message);
 
-
-                    btn.innerHTML =
-                        '<span class="loc-icon">📍</span> Show My Location';
-
+                    btn.innerHTML = iconSVG("mapPin", { size: 15 }) + " Show My Location";
 
                     btn.disabled = false;
 
                 },
 
-                {
-
-                    enableHighAccuracy: true,
-
-                    timeout: 15000,
-
-                    maximumAge: 0
-
-                }
+                { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
 
             );
 
         }
 
 
+
         /* =====================================================
            WINDOW RESIZE
         ===================================================== */
 
-        window.addEventListener(
-            "resize",
-            function () {
+        window.addEventListener("resize", function () {
 
-                if (map) {
+            if (map) setTimeout(function () { map.invalidateSize(true); }, 150);
 
-                    setTimeout(
+        });
 
-                        function () {
-
-                            map.invalidateSize(true);
-
-                        },
-
-                        150
-
-                    );
-
-                }
-
-            }
-        );
 
 
         /* =====================================================
            PAGE LOAD
         ===================================================== */
 
-        window.addEventListener(
-            "load",
-            function () {
+        window.addEventListener("load", function () {
 
-                setTimeout(
+            setTimeout(function () { initMap(); }, 300);
 
-                    function () {
+            setTimeout(function () { openWelcomePopup(); }, 700);
 
-                        initMap();
+        });
 
-                    },
-
-                    300
-
-                );
-
-                /*
-                 * Show welcome popup
-                 * 700ms after page loads.
-                 */
-
-                setTimeout(
-
-                    function () {
-
-                        openWelcomePopup();
-
-                    },
-
-                    700
-
-                );
-
-            }
-        );
 
 
         /* =====================================================
            BASIC ANTI-COPY / DEVTOOLS BLOCKING
         ===================================================== */
 
-        document.addEventListener(
-            "contextmenu",
-            function (e) {
+        document.addEventListener("contextmenu", function (e) { e.preventDefault(); });
 
-                e.preventDefault();
+        document.addEventListener("keydown", function (e) {
 
-            }
-        );
+            if (e.key === "F12") { e.preventDefault(); return; }
 
+            if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "i") { e.preventDefault(); return; }
 
-        document.addEventListener(
-            "keydown",
-            function (e) {
+            if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "j") { e.preventDefault(); return; }
 
-                if (
-                    e.key === "F12"
-                ) {
+            if (e.ctrlKey && e.key.toLowerCase() === "u") { e.preventDefault(); return; }
 
-                    e.preventDefault();
-
-                    return;
-
-                }
-
-
-                if (
-                    e.ctrlKey &&
-                    e.shiftKey &&
-                    e.key.toLowerCase() === "i"
-                ) {
-
-                    e.preventDefault();
-
-                    return;
-
-                }
-
-
-                if (
-                    e.ctrlKey &&
-                    e.shiftKey &&
-                    e.key.toLowerCase() === "j"
-                ) {
-
-                    e.preventDefault();
-
-                    return;
-
-                }
-
-
-                if (
-                    e.ctrlKey &&
-                    e.key.toLowerCase() === "u"
-                ) {
-
-                    e.preventDefault();
-
-                    return;
-
-                }
-
-            }
-        );
+        });
 
     </script>
 
